@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int check_pipe(char *line)
+int count_pipe(char *line)
 {
     int i;
     int pipe;

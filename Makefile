@@ -1,4 +1,11 @@
-SRC = main.c prompt.c checking.c utils.c utils2.c ft_split.c all_about_env.c list.c builtins.c\
+SRC = 	main.c \
+		prompt.c \
+		checking.c \
+		utils.c \
+		utils2.c \
+		ft_split.c \
+		all_about_env.c \
+		builtins.c
 
 NAME = minishell
 CC = gcc
