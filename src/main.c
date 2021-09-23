@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-char const *command_buf;
-
 int main (int argc, char **argv, char **envp)
 {
 	int ok;
