@@ -11,11 +11,11 @@ UTIL_DIR = $(addprefix ${SRC_DIR}, utils/)
 SRC = main.c
 SRC_DIS = prompt.c
 SRC_EXE = builtins.c
-SRC_PARS = checking.c
+SRC_PARS =	ft_split.c \
+			checking.c
 SRC_UTIL =	utils.c \
 			utils2.c \
-			ft_split.c \
-			get_path.c \
+			get_path.c
 
 SRCS = $(addprefix ${SRC_DIR}, ${SRC})
 SRCS_DIS = $(addprefix ${DIS_DIR}, ${SRC_DIS})
