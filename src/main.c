@@ -2,35 +2,38 @@
 
 int main (int argc, char **argv, char **envp)
 {
-	int ok;
-	pid_t pid;
-	int	status;
+	int		ok;
+	char	*line;
+	int		pipe;
+	//pid_t pid;
+	//int	status;
 
 	ok = 1;
 	(void)argc;
 	(void)argv;
-	(void)envp;	
+	(void)envp;
 	while (ok)
 	{
-		char    *line;
-
 		prompt_color();    
 		line = readline("");
 		if (line != NULL)
 		{
-			pid = fork();
-			if (pid == 0)
-			{
-				system(line); // ici c'est biensur execve qu'il faut employer
-				free (line);
-				line = NULL;
-			}
-			else
-			{
-				waitpid(pid, &status, WUNTRACED); // option wuntraced, le process parent reprend la main si un fils est bloque 
-				free (line);
-				line = NULL;
-			}
+			pipe = count_pipe(line);
+			printf("pipe = %d\n", pipe);
+			add_history(line);
+			// pid = fork();
+			// if (pid == 0)
+			// {
+			// 	system(line); // ici c'est biensur execve qu'il faut employer
+			// 	free (line);
+			// 	line = NULL;
+			// }
+			// else
+			// {
+			// 	waitpid(pid, &status, WUNTRACED); // option wuntraced, le process parent reprend la main si un fils est bloque 
+			// 	free (line);
+			// 	line = NULL;
+			// }
 		}
 		else
 		{
