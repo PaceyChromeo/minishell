@@ -16,13 +16,13 @@
 
 /*		DISPLAY FUNCTIONS	*/
 
-char    *prompt(char *invite);
-void   prompt_color();
+char	*prompt(char *invite);
+void	prompt_color();
 
 /*		EXECUTIONS FUNCTIONS	*/
 
 /*		PARSING FUNCTIONS	*/
-int     count_pipe(char *line);
+int		count_pipe(char *line);
 char	*trim_str(char *s);
 
 /*		UTILS FUNCTIONS		*/
@@ -31,10 +31,11 @@ char	*ft_strcat(char *dest, const char *src);
 void	ft_putstr_fd(char *str, int fd);
 size_t	ft_strlen(const char *str);
 char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2); //le vrai
-void    blue(); 
-void    yellow();
-void    reset();
-char    **get_path();
+char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_isalpha(char c);
+void	blue(); 
+void	yellow();
+void	reset();
+char	**get_path();
 
 #endif

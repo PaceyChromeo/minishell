@@ -2,10 +2,10 @@
 
 char *prompt(char *invite)
 {
-    char  *user;
-    char  *host;
-    char  *absolute_p = NULL;
-    char        **relative_p;
+    char    *user = NULL;
+    char    *host = NULL;
+    char    *absolute_p = NULL;
+    char    **relative_p = NULL;
 
     invite = NULL;
     user = getenv("USERNAME");
@@ -22,13 +22,13 @@ char *prompt(char *invite)
     {
         host = "";
     }
-    absolute_p = getcwd(absolute_p, 0);
+    absolute_p = getenv("PWD");
     if (absolute_p == NULL)
     {
         absolute_p = "";
     }
     relative_p = ft_split(absolute_p, '/');
-    invite = malloc(ft_strlen(user) + ft_strlen(host) + ft_strlen(absolute_p));
+    invite = malloc(ft_strlen(user) + ft_strlen(host) + ft_strlen(absolute_p) + 7);
     if (invite != NULL)
     {
         ft_strcat(invite, user);
