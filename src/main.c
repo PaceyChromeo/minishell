@@ -20,8 +20,8 @@ int main (int argc, char **argv, char **envp)
 		{
 			pipe = count_pipe(line);
 			printf("pipe = %d\n", pipe);
-			line = trim_str(line);
-			printf("line trimmed : %s\n", line);
+			line = str_trim(line);
+			printf("redir : %s\n", line);
 			add_history(line);
 			// pid = fork();
 			// if (pid == 0)

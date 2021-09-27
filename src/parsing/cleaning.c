@@ -27,59 +27,84 @@ int	count_pipe(char *line)
 	return (pipe);
 }
 
-static int	count_separators(char *s)
+static size_t	ft_strlen_redir(const char *str)
 {
-	int	i;
-	int	separators;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
-	separators = 0;
-	while (s[i])
-	{
-		if (s[i] == 60 || s[i] == 62 || s[i] == 124)
-			separators++;
-		i++;
-	}
-	return (separators * 2);
-}
-
-static int	is_separator(char c)
-{
-	if (c == 60 || c == 62 || c == 124)
-		return (1);
-	return (0);
-}
-
-char	*trim_str(char *s)
-{
-	char	*trim;
-	int		i;
-	int		j;
-
-	trim = malloc(sizeof(*trim) * (ft_strlen(s) + count_separators(s)) + 1);
-	if (!trim)
-		return (NULL);
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (str[i] != '\0')
 	{
-		if (s[i] == ' ' && s[i + 1] == ' ')
+		if (str[i] == '<' || str[i] == '>')
 		{
-			trim[j++] = s[i++];
-			while (s[i] == ' ')
-				i++;
+			if (str[i--] != ' ' && i != 0)
+				j++;
+			if (str[i++] == '<' || str[i++] == '>')
+			{
+				while (str[i++] == '<' || str[i++] == '>')
+				{ 
+					if (str[i] != ' ')
+						j++;
+				}
+			}
 		}
-		if ((s[i]) != ' ' && is_separator(s[i + 1]))
-		{
-			trim[j++] = s[i++];
-			trim[j++] = ' ';
-		}
-		if ((s[i]) != ' ' && is_separator(s[i - 1]))
-			trim[j++] = ' ';
-		trim[j] = s[i];
-		j++;
 		i++;
 	}
-	trim[j] = '\0';
-	return (trim);
+	return (i += j);
+}
+
+char	*str_trim(char *str)
+{
+	char 	*copy = NULL;
+	int		i;
+	int		j;
+	int		redir_left;
+	int		redir_right;
+	int		space;
+
+	i = 0;
+	j = 0;
+	redir_left = 0;
+	redir_right = 0;
+	space = 0;
+	copy = malloc(sizeof(char) * ft_strlen_redir(str) + 1);
+	if (!copy)
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		if (str[i] == ' ')
+		{
+			space++;
+			copy[j] = str[i];
+		}
+		else if (str[i] == '<' || str[i] == '>')
+		{
+			if (i != 0 && !space && !redir_left && !redir_right)
+				copy[j++] = ' ';
+			copy[j] = str[i];
+			if (i == '>')
+				redir_right++;
+			else
+				redir_left++;
+			space = 0;
+			if (redir_left > 2 || redir_right > 2)
+				return (strerror(5));
+		}
+		else
+		{
+			if (i != 0)
+			{
+				if (str[i - 1] == '<' || str[i - 1] == '>')
+					copy[j++] = ' ';
+			}
+			copy[j] = str[i];
+			space = 0;
+			redir_left = redir_right = 0;	
+		}
+		i++;
+		j++;
+	}
+	copy[j] = '\0';
+	return (copy);
 }

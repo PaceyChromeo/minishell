@@ -15,7 +15,6 @@
 # include <readline/history.h>
 
 /*		DISPLAY FUNCTIONS	*/
-
 char	*prompt(char *invite);
 void	prompt_color();
 
@@ -23,7 +22,7 @@ void	prompt_color();
 
 /*		PARSING FUNCTIONS	*/
 int		count_pipe(char *line);
-char	*trim_str(char *s);
+char	*str_trim(char *str);
 
 /*		UTILS FUNCTIONS		*/
 int		ft_strcmp(const char *s1, const char *s2);
