@@ -7,6 +7,7 @@ int main (int argc, char **argv, char **envp)
 	int		pipe;
 	//pid_t pid;
 	//int	status;
+	char	c;
 
 	ok = 1;
 	(void)argc;
@@ -20,7 +21,9 @@ int main (int argc, char **argv, char **envp)
 		{
 			pipe = count_pipe(line);
 			printf("pipe = %d\n", pipe);
-			line = str_trim(line);
+			c = lexer_quote(line);
+			printf("%c\n", c);
+			line = str_trim(line, c);
 			printf("redir : %s\n", line);
 			add_history(line);
 			// pid = fork();
