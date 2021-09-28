@@ -23,6 +23,8 @@ int main (int argc, char **argv, char **envp)
 			printf("pipe = %d\n", pipe);
 			c = lexer_quote(line);
 			printf("%c\n", c);
+			if (c == '!')
+				return (0);
 			line = str_trim(line, c);
 			printf("redir : %s\n", line);
 			add_history(line);
