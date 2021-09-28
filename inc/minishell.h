@@ -22,7 +22,8 @@ void	prompt_color();
 
 /*		PARSING FUNCTIONS	*/
 int		count_pipe(char *line);
-char	*str_trim(char *str);
+char	*str_trim(char *str, char c);
+char	lexer_quote(char *line);
 
 /*		UTILS FUNCTIONS		*/
 int		ft_strcmp(const char *s1, const char *s2);
