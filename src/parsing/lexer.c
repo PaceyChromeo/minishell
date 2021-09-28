@@ -43,15 +43,17 @@ char lexer_quote(char *line)
         i++;
     }
     if (first == last)
-    {
-        if (first == 39 && single % 2 == 0)
-            return (first);
-        else if (first == 34 && d_ouble % 2 == 0)
-            return (first);
+	{
+		if (first == 39 || first == 34)
+    	{
+        	if (first == 39 && single % 2 == 0)
+           	 	return (first);
+       		 else if (first == 34 && d_ouble % 2 == 0)
+            	return (first);
+		}
         else return
-            ('!');
+            ('x');
     } 
-    else
-        return ('!');
+    return ('!');
 }
 
