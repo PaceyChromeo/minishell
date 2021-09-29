@@ -13,7 +13,8 @@ SRC_DIS = prompt.c
 SRC_EXE = builtins.c
 SRC_PARS =	ft_split.c \
 			cleaning.c \
-			lexer.c
+			lexer.c \
+			find_quotes.c
 SRC_UTIL =	utils.c \
 			utils2.c \
 			get_path.c

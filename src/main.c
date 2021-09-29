@@ -4,29 +4,43 @@ int main (int argc, char **argv, char **envp)
 {
 	int		ok;
 	char	*line;
-	int		pipe;
+	//int		pipe;
 	//pid_t pid;
 	//int	status;
-	char	c;
+	//char	c;
+	t_command	*cmd;
 
 	ok = 1;
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	(void)envp;	
 	while (ok)
 	{
-		prompt_color();    
+		//prompt_color();    
+		blue();
+		printf("Fuckingshell $> ");
+		reset();
 		line = readline("");
 		if (line != NULL)
 		{
-			pipe = count_pipe(line);
-			printf("pipe = %d\n", pipe);
-			c = lexer_quote(line);
-			printf("%c\n", c);
-			if (c == '!')
-				return (0);
-			line = str_trim(line, c);
-			printf("redir : %s\n", line);
+			cmd = find_indexes(line);
+			if (!cmd)
+				printf("error quote\n");
+			else
+			{
+				int x = -1;
+				int y = -1;
+				while (++x < cmd->nb_dq)
+					printf("dq[%d] : %d\n", x, cmd->double_q[x]);
+				while (++y < cmd->nb_sq)
+					printf("sq[%d] : %d\n", y, cmd->single_q[y]);
+			}
+			// pipe = count_pipe(line);
+			// printf("pipe = %d\n", pipe);
+			// c = lexer_quote(line);
+			// printf("%c\n", c);
+			// line = str_trim(line, c);
+			// printf("redir : %s\n", line);
 			add_history(line);
 			// pid = fork();
 			// if (pid == 0)

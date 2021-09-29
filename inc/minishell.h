@@ -14,6 +14,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct	s_command
+{
+	int	*single_q;
+	int	*double_q;
+	int	nb_sq;
+	int	nb_dq;
+}				t_command;
+
+
 /*		DISPLAY FUNCTIONS	*/
 char	*prompt(char *invite);
 void	prompt_color();
@@ -21,9 +30,10 @@ void	prompt_color();
 /*		EXECUTIONS FUNCTIONS	*/
 
 /*		PARSING FUNCTIONS	*/
-int		count_pipe(char *line);
-char	*str_trim(char *str, char c);
-char	lexer_quote(char *line);
+int			count_pipe(char *line);
+char		*str_trim(char *str, char c);
+char		lexer_quote(char *line);
+t_command	*find_indexes(char *s);
 
 /*		UTILS FUNCTIONS		*/
 int		ft_strcmp(const char *s1, const char *s2);
