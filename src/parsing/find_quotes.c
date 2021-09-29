@@ -64,6 +64,8 @@ static int	check_error_quote(t_command *cmd, char *s)
 	i = -1;
 	if ((cmd->nb_dq % 2 && !cmd->nb_sq) || (cmd->nb_sq % 2 && !cmd->nb_dq))
 		return (1);
+	else if (cmd->nb_dq == 0 && cmd->nb_sq == 0)
+		return (0);
 	else
 	{
 		return (quote_mutex(s, 0, -1));
@@ -93,8 +95,6 @@ static t_command	*init_indexes(t_command *cmd, char *s)
 	}
 	else
 		cmd->double_q = NULL;
-	if (!cmd->single_q && !cmd->double_q)
-		return (NULL);
 	return (cmd);
 }
 

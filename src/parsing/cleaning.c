@@ -1,31 +1,6 @@
 #include "minishell.h"
 
-int	count_pipe(char *line)
-{
-	int	i;
-	int	pipe;
 
-	i = -1;
-	pipe = 0;
-	while(line[++i])
-	{
-		if (line[i] == 34 && line[i + 1] != 34)
-		{
-			i++;
-			while (line[i] != 34 && line[i])
-				i++;
-		}
-		if (line[i] == 39 && line[i + 1] != 39)
-		{
-			i++;
-			while (line[i] != 39 && line[i])
-				i++;
-		}
-		if (line[i] == '|')
-			pipe++;
-	}
-	return (pipe);
-}
 
 static size_t	ft_strlen_redir(const char *str)
 {

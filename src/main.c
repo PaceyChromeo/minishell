@@ -35,6 +35,13 @@ int main (int argc, char **argv, char **envp)
 				while (++y < cmd->nb_sq)
 					printf("sq[%d] : %d\n", y, cmd->single_q[y]);
 			}
+			init_builtin_lst(cmd);
+			for (int i = 0; cmd->blti_lst[i]; i++)
+				printf("cmd[%d] : %s\n", i, cmd->blti_lst[i]);
+			if (count_pipe(line, cmd) > 0)
+			{
+
+			}
 			// pipe = count_pipe(line);
 			// printf("pipe = %d\n", pipe);
 			// c = lexer_quote(line);
