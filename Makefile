@@ -14,9 +14,9 @@ SRC_EXE = builtins.c
 SRC_PARS =	cleaning.c \
 			lexer.c \
 			find_quotes.c \
-			split_pipes.c
-SRC_UTIL =	ft_split.c \
-			utils.c \
+			split_pipes.c \
+			ft_split_pipe.c
+SRC_UTIL =	utils.c \
 			utils2.c \
 			get_path.c \
 			lst_utils.c

@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-char    **get_path()
-{
-    char    **tab_path;
-    char    *path;
+// char    **get_path()
+// {
+//     char    **tab_path;
+//     char    *path;
 
 
-    path = getenv("PATH");
+//     path = getenv("PATH");
 
-    tab_path = ft_split(path, ':');
-    return (tab_path);
-}
+//     tab_path = ft_split(path, ':');
+//     return (tab_path);
+// }

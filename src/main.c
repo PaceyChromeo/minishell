@@ -9,6 +9,7 @@ int main (int argc, char **argv, char **envp)
 	//int	status;
 	//char	c;
 	t_command	*cmd;
+	char		**split_pp;
 
 	ok = 1;
 	(void)argc;
@@ -38,9 +39,11 @@ int main (int argc, char **argv, char **envp)
 			init_builtin_lst(cmd);
 			for (int i = 0; cmd->blti_lst[i]; i++)
 				printf("cmd[%d] : %s\n", i, cmd->blti_lst[i]);
-			if (count_pipe(line, cmd) > 0)
+			if (count_pipe(line) > 0)
 			{
-
+				split_pp = ft_split_pipe(line, '|');
+				for (int i = 0; split_pp[i]; i++)
+					printf("split_pp[%d] : %s\n", i, split_pp[i]);
 			}
 			// pipe = count_pipe(line);
 			// printf("pipe = %d\n", pipe);

@@ -55,3 +55,31 @@ char lexer_quote(char *line)
 	}
 	return ('!');
 }
+
+int check_quote(char *line)
+{
+	int single;
+	int d_ouble;
+	int i;
+
+	single = 0;
+	d_ouble = 0;
+ 	i = 0;
+ 	while (line[i])
+ 	{
+		if (line[i] == 39)
+			single++;
+		else if (line[i] == 34)
+			d_ouble++;
+		if (single == 2 || d_ouble == 2)
+		{
+			single = 0;
+			d_ouble = 0;
+		}
+			i++;
+	}
+	if (single != 0 || d_ouble != 0)
+		return (1);
+	else
+		return(0);
+}

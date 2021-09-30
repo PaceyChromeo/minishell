@@ -18,7 +18,6 @@ typedef struct	s_command
 {
 	int					*single_q;
 	int					*double_q;
-	int					*pp_index;
 	int					nb_sq;
 	int					nb_dq;
 	int					nb_pp;
@@ -42,7 +41,7 @@ void		prompt_color();
 void		*init_builtin_lst(t_command *cmd);
 
 /*		PARSING FUNCTIONS	*/
-int			count_pipe(char *line, t_command *cmd);
+int			count_pipe(char *line);
 char		*str_trim(char *str, char c);
 char		lexer_quote(char *line);
 t_command	*find_indexes(char *s);
@@ -52,13 +51,13 @@ int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strcat(char *dest, const char *src);
 void		ft_putstr_fd(char *str, int fd);
 size_t		ft_strlen(const char *str);
-char		**ft_split(char const *s, char c);
+char		**ft_split_pipe(char const *s, char c);
 char		*ft_strjoin(char const *s1, char const *s2);
 int			ft_isalpha(char c);
 void		blue(); 
 void		yellow();
 void		reset();
-char		**get_path();
+//char		**get_path();
 void		init_cmd_lst(t_cmd_lst *list, t_command *first);
 int			count_lst(t_cmd_lst *list);
 t_command	*last_cmd(t_cmd_lst	*list);
