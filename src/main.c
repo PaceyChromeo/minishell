@@ -15,7 +15,8 @@ int main (int argc, char **argv, char **envp)
 	(void)envp;
 	while (ok)
 	{
-		prompt_color();    
+		if (prompt_color() == 0)
+			return (0);
 		line = readline("");
 		if (line != NULL)
 		{

@@ -1,27 +1,28 @@
 #include "minishell.h"
 
-char *prompt(char *invite)
+char *prompt(void)
 {
-    char    *user = NULL;
-    char    *host = NULL;
-    char    *absolute_p = NULL;
-    char    **relative_p = NULL;
+	char		*invite;
+	const char	*user;
+	const char	*host;
+	const char	*absolute_p;
+	char		**relative_p;
 
-    user = getenv("USERNAME");
-    if (user == NULL)
-    {
-        user = getenv("USER");
-        if (user == NULL)
-            user = "";
-    }
+	user = getenv("USERNAME");
+	if (user == NULL)
+	{
+		user = getenv("USER");
+		if (user == NULL)
+			user = "";
+	}
 	host = getenv("NAME");
-    if (host == NULL)
+	if (host == NULL)
 		host = "";
 	absolute_p = getenv("PWD");
 	if (absolute_p == NULL)
 		absolute_p = "";
 	relative_p = ft_split(absolute_p, '/');
-	invite = (char *)malloc(sizeof(*invite) * (ft_strlen(user) + ft_strlen(host) + ft_strlen(absolute_p) + 7));
+	invite = malloc(sizeof(*invite) * 256);
 	if (!invite)
 		return (NULL);
 	ft_strcat(invite, user);
@@ -34,13 +35,12 @@ char *prompt(char *invite)
 	return (invite);
 }
 
-void   prompt_color()
+int	prompt_color()
  {
     char    *invite;
     char    **tab_prompt;
 
-    invite = NULL;
-    invite = prompt(invite);
+	invite = prompt();
     if (invite != NULL)
     {
         tab_prompt = ft_split(invite, ':');
@@ -53,5 +53,8 @@ void   prompt_color()
         reset();
         free (invite);
         invite = NULL;
+		return (1);
     }
+	else
+		return (0);
  }

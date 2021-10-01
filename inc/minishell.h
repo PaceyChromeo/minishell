@@ -15,8 +15,8 @@
 # include <readline/history.h>
 
 /*		DISPLAY FUNCTIONS	*/
-char	*prompt(char *invite);
-void	prompt_color();
+char	*prompt();
+int		prompt_color();
 
 /*		EXECUTIONS FUNCTIONS	*/
 
