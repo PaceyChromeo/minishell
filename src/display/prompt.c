@@ -36,10 +36,10 @@ char *prompt(char *invite)
 
 int	prompt_color()
  {
-    char    *invite;
+    char    *invite = NULL;
     //char    **tab_prompt;
 
-	invite = prompt();
+	invite = prompt(invite);
     if (invite != NULL)
     {
         //tab_prompt = ft_split(invite, ':');

@@ -59,9 +59,9 @@ static int	quote_mutex(char *s, int mutex, int i)
 
 static int	check_error_quote(t_command *cmd, char *s)
 {
-	int	i;
+	// int	i;
 
-	i = -1;
+	// i = -1;
 	if ((cmd->nb_dq % 2 && !cmd->nb_sq) || (cmd->nb_sq % 2 && !cmd->nb_dq))
 		return (1);
 	else if (cmd->nb_dq == 0 && cmd->nb_sq == 0)
