@@ -11,12 +11,15 @@ UTIL_DIR = $(addprefix ${SRC_DIR}, utils/)
 SRC = main.c
 SRC_DIS = prompt.c
 SRC_EXE = builtins.c
-SRC_PARS =	ft_split.c \
-			cleaning.c \
-			lexer.c
+SRC_PARS =	cleaning.c \
+			lexer.c \
+			find_quotes.c \
+			split_pipes.c \
+			ft_split_pipe.c
 SRC_UTIL =	utils.c \
 			utils2.c \
-			get_path.c
+			get_path.c \
+			lst_utils.c
 
 SRCS = $(addprefix ${SRC_DIR}, ${SRC})
 SRCS_DIS = $(addprefix ${DIS_DIR}, ${SRC_DIS})
