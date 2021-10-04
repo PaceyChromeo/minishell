@@ -28,7 +28,7 @@ typedef struct	s_command
 
 /*		DISPLAY FUNCTIONS	*/
 char		*prompt(char *invite);
-void		prompt_color();
+int			prompt_color();
 
 /*		EXECUTIONS FUNCTIONS	*/
 void		*init_builtin_lst(t_command *cmd);

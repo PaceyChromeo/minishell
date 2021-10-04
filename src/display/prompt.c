@@ -17,7 +17,7 @@ char *prompt(char *invite)
    return (invite);
 }
 
-void   prompt_color()
+int	prompt_color()
  {
     char    *invite;
     char const  *absolute_p;
