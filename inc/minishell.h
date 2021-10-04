@@ -31,7 +31,8 @@ char		*prompt(char *invite);
 int			prompt_color();
 
 /*		EXECUTIONS FUNCTIONS	*/
-void		*init_builtin_lst(t_command *cmd);
+char		**init_builtin_lst();
+int			check_command(char *str);
 
 /*		PARSING FUNCTIONS	*/
 char		*clean_redirection(char *str);

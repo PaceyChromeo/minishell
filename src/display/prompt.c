@@ -2,7 +2,7 @@
 
 char *prompt(char *invite)
 {
-    invite = getenv("LOGNAME");
+    invite = getenv("USER");
     if (invite == NULL)
     {
         invite = getenv("USERNAME");
@@ -18,8 +18,8 @@ char *prompt(char *invite)
 }
 
 int	prompt_color()
- {
-    char    *invite;
+{
+    char        *invite;
     char const  *absolute_p;
     char        **relative_p;
 
@@ -29,14 +29,15 @@ int	prompt_color()
     blue();
     printf("%s", invite);
     reset();
-    absolute_p = getenv("PWD");
-    if (absolute_p == NULL)
-    {
-        absolute_p = "";
-    }   
-    relative_p = ft_split(absolute_p, '/'); 
-    yellow();
-    printf(":~/%s", relative_p[2]);
-    reset();
-    printf("$ ");
+	absolute_p = getenv("PWD");
+	if (absolute_p == NULL)
+	{
+		absolute_p = "";
+	}   
+	relative_p = ft_split(absolute_p, '/'); 
+	yellow();
+	printf(":~/%s", relative_p[2]);
+	reset();
+	printf("$ ");
+	return (0);
  }

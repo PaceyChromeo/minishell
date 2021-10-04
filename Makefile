@@ -10,7 +10,8 @@ UTILS_DIR = $(addprefix ${SRC_DIR}, utils/)
 
 SRC = main.c
 SRC_DISPLAY = prompt.c
-SRC_EXEC = builtins.c
+SRC_EXEC =	builtins.c \
+			check_command.c
 SRC_PARSING =	clean_redirection.c \
 				final_split.c \
 				ft_split_pipe.c \
