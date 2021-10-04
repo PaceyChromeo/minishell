@@ -24,14 +24,7 @@ typedef struct	s_command
 	char				*command;
 	char				**blti_lst;
 	char				**cmd_split;
-	struct	s_command	*last;
-	struct	s_command	*next;
 }				t_command;
-
-typedef struct	s_cmd_list
-{
-	t_command	*first;
-}				t_cmd_lst;
 
 /*		DISPLAY FUNCTIONS	*/
 char		*prompt(char *invite);
@@ -41,26 +34,25 @@ void		prompt_color();
 void		*init_builtin_lst(t_command *cmd);
 
 /*		PARSING FUNCTIONS	*/
-int			count_pipe(char *line);
+char		*clean_redirection(char *str);
 char		*str_trim(char *str, char c);
-char		lexer_quote(char *line);
-t_command	*find_indexes(char *s);
+char		**ft_split_pipe(char const *s, char c);
+char		**ft_split_space(char *s, char c);
+char 		***final_split(char *s, char c);
+int			check_quote(char *line);
+char		*clean_quotes(char *str);
 
 /*		UTILS FUNCTIONS		*/
+char		**ft_split(char const *s, char c);
+//char		**get_path();
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strcat(char *dest, const char *src);
-void		ft_putstr_fd(char *str, int fd);
 size_t		ft_strlen(const char *str);
-char		**ft_split_pipe(char const *s, char c);
 char		*ft_strjoin(char const *s1, char const *s2);
 int			ft_isalpha(char c);
+void		ft_putstr_fd(char *str, int fd);
 void		blue(); 
 void		yellow();
 void		reset();
-//char		**get_path();
-void		init_cmd_lst(t_cmd_lst *list, t_command *first);
-int			count_lst(t_cmd_lst *list);
-t_command	*last_cmd(t_cmd_lst	*list);
-void		add_back(t_cmd_lst *list, t_command	*new);
 
 #endif

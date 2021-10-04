@@ -3,7 +3,7 @@
 
 static int	nbr_strings(char const *line, char c)
 {
-    int single;
+   	int single;
     int d_ouble;
     char first;
     char last;
@@ -30,16 +30,14 @@ static int	nbr_strings(char const *line, char c)
             single++;
             if (first == 's')
             {
-                while (line[i])
+				i++;
+                while (line[i] != 39)
                 {
+
                     i++;
-                    if (line[i] == 39)
-                    {
-                        last = 's';
-                        single = d_ouble = 0;
-                        break;
-                    }
-                }
+				}
+				last = 's';
+				single = d_ouble = 0;
             }
         }
         else if (line[i] == 34)
@@ -53,21 +51,20 @@ static int	nbr_strings(char const *line, char c)
             d_ouble++;
             if (first == 'd')
             {
-                while (line[i])
+				i++;
+                while (line[i] != 34)
                 {
                     i++;
-                    if (line[i] == 34)
-                    {
-                        last = 'd';
-                        d_ouble = single = 0;
-                        break;
-                    }
-                }
+				}
+				last = 'd';
+				d_ouble = single = 0;
             }
         }
-		else if (line[i] == c)
+		if (line[i] == c)
+		{
 			cles = 0;
-		if (cles == 0)
+		}
+		else if (cles == 0)
 		{
 			cles = 1;
 			nbr++;
@@ -101,16 +98,13 @@ static int	index_pipe(char const *line, char c, int i)
             single++;
             if (first == 's')
             {
-                while (line[i])
+				i++;
+                while (line[i] != 39)
                 {
                     i++;
-                    if (line[i] == 39)
-                    {
-                        last = 's';
-                        single = d_ouble = 0;
-                        break;
-                    }
-                }
+				}
+				last = 's';
+				single = d_ouble = 0;
             }
         }
         else if (line[i] == 34)
@@ -124,17 +118,14 @@ static int	index_pipe(char const *line, char c, int i)
             d_ouble++;
             if (first == 'd')
             {
-                while (line[i])
+				i++;
+                while (line[i] != 34)
                 {
                     i++;
-                    if (line[i] == 34)
-                    {
-                        last = 'd';
-                        d_ouble = single = 0;
-                        break;
-                    }
-                }
-            }
+				}
+					last = 'd';
+					d_ouble = single = 0;
+			}
         }
 		else if (line[i] == c)
 			return (i);
@@ -157,8 +148,6 @@ static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
 		index = 0;
 		k = 0;
 		index = index_pipe(s, c, i);
-		while (s[i] == ' ')
-			i++;
 		dst[j] = (char *)malloc(sizeof(char) * (index - i) + 1);
 		if (!dst[j])
 			return (NULL);
@@ -170,6 +159,7 @@ static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
 			dst[j] = NULL;
 			continue;
 		}
+		
 		while (i < index && s[i] != '\0')
 			dst[j][k++] = s[i++];
 		dst[j][k] = '\0';
@@ -179,16 +169,17 @@ static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
 	return (dst);
 }
 
-char	**ft_split_pipe(char const *s, char c)
+char	**ft_split_space(char *s, char c)
 {
 	char	**dst;
 	int		total;
 
+    total = 0;
 	if (!s)
 		return (NULL);
 	total = nbr_strings(s, c);
 //	printf("Total strings: %d\n", total);
-	dst = (char **)malloc(sizeof(char *) * (total + 1));
+	dst = (char **)malloc(sizeof(char **) * (total + 1));
 	if (!dst)
 		return (NULL);
 	return (ft_copy_strings(s, dst, c, total));

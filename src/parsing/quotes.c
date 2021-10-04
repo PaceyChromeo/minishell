@@ -1,21 +1,16 @@
-
 #include "minishell.h"
 
-static int	nbr_strings(char const *line, char c)
+int check_quote(char *line)
 {
     int single;
     int d_ouble;
     char first;
     char last;
     int i;
-	int	nbr;
-	int cles;
 
     single = 0;
     d_ouble = 0;
     i = 0;
-	nbr = 0;
-	cles = 0;
     first = last = 'p';
     while (line[i])
     {
@@ -65,21 +60,23 @@ static int	nbr_strings(char const *line, char c)
                 }
             }
         }
-		else if (line[i] == c)
-			cles = 0;
-		if (cles == 0)
-		{
-			cles = 1;
-			nbr++;
-		}
         i++;
     }
-	return (nbr);
+    if (line[i - 1] == '|')
+        return (1);
+    if (single != 0 || d_ouble != 0)
+        return (1);
+    else if (first != last)
+        return (1);
+    else
+        return(single);
 }
 
-static int	index_pipe(char const *line, char c, int i)
-{
 
+static size_t	ft_strlen_quotes(const char *str)
+{
+	size_t	i;
+	size_t	j;
     int single;
     int d_ouble;
     char first;
@@ -87,10 +84,12 @@ static int	index_pipe(char const *line, char c, int i)
 
     single = 0;
     d_ouble = 0;
+    i = 0;
+    j = 0;
     first = last = 'p';
-    while (line[i])
+    while (str[i])
     {
-        if (line[i] == 39)
+        if (str[i] == 39)
         {
             if (single == 0 && d_ouble == 0)
                 first = 's';
@@ -101,19 +100,21 @@ static int	index_pipe(char const *line, char c, int i)
             single++;
             if (first == 's')
             {
-                while (line[i])
+                while (str[i])
                 {
                     i++;
-                    if (line[i] == 39)
+                    if (str[i] == 39)
                     {
                         last = 's';
                         single = d_ouble = 0;
+                        if (str[i + 1] != ' ')
+                            j++;
                         break;
                     }
                 }
             }
         }
-        else if (line[i] == 34)
+        else if (str[i] == 34)
         {
             if (single == 0 && d_ouble == 0)
                 first = 'd';
@@ -124,72 +125,105 @@ static int	index_pipe(char const *line, char c, int i)
             d_ouble++;
             if (first == 'd')
             {
-                while (line[i])
+                while (str[i])
                 {
                     i++;
-                    if (line[i] == 34)
+                    if (str[i] == 34)
                     {
                         last = 'd';
                         d_ouble = single = 0;
+                        if (str[i + 1] != ' ')
+                            j++;
                         break;
                     }
                 }
             }
         }
-		else if (line[i] == c)
-			return (i);
         i++;
     }
-	return (i);
+    return (i += j);
 }
 
-static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
+
+char	*clean_quotes(char *str)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	index;
+	char 	*copy = NULL;
+	int		i;
+	int		j;
+    int     counter;
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0' && j < total)
+    counter = 0;
+	copy = malloc(sizeof(char) * ft_strlen_quotes(str) + 1);
+	if (!copy)
+		return (NULL);
+	while (str[i] != '\0')
 	{
-		index = 0;
-		k = 0;
-		index = index_pipe(s, c, i);
-		while (s[i] == ' ')
-			i++;
-		dst[j] = (char *)malloc(sizeof(char) * (index - i) + 1);
-		if (!dst[j])
-			return (NULL);
-	//	printf("len : %d\n", index - i);
-		if ((index - i) == 0)
+        if (str[i] == 39)
+        {
+            copy[j] = str[i];
+            counter++;
+            i++;
+            j++;
+            while (counter < 2)
+            {
+                copy[j] = str[i];
+                if (str[i] == 39)
+                    counter++;
+                i++;
+                j++;
+            }
+			counter = 0;
+            if (str[i] != ' ')
+            {
+                copy[j] = ' ';
+                i--;
+            }
+            else
+            {
+                i--;
+                j--;
+            }
+        }
+		else if (str[i] == 34)
+        {
+            copy[j] = str[i];
+            counter++;
+            i++;
+            j++;
+            while (counter < 2)
+            {
+                copy[j] = str[i];
+                if (str[i] == 34)
+                    counter++;
+                i++;
+                j++;
+            }
+			counter = 0;
+            if (str[i] != ' ')
+            {
+                copy[j] = ' ';
+                i--;
+            }
+            else
+            {
+                i--;
+                j--;
+            }
+        }
+		else
 		{
-			i++;
-			free (dst[j]);
-			dst[j] = NULL;
-			continue;
+			copy[j] = str[i];
+            if (str[i] != ' ' && (str[i + 1] == 34 || str[i + 1] == 39) && counter == 0)
+            {
+                j++;
+                copy[j] = ' ';
+            }
 		}
-		while (i < index && s[i] != '\0')
-			dst[j][k++] = s[i++];
-		dst[j][k] = '\0';
+		i++;
 		j++;
 	}
-	dst[j] = 0;
-	return (dst);
-}
-
-char	**ft_split_pipe(char const *s, char c)
-{
-	char	**dst;
-	int		total;
-
-	if (!s)
-		return (NULL);
-	total = nbr_strings(s, c);
-//	printf("Total strings: %d\n", total);
-	dst = (char **)malloc(sizeof(char *) * (total + 1));
-	if (!dst)
-		return (NULL);
-	return (ft_copy_strings(s, dst, c, total));
+	copy[j] = '\0';
+	return (copy);
 }
