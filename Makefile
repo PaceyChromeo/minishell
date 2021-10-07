@@ -21,6 +21,7 @@ SRC_PARSING =	clean_redirection.c \
 				quotes.c
 SRC_UTILS =	ft_split.c \
 			get_path.c \
+			utils_color.c \
 			utils.c \
 			utils2.c
 

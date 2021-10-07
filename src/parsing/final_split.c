@@ -29,6 +29,6 @@ char  ***final_split(char *s, char c)
         d[i] = ft_split_space(dst[i], ' ');
         i++;
     }
-    d[i] = 0;
+    d[i] = NULL;
     return (d);
   }

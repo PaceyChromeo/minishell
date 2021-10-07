@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **envp)
                 step2 = clean_quotes(step1);
                 yellow();
                 printf("cleaned: %s\n", step2);
-                reset();
+                white();
                 printf("-----------------\n");
 
                 dst = ft_split_pipe(step2, '|');
@@ -69,7 +69,14 @@ int main(int argc, char **argv, char **envp)
                 }
             }
 			add_history(line);
-        //     i = 0;
+            if (dst)
+            {
+				t_lexer	*lexer = init_lexer(dst[0]);
+				t_token *token = NULL;
+				while ((token = get_next_token(lexer)) != NULL)
+					printf("token type : %d | token value : %s\n", token->e_type, token->value);
+			}
+		//     i = 0;
 		// 	pid = fork();
 		// 	if (pid == 0)
 		// 	{

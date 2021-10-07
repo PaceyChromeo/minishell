@@ -28,7 +28,7 @@ int	prompt_color()
     invite = prompt(invite);
     blue();
     printf("%s", invite);
-    reset();
+    white();
 	absolute_p = getenv("PWD");
 	if (absolute_p == NULL)
 	{
@@ -37,7 +37,7 @@ int	prompt_color()
 	relative_p = ft_split(absolute_p, '/'); 
 	yellow();
 	printf(":~/%s", relative_p[2]);
-	reset();
+	white();
 	printf("$ ");
 	return (0);
  }
