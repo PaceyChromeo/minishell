@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/07 16:46:23 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/09 18:13:09 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_lexer	*init_lexer(char *value)
 {
 	t_lexer	*lexer;
 
-	lexer = malloc(sizeof(t_lexer) * 1);
+	lexer = ft_calloc(1, sizeof(t_lexer));
 	if (!lexer)
 		return (NULL);
 	lexer->index = 0;
@@ -34,17 +34,18 @@ void	lexer_next_char(t_lexer *lexer)
 	}
 }
 
-t_token	*lexer_collect_cmd(t_lexer *lexer)
+t_token	*lexer_collect_id(t_lexer *lexer)
 {
 	char	*value;
 
 	value = NULL;
-	while (ft_isalpha(lexer->c))
+	while (lexer->c != ' ' && lexer->c != 34 && lexer->c != 39 
+			&& lexer->c != '$' && lexer->c != '\0' && lexer->c != '(' && lexer->c != ')')
 	{
 		value = ft_realloc_char(value, lexer);
 		lexer_next_char(lexer);
 	}
-	return (init_token(token_cmd, value));
+	return (init_token(token_id, value));
 }
 
 t_token	*lexer_collect_string(t_lexer *lexer)
@@ -62,7 +63,7 @@ t_token	*lexer_collect_string(t_lexer *lexer)
 		if (lexer->c == '\0')
 		{
 			free(value);
-			return (NULL);
+			return (init_token(token_eof, NULL));
 		}
 	}
 	lexer_next_char(lexer);
@@ -72,14 +73,16 @@ t_token	*lexer_collect_string(t_lexer *lexer)
 		return (init_token(token_string_sq, value));
 }
 
-char	*get_char_as_string(char c)
+t_token *lexer_collect_env(t_lexer *lexer)
 {
-	char	*s;
+	char *value;
 
-	s = malloc(sizeof(char) * 2);
-	if (!s)
-		return (NULL);
-	s[0] = c;
-	s[1] = '\0';
-	return (s);
+	value = NULL;
+	lexer_next_char(lexer);
+	while (ft_isalpha(lexer->c) || lexer->c == '_')
+	{
+		value = ft_realloc_char(value, lexer);
+		lexer_next_char(lexer);
+	}
+	return (init_token(token_env, value));
 }

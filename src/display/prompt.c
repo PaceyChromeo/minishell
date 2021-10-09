@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char *prompt(char *invite)
+static char *prompt(char *invite)
 {
     invite = getenv("USER");
     if (invite == NULL)
@@ -24,7 +24,6 @@ int	prompt_color()
     char        **relative_p;
 
     invite = NULL;
-    invite = malloc(sizeof(invite));
     invite = prompt(invite);
     blue();
     printf("%s", invite);

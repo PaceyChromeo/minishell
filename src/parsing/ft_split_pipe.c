@@ -159,7 +159,7 @@ static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
 		index = index_pipe(s, c, i);
 		while (s[i] == ' ')
 			i++;
-		dst[j] = (char *)malloc(sizeof(char) * (index - i) + 1);
+		dst[j] = (char *)ft_calloc(((index - i) + 1), sizeof(char));
 		if (!dst[j])
 			return (NULL);
 	//	printf("len : %d\n", index - i);
@@ -188,7 +188,7 @@ char	**ft_split_pipe(char const *s, char c)
 		return (NULL);
 	total = nbr_strings(s, c);
 //	printf("Total strings: %d\n", total);
-	dst = (char **)malloc(sizeof(char *) * (total + 1));
+	dst = (char **)ft_calloc((total + 1), sizeof(char *));
 	if (!dst)
 		return (NULL);
 	return (ft_copy_strings(s, dst, c, total));

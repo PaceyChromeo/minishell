@@ -1,9 +1,9 @@
 #include <minishell.h>
 
-char	**init_builtin_lst()
+static char	**init_builtin_lst(void)
 {
 	char	**blti_lst;
-	blti_lst = malloc(sizeof(char *) * 8);
+	blti_lst = ft_calloc(8, sizeof(char *));
 	if (!blti_lst)
 		return (NULL);
 	blti_lst[0] = "echo";
@@ -15,4 +15,20 @@ char	**init_builtin_lst()
 	blti_lst[6] = "exit";
 	blti_lst[7] = NULL;
 	return (blti_lst);
+}
+
+int	cmp_builtins(char *value)
+{
+	int	i;
+	char	**bltin_lst;
+
+	bltin_lst = init_builtin_lst();
+	i = 0;
+	while (i < 7)
+	{
+		if (!strcmp(bltin_lst[i], value))
+			return (1);
+		i++;
+	}
+	return (0);
 }

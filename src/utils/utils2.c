@@ -55,4 +55,20 @@ char	*ft_realloc_char(char *src, t_lexer *lexer)
 	}
 	return (new_str);
 }
- 
+
+void	*ft_calloc(int size, int type)
+{
+	char	*str;
+	int		total;
+	int		i;
+
+	total = size * type;
+	str = malloc(total);
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		str[i] = 0;
+	str[i] = '\0';
+	return ((void *)str);
+}
