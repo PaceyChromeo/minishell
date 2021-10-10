@@ -2,20 +2,11 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	int		ok;
-	char	*line;
-	//int		pipe;
-	//pid_t pid;
-        //int	status;
-	//char	c;
-	t_command	*cmd;
-	char		**split_pp;
-
-	ok = 1;
+	int		ok = 1;
 	char *line;
 	(void)argc;
 	(void)argv;
-        (void)envp;
+    (void)envp;
     while (ok)
 	{
 		prompt_color();   
