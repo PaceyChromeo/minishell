@@ -6,7 +6,7 @@ int main (int argc, char **argv, char **envp)
 	char	*line;
 	//int		pipe;
 	//pid_t pid;
-	//int	status;
+        //int	status;
 	//char	c;
 	t_command	*cmd;
 	char		**split_pp;
@@ -14,8 +14,8 @@ int main (int argc, char **argv, char **envp)
 	ok = 1;
 	(void)argc;
 	(void)argv;
-	(void)envp;	
-	while (ok)
+        (void)envp;
+    while (ok)
 	{
 		if (prompt_color() == 0)
 			return (0);
