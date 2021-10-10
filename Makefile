@@ -3,36 +3,40 @@ NAME = minishell
 SRC_DIR = src/
 INC_DIR = inc/
 
-DIS_DIR = $(addprefix ${SRC_DIR}, display/)
-EXE_DIR = $(addprefix ${SRC_DIR}, execution/)
-PARS_DIR = $(addprefix ${SRC_DIR}, parsing/)
-UTIL_DIR = $(addprefix ${SRC_DIR}, utils/)
+DISPLAY_DIR = $(addprefix ${SRC_DIR}, display/)
+LEXING_DIR = $(addprefix ${SRC_DIR}, lexing/)
+EXEC_DIR = $(addprefix ${SRC_DIR}, execution/)
+PARSING_DIR = $(addprefix ${SRC_DIR}, parsing/)
+UTILS_DIR = $(addprefix ${SRC_DIR}, utils/)
 
 SRC = main.c
-SRC_DIS = prompt.c
-SRC_EXE = builtins.c
-SRC_PARS =	cleaning.c \
-			lexer.c \
-			find_quotes.c \
-			split_pipes.c \
-			ft_split_pipe.c
-SRC_UTIL =	utils.c \
-			utils2.c \
-			get_path.c \
-			lst_utils.c
+SRC_DISPLAY = prompt.c
+SRC_EXEC =	binaries.c \
+			builtins.c
+SRC_LEXING =	lexer.c \
+				token.c
+SRC_PARSING =	ft_split_pipe.c \
+				parser.c \
+				trees.c
+SRC_UTILS =	ft_split.c \
+			utils_color.c \
+			utils.c \
+			utils2.c
 
 SRCS = $(addprefix ${SRC_DIR}, ${SRC})
-SRCS_DIS = $(addprefix ${DIS_DIR}, ${SRC_DIS})
-SRCS_EXE = $(addprefix ${EXE_DIR}, ${SRC_EXE})
-SRCS_PARS = $(addprefix ${PARS_DIR}, ${SRC_PARS})
-SRCS_UTIL = $(addprefix ${UTIL_DIR}, ${SRC_UTIL})
+SRCS_DISPLAY = $(addprefix ${DISPLAY_DIR}, ${SRC_DISPLAY})
+SRCS_LEXING = $(addprefix ${LEXING_DIR}, ${SRC_LEXING})
+SRCS_EXEC = $(addprefix ${EXEC_DIR}, ${SRC_EXEC})
+SRCS_PARSING = $(addprefix ${PARSING_DIR}, ${SRC_PARSING})
+SRCS_UTILS = $(addprefix ${UTILS_DIR}, ${SRC_UTILS})
 
 OBJ = $(SRCS:.c=.o)
-OBJ_DIS = ${SRCS_DIS:.c=.o}
-OBJ_EXE = ${SRCS_EXE:.c=.o}
-OBJ_PARS = ${SRCS_PARS:.c=.o}
-OBJ_UTIL = ${SRCS_UTIL:.c=.o}
-OBJS = ${OBJ} ${OBJ_DIS} ${OBJ_EXE} ${OBJ_PARS} ${OBJ_UTIL}
+OBJ_DISPLAY = ${SRCS_DISPLAY:.c=.o}
+OBJ_LEXING = ${SRCS_LEXING:.c=.o}
+OBJ_EXEC = ${SRCS_EXEC:.c=.o}
+OBJ_PARSING = ${SRCS_PARSING:.c=.o}
+OBJ_UTILS = ${SRCS_UTILS:.c=.o}
+OBJS = ${OBJ} ${OBJ_DISPLAY} ${OBJ_LEXING} ${OBJ_EXEC} ${OBJ_PARSING} ${OBJ_UTILS}
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g

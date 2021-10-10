@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_pipes.c                                      :+:      :+:    :+:   */
+/*   utils_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/29 14:51:05 by pjacob            #+#    #+#             */
-/*   Updated: 2021/09/30 12:13:29 by pjacob           ###   ########.fr       */
+/*   Created: 2021/10/07 10:10:45 by pjacob            #+#    #+#             */
+/*   Updated: 2021/10/07 10:11:02 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_pipe(char *line)
+void blue() 
 {
-	int	i;
-	int	pipe;
+  printf("\033[1;36m");
+}
 
-	i = -1;
-	pipe = 0;
-	while(line[++i])
-	{
-		if (line[i] == 34 && line[i + 1] != 34)
-		{
-			i++;
-			while (line[i] != 34 && line[i])
-				i++;
-		}
-		if (line[i] == 39 && line[i + 1] != 39)
-		{
-			i++;
-			while (line[i] != 39 && line[i])
-				i++;
-		}
-		if (line[i] == '|')
-			pipe++;
-	}
-	return (pipe);
+void yellow()
+{
+  printf("\033[1;33m");
+}
+
+void white() 
+{
+  printf("\033[0m");
 }

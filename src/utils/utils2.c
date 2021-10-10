@@ -15,19 +15,60 @@ void	ft_putstr_fd(char *str, int fd)
 	}
 }
 
-void blue() 
+char	*ft_strcpy(char *cpy, char *src)
 {
-  printf("\033[1;36m");
+	int		i;
+
+	i = -1;
+	if (!cpy)
+		return (NULL);
+	while (src[++i])
+		cpy[i] = src[i];
+	cpy[i] = '\0';	
+	return (cpy);
 }
 
-void yellow()
+char	*ft_realloc_char(char *src, t_lexer *lexer)
 {
-  printf("\033[1;33m");
+	char	*new_str;
+	int		i;
+
+	i = -1;
+	if (!src)
+	{
+		new_str = malloc(sizeof(char) * 2);
+		if (!new_str)
+			return (NULL);
+		new_str[0] = lexer->c;
+		new_str[1] = '\0';
+	}
+	else
+	{
+		new_str = malloc(sizeof(char) * ft_strlen(src) + 2);
+		if (!new_str)
+			return (NULL);
+		while (src[++i])
+			new_str[i] = src[i];
+		new_str[i++] = lexer->c;
+		new_str[i] = '\0';
+		free(src);
+	}
+	return (new_str);
 }
 
-void reset() 
+void	*ft_calloc(int size, int type)
 {
-  printf("\033[0m");
-}
+	char	*str;
+	int		total;
+	int		i;
 
- 
+	total = size * type;
+	str = malloc(total);
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		str[i] = 0;
+	str[i] = '\0';
+	return ((void *)str);
+}

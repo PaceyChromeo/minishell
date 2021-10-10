@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
+/*   Updated: 2021/10/09 18:08:56 by pjacob           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -5,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <string.h>
 # include <signal.h>
 # include <stddef.h>
 # include <sys/wait.h>
@@ -14,53 +27,98 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct	s_command
+typedef struct s_token
 {
-	int					*single_q;
-	int					*double_q;
-	int					nb_sq;
-	int					nb_dq;
-	int					nb_pp;
-	char				*command;
-	char				**blti_lst;
-	char				**cmd_split;
-	struct	s_command	*last;
-	struct	s_command	*next;
-}				t_command;
+	enum e_type
+	{
+		token_id = 1,
+		token_cmd = 2,
+		token_string_sq = 3,
+		token_string_dq = 4,
+		token_env = 5,
+		token_file = 6,
+		token_sred_l = 7,
+		token_sred_r = 8,
+		token_dred_l = 9,
+		token_dred_r = 10,
+		token_lparen = 11,
+		token_rparen = 12,
+		token_dash = 13,
+		token_option = 14,
+		token_eof = 15
+	}	type;
+	char			*value;
+	struct s_token	*prev;
+	struct s_token	*next;
+}				t_token;
 
-typedef struct	s_cmd_list
+typedef	struct	s_lexer
 {
-	t_command	*first;
-}				t_cmd_lst;
+	char	c;
+	int		index;
+	char	*value;
+}				t_lexer;
+
+typedef struct	s_parser
+{
+	t_lexer	*lexer;
+	t_token	*current_tok;
+	t_token	*prev_tok;
+	t_token *first_tok;
+	ssize_t	token_size;
+}				t_parser;
+
+typedef struct	s_tree
+{
+	enum	e_redir_type
+	{
+		tree_sl,
+		tree_sr,
+		tree_dl,
+		tree_dr,
+		tree_nored,
+	}	redir_type;
+	char	*cmd;
+	char	**args;
+	int		size_args;
+}				t_tree;
 
 /*		DISPLAY FUNCTIONS	*/
-char		*prompt(char *invite);
-int			prompt_color();
+int			prompt_color(void);
 
 /*		EXECUTIONS FUNCTIONS	*/
-void		*init_builtin_lst(t_command *cmd);
+int			cmp_builtins(char *value);
+int			cmp_binaries(char *value);
+
+/*		LEXING FUNCTIONS		*/
+t_token		*init_token(int type, char *value);
+t_token		*get_next_token(t_lexer	*lexer);
+t_lexer		*init_lexer(char *value);
+void		lexer_next_char(t_lexer *lexer);
+t_token		*lexer_collect_id(t_lexer *lexer);
+t_token		*lexer_collect_string(t_lexer *lexer);
+t_token		*lexer_collect_env(t_lexer *lexer);
 
 /*		PARSING FUNCTIONS	*/
-int			count_pipe(char *line);
-char		*str_trim(char *str, char c);
-char		lexer_quote(char *line);
-t_command	*find_indexes(char *s);
+char		**ft_split_pipe(char const *s, char c);
+t_parser	*init_parser(t_lexer *lexer);
+void		parser_next_token(t_parser *parser, int type);
+void		parser_define_more_token(t_parser *parser);
+t_tree		*init_tree(int type);
 
 /*		UTILS FUNCTIONS		*/
+char		**ft_split(char const *s, char c);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strcat(char *dest, const char *src);
-void		ft_putstr_fd(char *str, int fd);
-size_t		ft_strlen(const char *str);
-char		**ft_split_pipe(char const *s, char c);
+int			ft_strlen(const char *str);
 char		*ft_strjoin(char const *s1, char const *s2);
 int			ft_isalpha(char c);
-void		blue(); 
-void		yellow();
-void		reset();
-//char		**get_path();
-void		init_cmd_lst(t_cmd_lst *list, t_command *first);
-int			count_lst(t_cmd_lst *list);
-t_command	*last_cmd(t_cmd_lst	*list);
-void		add_back(t_cmd_lst *list, t_command	*new);
+void		ft_putstr_fd(char *str, int fd);
+char		*ft_strcpy(char *cpy, char *src);
+char		*ft_realloc_char(char *src, t_lexer *lexer);
+void		*ft_calloc(int size, int type);
+void		blue(void);
+void		yellow(void);
+void		white(void);
 
 #endif

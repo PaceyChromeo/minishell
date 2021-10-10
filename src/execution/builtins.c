@@ -1,17 +1,34 @@
 #include <minishell.h>
 
-void	*init_builtin_lst(t_command *cmd)
+static char	**init_builtin_lst(void)
 {
-	cmd->blti_lst = malloc(sizeof(char *) * 8);
-	if (!cmd->blti_lst)
+	char	**blti_lst;
+	blti_lst = ft_calloc(8, sizeof(char *));
+	if (!blti_lst)
 		return (NULL);
-	cmd->blti_lst[0] = "echo";
-	cmd->blti_lst[1] = "cd";
-	cmd->blti_lst[2] = "pwd";
-	cmd->blti_lst[3] = "export";
-	cmd->blti_lst[4] = "unset";
-	cmd->blti_lst[5] = "env";
-	cmd->blti_lst[6] = "exit";
-	cmd->blti_lst[7] = NULL;
-	return (cmd);
+	blti_lst[0] = "echo";
+	blti_lst[1] = "cd";
+	blti_lst[2] = "pwd";
+	blti_lst[3] = "export";
+	blti_lst[4] = "unset";
+	blti_lst[5] = "env";
+	blti_lst[6] = "exit";
+	blti_lst[7] = NULL;
+	return (blti_lst);
+}
+
+int	cmp_builtins(char *value)
+{
+	int	i;
+	char	**bltin_lst;
+
+	bltin_lst = init_builtin_lst();
+	i = 0;
+	while (i < 7)
+	{
+		if (!strcmp(bltin_lst[i], value))
+			return (1);
+		i++;
+	}
+	return (0);
 }
