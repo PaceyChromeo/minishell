@@ -7,8 +7,8 @@ int main(int argc, char **argv, char **envp)
 	char **split = NULL;
 	(void)argc;
 	(void)argv;
-	(void)envp;	
-	while (ok)
+    (void)envp;
+    while (ok)
 	{
 		prompt_color();   
 	

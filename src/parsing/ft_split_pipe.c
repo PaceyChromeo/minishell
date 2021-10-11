@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:11 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 11:15:34 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/11 11:16:57 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
 		index = index_pipes(s, c, i);
 		while (s[i] == ' ')
 			i++;
-		printf("index : %d len : %d\n", index, index - i);
 		dst[j] = (char *)ft_calloc(((index - i) + 1), sizeof(char));
 		if (!dst[j])
 			return (NULL);
