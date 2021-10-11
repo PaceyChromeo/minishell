@@ -6,14 +6,13 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/09 18:08:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/11 10:25:40 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>

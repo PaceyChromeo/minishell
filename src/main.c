@@ -2,9 +2,9 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	int		ok;
-	ok = 1;
-	char *line;
+	int	ok = 1;
+	char *line = NULL;
+	char **split = NULL;
 	(void)argc;
 	(void)argv;
 	(void)envp;	
@@ -13,12 +13,15 @@ int main(int argc, char **argv, char **envp)
 		prompt_color();   
 	
 		line = readline("");
-		if (line != NULL)
+		split = ft_split_pipe(line, '|');
+		if (split != NULL)
 		{
 			add_history(line);
-			if (line)
+			if (split)
 			{
-				t_lexer     *lexer = init_lexer(line);
+				for (int i = 0; split[i]; i++)
+					printf("split[%d] = %s\n", i, split[i]);
+				t_lexer     *lexer = init_lexer(split[0]);
 				t_parser    *parser = init_parser(lexer);
 				while (parser->current_tok->type != token_eof)
 				{

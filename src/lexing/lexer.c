@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/09 18:13:09 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/11 10:10:25 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_lexer	*init_lexer(char *value)
 	lexer->index = 0;
 	lexer->value = value;
 	lexer->c = value[lexer->index];
-	return(lexer);
+	return (lexer);
 }
 
 void	lexer_next_char(t_lexer *lexer)
@@ -39,8 +39,8 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 	char	*value;
 
 	value = NULL;
-	while (lexer->c != ' ' && lexer->c != 34 && lexer->c != 39 
-			&& lexer->c != '$' && lexer->c != '\0' && lexer->c != '(' && lexer->c != ')')
+	while (lexer->c != 32 && lexer->c != 34 && lexer->c != 39 && lexer->c != 36
+		&& lexer->c != '\0' && lexer->c != '(' && lexer->c != ')')
 	{
 		value = ft_realloc_char(value, lexer);
 		lexer_next_char(lexer);
@@ -73,9 +73,9 @@ t_token	*lexer_collect_string(t_lexer *lexer)
 		return (init_token(token_string_sq, value));
 }
 
-t_token *lexer_collect_env(t_lexer *lexer)
+t_token	*lexer_collect_env(t_lexer *lexer)
 {
-	char *value;
+	char	*value;
 
 	value = NULL;
 	lexer_next_char(lexer);

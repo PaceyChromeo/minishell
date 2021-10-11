@@ -6,23 +6,23 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 10:10:45 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/07 10:11:02 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/11 10:17:24 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void blue() 
+void	blue(void)
 {
-  printf("\033[1;36m");
+	printf("\033[1;36m");
 }
 
-void yellow()
+void	yellow(void)
 {
-  printf("\033[1;33m");
+	printf("\033[1;33m");
 }
 
-void white() 
+void	white(void)
 {
-  printf("\033[0m");
+	printf("\033[0m");
 }

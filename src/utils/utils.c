@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pjacob <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 10:15:22 by pjacob            #+#    #+#             */
+/*   Updated: 2021/10/11 10:15:59 by pjacob           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -16,10 +28,10 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-char *ft_strcat(char *dest, const char *src)
+char	*ft_strcat(char *dest, const char *src)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -46,7 +58,6 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char			*join;
@@ -69,7 +80,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 int	ft_isalpha(char c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9'))
 		return (1);
 	return (0);
 }

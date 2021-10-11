@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pjacob <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
+/*   Updated: 2021/10/11 10:05:23 by pjacob           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 static char	**init_builtin_lst(void)
 {
 	char	**blti_lst;
+
 	blti_lst = ft_calloc(8, sizeof(char *));
 	if (!blti_lst)
 		return (NULL);
@@ -19,7 +32,7 @@ static char	**init_builtin_lst(void)
 
 int	cmp_builtins(char *value)
 {
-	int	i;
+	int		i;
 	char	**bltin_lst;
 
 	bltin_lst = init_builtin_lst();
