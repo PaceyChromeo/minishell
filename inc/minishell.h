@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 10:25:40 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/11 11:23:46 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int			prompt_color(void);
 /*		EXECUTIONS FUNCTIONS	*/
 int			cmp_builtins(char *value);
 int			cmp_binaries(char *value);
+char		*get_path(char *cmd);
 
 /*		LEXING FUNCTIONS		*/
 t_token		*init_token(int type, char *value);
@@ -106,6 +107,7 @@ void		parser_define_more_token(t_parser *parser);
 t_tree		*init_tree(int type);
 
 /*		UTILS FUNCTIONS		*/
+void		free_tab(char **tab);
 char		**ft_split(char const *s, char c);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strcat(char *dest, const char *src);

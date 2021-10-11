@@ -12,13 +12,15 @@ UTILS_DIR = $(addprefix ${SRC_DIR}, utils/)
 SRC = main.c
 SRC_DISPLAY = prompt.c
 SRC_EXEC =	binaries.c \
-			builtins.c
+			builtins.c \
+			path.c
 SRC_LEXING =	lexer.c \
 				token.c
 SRC_PARSING =	ft_split_pipe.c \
 				parser.c \
 				trees.c
-SRC_UTILS =	ft_split.c \
+SRC_UTILS =	free_stuffs.c \
+			ft_split.c \
 			utils_color.c \
 			utils.c \
 			utils2.c
