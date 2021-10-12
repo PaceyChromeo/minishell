@@ -2,6 +2,8 @@ NAME = minishell
 
 SRC_DIR = src/
 INC_DIR = inc/
+OBJ_DIR = obj/
+
 
 DISPLAY_DIR = $(addprefix ${SRC_DIR}, display/)
 LEXING_DIR = $(addprefix ${SRC_DIR}, lexing/)
@@ -32,6 +34,7 @@ SRCS_LEXING = $(addprefix ${LEXING_DIR}, ${SRC_LEXING})
 SRCS_EXEC = $(addprefix ${EXEC_DIR}, ${SRC_EXEC})
 SRCS_PARSING = $(addprefix ${PARSING_DIR}, ${SRC_PARSING})
 SRCS_UTILS = $(addprefix ${UTILS_DIR}, ${SRC_UTILS})
+SRCS_ALL = ${SRCS} ${SRCS_DISPLAY} ${SRC_EXEC} ${SRCS_PARSING} ${SRC_UTILS}
 
 OBJ = $(SRCS:.c=.o)
 OBJ_DISPLAY = ${SRCS_DISPLAY:.c=.o}

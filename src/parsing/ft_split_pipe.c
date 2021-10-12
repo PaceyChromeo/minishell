@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:11 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 14:10:27 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 22:44:36 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	index_pipes(char const *line, char c, int i)
 	return (i);
 }
 
-static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
+static char	**ft_copy_strings(const char *s, char **dst, char c, int total)
 {
 	int	i;
 	int	j;
@@ -75,13 +75,13 @@ static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
 	while (s[i] && j < total)
 	{
 		k = 0;
-		index = index_pipes(s, c, i);
 		while (s[i] == ' ')
 			i++;
+		index = index_pipes(s, c, i);
 		dst[j] = (char *)ft_calloc(((index - i) + 1), sizeof(char));
 		if (!dst[j])
 			return (NULL);
-		while (i < index && s[i] != '\0')
+		while (i < index)
 			dst[j][k++] = s[i++];
 		dst[j][k] = '\0';
 		j++;

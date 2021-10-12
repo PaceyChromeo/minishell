@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:34:34 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 22:02:26 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	parser_define_more_token(t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
-		if (cmp_builtins(parser->current_tok->value) < 7 && !cmd)
+		if (parser->current_tok->type == token_id
+			&& (cmp_builtins(parser->current_tok->value)) < 7 && !cmd)
 		{
 			parser->current_tok->type = token_cmd;
 			cmd++;

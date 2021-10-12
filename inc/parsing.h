@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/12 18:28:10 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 22:45:25 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_tree
 {
 	enum	e_cmd_type
 	{
+		tree_nocmd = -1,
 		tree_echo,
 		tree_cd,
 		tree_pwd,
@@ -35,7 +36,6 @@ typedef struct s_tree
 		tree_unset,
 		tree_env,
 		tree_exit,
-		tree_nocmd,
 	}		cmd_type;
 	char	**args;
 	char	**red;

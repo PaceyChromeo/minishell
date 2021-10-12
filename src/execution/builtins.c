@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:37:08 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 22:45:38 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ int	cmp_builtins(char *value)
 	int		i;
 	char	**bltin_lst;
 
+	if (!value)
+		return (-1);
 	bltin_lst = init_builtin_lst();
 	i = 0;
-	while (i < 7)
+	while (bltin_lst[i])
 	{
-		if (!ft_strcmp(bltin_lst[i], value))
+		if (ft_strcmp(bltin_lst[i], value) == 0)
 		{
 			free (bltin_lst);
 			return (i);
@@ -47,5 +49,5 @@ int	cmp_builtins(char *value)
 		i++;
 	}
 	free (bltin_lst);
-	return (7);
+	return (-1);
 }
