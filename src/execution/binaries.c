@@ -6,11 +6,11 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:50:45 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:10:32 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 18:37:01 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 int	cmp_binaries(char *value)
 {

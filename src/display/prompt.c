@@ -6,11 +6,11 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:03:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:06:22 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 18:36:54 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "display.h"
+#include "minishell.h"
 
 static char	*prompt(char *invite)
 {

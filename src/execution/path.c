@@ -6,11 +6,11 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:11:17 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 18:36:44 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 char	*get_path(char *cmd)
 {

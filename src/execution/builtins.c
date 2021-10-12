@@ -6,11 +6,11 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:10:50 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 18:37:08 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 static char	**init_builtin_lst(void)
 {
