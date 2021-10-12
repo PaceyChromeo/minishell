@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 11:23:46 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/12 15:52:19 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_token
 {
 	enum e_type
 	{
-		token_id = 1,
-		token_cmd = 2,
+		token_cmd = 1,
+		token_id = 2,
 		token_string_sq = 3,
 		token_string_dq = 4,
 		token_env = 5,
@@ -42,9 +42,7 @@ typedef struct s_token
 		token_dred_r = 10,
 		token_lparen = 11,
 		token_rparen = 12,
-		token_dash = 13,
-		token_option = 14,
-		token_eof = 15
+		token_eof = 13
 	}	type;
 	char			*value;
 	struct s_token	*prev;
@@ -69,17 +67,21 @@ typedef struct	s_parser
 
 typedef struct	s_tree
 {
-	enum	e_redir_type
+	enum	e_cmd_type
 	{
-		tree_sl,
-		tree_sr,
-		tree_dl,
-		tree_dr,
-		tree_nored,
-	}	redir_type;
-	char	*cmd;
+		tree_echo,
+		tree_cd,
+		tree_pwd,
+		tree_export,
+		tree_unset,
+		tree_env,
+		tree_exit,
+		tree_nocmd,
+	}	cmd_type;
 	char	**args;
+	char	**red;
 	int		size_args;
+	int		size_red;
 }				t_tree;
 
 /*		DISPLAY FUNCTIONS	*/
@@ -100,11 +102,13 @@ t_token		*lexer_collect_string(t_lexer *lexer);
 t_token		*lexer_collect_env(t_lexer *lexer);
 
 /*		PARSING FUNCTIONS	*/
+int			count_pipes(char const *line, char c);
 char		**ft_split_pipe(char const *s, char c);
 t_parser	*init_parser(t_lexer *lexer);
 void		parser_next_token(t_parser *parser, int type);
 void		parser_define_more_token(t_parser *parser);
 t_tree		*init_tree(int type);
+t_tree		*create_trees(char *cmd);
 
 /*		UTILS FUNCTIONS		*/
 void		free_tab(char **tab);
@@ -118,6 +122,9 @@ void		ft_putstr_fd(char *str, int fd);
 char		*ft_strcpy(char *cpy, char *src);
 char		*ft_realloc_char(char *src, t_lexer *lexer);
 void		*ft_calloc(int size, int type);
+void		*ft_memset(void *s, int c, size_t n);
+char		*ft_strdup(const char *s);
+int			ft_is_ascii(char c);
 void		blue(void);
 void		yellow(void);
 void		white(void);

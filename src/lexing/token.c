@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:08:31 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 10:09:15 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/12 16:02:38 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ t_token	*get_next_token(t_lexer	*lexer)
 	{
 		if (lexer->c == ' ')
 			lexer_next_char(lexer);
-		if (ft_isalpha(lexer->c) || lexer->c == '.' || lexer->c == '/')
+		if (ft_is_ascii(lexer->c) && (lexer->c != 34 && lexer->c != 39 
+			&& lexer->c != '$' && lexer->c != '>' && lexer->c != '<' 
+			&& lexer->c != '(' && lexer->c != ')'))
 			return (lexer_collect_id(lexer));
 		if (lexer->c == 34 || lexer->c == 39)
 			return (lexer_collect_string(lexer));
@@ -75,8 +77,6 @@ t_token	*get_next_token(t_lexer	*lexer)
 			return (lexer_collect_token(lexer, init_token(token_lparen, "(")));
 		if (lexer->c == ')')
 			return (lexer_collect_token(lexer, init_token(token_rparen, ")")));
-		if (lexer->c == '-')
-			return (lexer_collect_token(lexer, init_token(token_dash, "-")));
 	}
 	return (init_token(token_eof, NULL));
 }

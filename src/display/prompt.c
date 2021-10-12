@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:03:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 10:03:13 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/12 13:46:39 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*prompt(char *invite)
 		}
 	}
 	invite = ft_strjoin(invite, "@");
-	invite = ft_strjoin(invite, getenv("NAME"));
+	invite = ft_strjoin(invite, getenv("USERNAME"));
 	return (invite);
 }
 

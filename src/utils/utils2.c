@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:16:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 10:16:21 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/12 13:41:27 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,26 @@ void	*ft_calloc(int size, int type)
 {
 	char	*str;
 	int		total;
-	int		i;
 
 	total = size * type;
 	str = malloc(total);
 	if (!str)
 		return (NULL);
-	i = -1;
-	while (++i < size)
-		str[i] = 0;
-	str[i] = '\0';
+	ft_memset(str, 0, total);
 	return ((void *)str);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t			i;
+	unsigned char	*str;
+
+	str = s;
+	i = 0;
+	while (i < n)
+	{
+		str[i] = (unsigned char)c;
+		i++;
+	}
+	return (s);
 }

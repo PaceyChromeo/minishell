@@ -23,7 +23,8 @@ SRC_UTILS =	free_stuffs.c \
 			ft_split.c \
 			utils_color.c \
 			utils.c \
-			utils2.c
+			utils2.c \
+			utils3.c
 
 SRCS = $(addprefix ${SRC_DIR}, ${SRC})
 SRCS_DISPLAY = $(addprefix ${DISPLAY_DIR}, ${SRC_DISPLAY})

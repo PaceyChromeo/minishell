@@ -6,13 +6,13 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:11 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 11:22:12 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:10:27 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	count_pipes(char const *line, char c)
+int	count_pipes(char const *line, char c)
 {
 	int	i;
 	int	count;
@@ -72,7 +72,7 @@ static char	**ft_copy_strings(char const *s, char **dst, char c, int total)
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0' && j < total)
+	while (s[i] && j < total)
 	{
 		k = 0;
 		index = index_pipes(s, c, i);

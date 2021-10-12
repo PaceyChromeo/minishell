@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 10:05:23 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/12 14:45:26 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,12 @@ int	cmp_builtins(char *value)
 	while (i < 7)
 	{
 		if (!strcmp(bltin_lst[i], value))
-			return (1);
+		{
+			free (bltin_lst);
+			return (i);
+		}
 		i++;
 	}
-	return (0);
+	free (bltin_lst);
+	return (7);
 }
