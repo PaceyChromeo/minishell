@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:11 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 11:16:57 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/12 11:22:12 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ char	**ft_split_pipe(char const *s, char c)
 	if (!s)
 		return (NULL);
 	total = count_pipes(s, c) + 1;
-	if (total == 0)
-		return (NULL);
 	dst = (char **)ft_calloc((total + 1), sizeof(char *));
 	if (!dst)
 		return (NULL);

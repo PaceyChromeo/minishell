@@ -13,10 +13,10 @@ int main(int argc, char **argv, char **envp)
 		prompt_color();   
 	
 		line = readline("");
+		add_history(line);
 		split = ft_split_pipe(line, '|');
 		if (split != NULL)
 		{
-			add_history(line);
 			if (split)
 			{
 				for (int i = 0; split[i]; i++)
