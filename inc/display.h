@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   binaries.c                                         :+:      :+:    :+:   */
+/*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 14:50:45 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:10:32 by pacey            ###   ########.fr       */
+/*   Created: 2021/10/12 18:05:41 by pacey             #+#    #+#             */
+/*   Updated: 2021/10/12 18:27:43 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#ifndef DISPLAY_H
+# define DISPLAY_H
 
-int	cmp_binaries(char *value)
-{
-	if (!access(value, X_OK))
-		return (1);
-	return (0);
-}
+# include "minishell.h"
+
+int	prompt_color(void);
+
+#endif

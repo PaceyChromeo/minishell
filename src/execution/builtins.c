@@ -6,11 +6,11 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 14:45:26 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 18:10:50 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "execution.h"
 
 static char	**init_builtin_lst(void)
 {
@@ -39,7 +39,7 @@ int	cmp_builtins(char *value)
 	i = 0;
 	while (i < 7)
 	{
-		if (!strcmp(bltin_lst[i], value))
+		if (!ft_strcmp(bltin_lst[i], value))
 		{
 			free (bltin_lst);
 			return (i);

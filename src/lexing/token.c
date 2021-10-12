@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:08:31 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 16:02:38 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 18:34:07 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ t_token	*get_next_token(t_lexer	*lexer)
 	{
 		if (lexer->c == ' ')
 			lexer_next_char(lexer);
-		if (ft_is_ascii(lexer->c) && (lexer->c != 34 && lexer->c != 39 
-			&& lexer->c != '$' && lexer->c != '>' && lexer->c != '<' 
-			&& lexer->c != '(' && lexer->c != ')'))
+		if (ft_is_ascii(lexer->c) && (lexer->c != 34 && lexer->c != 39
+				&& lexer->c != '$' && lexer->c != '>' && lexer->c != '<'
+				&& lexer->c != '(' && lexer->c != ')'))
 			return (lexer_collect_id(lexer));
 		if (lexer->c == 34 || lexer->c == 39)
 			return (lexer_collect_string(lexer));

@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuffs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/11 11:23:54 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/12 18:01:44 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    free_tab(char **tab)
+void	free_tab(char **tab)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (tab[i])
 	{

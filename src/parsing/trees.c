@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 16:05:58 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/12 17:59:58 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,14 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 		if (parser->current_tok->type >= 7 && parser->current_tok->type <= 10)
 		{
 			tree->red[j] = ft_strdup(parser->current_tok->value);
-	 		j++;	
+			j++;
 		}
 		parser->current_tok = parser->current_tok->next;
 	}
 }
 
-t_tree *create_trees(char *cmd)
+static void	get_type_and_size(t_tree *tree, t_parser *parser)
 {
-	t_tree		*tree = init_tree(tree_nocmd);
-	t_lexer     *lexer = init_lexer(cmd);
-	t_parser    *parser = init_parser(lexer);
-	while (parser->current_tok->type != token_eof)
-		parser_next_token(parser, parser->current_tok->type);
-	parser_define_more_token(parser);
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
@@ -72,9 +66,24 @@ t_tree *create_trees(char *cmd)
 			tree->size_args++;
 		if (parser->current_tok->type > 6 && parser->current_tok->type < 11)
 			tree->size_red++;
-	 	parser->current_tok = parser->current_tok->next;
+		parser->current_tok = parser->current_tok->next;
 	}
+}
+
+t_tree	*create_trees(char *cmd)
+{
+	t_tree		*tree;
+	t_lexer		*lexer;
+	t_parser	*parser;
+
+	tree = init_tree(tree_nocmd);
+	lexer = init_lexer(cmd);
+	parser = init_parser(lexer);
+	while (parser->current_tok->type != token_eof)
+		parser_next_token(parser, parser->current_tok->type);
+	parser_define_more_token(parser);
+	get_type_and_size(tree, parser);
 	get_args_and_red(tree, parser);
 	free (parser);
-	return (tree);	
+	return (tree);
 }
