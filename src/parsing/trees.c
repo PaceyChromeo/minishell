@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 22:56:59 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/13 11:51:42 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 
 	i = 0;
 	j = 0;
-	if (tree->size_args > 0)
-		tree->args = ft_calloc(tree->size_args, sizeof(char *));
-	if (tree->size_red > 0)
-		tree->red = ft_calloc(tree->size_red, sizeof(char *));
+	tree->args = ft_calloc(tree->size_args + 1, sizeof(char *));
+	tree->red = ft_calloc(tree->size_red + 1, sizeof(char *));
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
@@ -53,6 +51,8 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 		}
 		parser->current_tok = parser->current_tok->next;
 	}
+	tree->args[i] = NULL;
+	tree->red[j] = NULL;
 }
 
 static void	get_type_and_size(t_tree *tree, t_parser *parser)

@@ -50,7 +50,7 @@ int main(int argc, char **argv, char **envp)
 					// 	printf("token type : %d | token value : %s\n", parser->current_tok->type, parser->current_tok->value);
 					// 	parser->current_tok = parser->current_tok->next;
 					// }
-					i++;
+					y++;
 				}
 			}
 		}
