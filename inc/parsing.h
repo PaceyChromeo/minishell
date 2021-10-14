@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/14 15:28:33 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/14 17:52:56 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ void		parser_next_token(t_parser *parser, int type);
 void		parser_define_more_token(t_parser *parser);
 t_tree		*init_tree(int type);
 t_tree		*create_trees(char *cmd);
+
+void		exec_pipes(t_tree **cmd, char **env);
 
 #endif

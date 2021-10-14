@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/13 11:51:42 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 17:12:35 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
-		if (parser->current_tok->type >= 2 && parser->current_tok->type <= 5)
+		if (parser->current_tok->type >= 1 && parser->current_tok->type <= 5)
 		{
 			tree->args[i] = ft_strdup(parser->current_tok->value);
 			i++;

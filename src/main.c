@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
+/*   Updated: 2021/10/14 18:48:30 by hkrifa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int main(int argc, char **argv, char **envp)
@@ -10,10 +22,12 @@ int main(int argc, char **argv, char **envp)
     (void)envp;
     while (ok)
 	{
-		prompt_color();   
-	
-		line = readline("");
-		add_history(line);
+		//prompt_color();   
+		line = readline("~ minishell $");
+		if (ft_strlen(line) > 0)
+			add_history(line);
+		if (!ft_strcmp(line, "exit"))
+			exit(0);
 		split = ft_split_pipe(line, '|');
 		if (split != NULL)
 		{
@@ -30,30 +44,12 @@ int main(int argc, char **argv, char **envp)
 				while (split[y])
 				{
 					root[y] = create_trees(split[y]);
-					// printf("tree[%d] with cmd_type : %d\nsize_args : %d size_red : %d\n", y, root[y]->cmd_type, root[y]->size_args, root[y]->size_red);
-					// for (int j = 0; root[y]->args[j]; j++)
-					// 	printf("args[%d] = %s\n", j, root[y]->args[j]);
-					// for (int x = 0; root[y]->red[x]; x++)
-					// 	printf("red[%d] = %s\n", x, root[y]->red[x]);
-					// t_lexer     *lexer = init_lexer(split[0]);
-					// t_parser    *parser = init_parser(lexer);
-					// while (parser->current_tok->type != token_eof)
-					// {
-					// 	printf("token type : %d | token value : %s\n", parser->current_tok->type, parser->current_tok->value);
-					// 	parser_next_token(parser, parser->current_tok->type);
-					// }
-					// printf("----------------------------\n");
-					// parser_define_more_token(parser);
-					// parser->current_tok = parser->first_tok;
-					// while (parser->current_tok->type != token_eof)
-					// {
-					// 	printf("token type : %d | token value : %s\n", parser->current_tok->type, parser->current_tok->value);
-					// 	parser->current_tok = parser->current_tok->next;
-					// }
 					y++;
 				}
 				root[y] = NULL;
+				exec_pipes(root, envp);
 			}
+
 		}
 	}
 	return (0);

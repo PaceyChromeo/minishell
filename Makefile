@@ -15,18 +15,21 @@ SRC = main.c
 SRC_DISPLAY = prompt.c
 SRC_EXEC =	binaries.c \
 			builtins.c \
-			path.c
+			path.c \
+			pipes.c \
+
 SRC_LEXING =	lexer.c \
 				token.c
 SRC_PARSING =	ft_split_pipe.c \
 				parser.c \
 				trees.c
-SRC_UTILS =	free_stuffs.c \
+SRC_UTILS =	debug_funcs.c \
+			free_stuffs.c \
 			ft_split.c \
 			utils_color.c \
 			utils.c \
 			utils2.c \
-			utils3.c
+			utils3.c \
 
 SRCS = $(addprefix ${SRC_DIR}, ${SRC})
 SRCS_DISPLAY = $(addprefix ${DISPLAY_DIR}, ${SRC_DISPLAY})
