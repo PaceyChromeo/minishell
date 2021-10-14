@@ -16,7 +16,8 @@ SRC_DISPLAY = prompt.c
 SRC_EXEC =	binaries.c \
 			builtins.c \
 			path.c
-SRC_LEXING =	lexer.c \
+SRC_LEXING =	environment.c \
+				lexer.c \
 				token.c
 SRC_PARSING =	ft_split_pipe.c \
 				parser.c \

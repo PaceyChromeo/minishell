@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/14 17:26:54 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:44:22 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ char	*get_path(char *cmd)
 	i = -1;
 	while (tab[++i])
 	{
-		if (access(tab[i], F_OK) != -1)
+		if (access(tab[i], F_OK) == 0)
 		{
-			good_path = tab[i];
+			good_path = ft_strdup(tab[i]);
 			free_tab(tab);
 			return (good_path);
 		}

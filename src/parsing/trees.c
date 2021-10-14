@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/14 17:37:00 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 22:54:56 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 				tree->cmd_type = cmp_builtins(parser->current_tok->value);
 			else if (cmp_binaries(parser->current_tok->value))
 				tree->cmd_type = tree_execve;
-			else
-				tree->cmd_type = tree_nocmd;
 			tree->cmd_value = ft_strdup(parser->current_tok->value);
 		}
 		if (parser->current_tok->type > 1 && parser->current_tok->type < 6)
@@ -78,6 +76,8 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 		parser->current_tok = parser->current_tok->next;
 	}
 }
+
+
 
 t_tree	*create_trees(char *cmd)
 {
@@ -93,6 +93,5 @@ t_tree	*create_trees(char *cmd)
 	parser_define_more_token(parser);
 	get_type_and_size(tree, parser);
 	get_args_and_red(tree, parser);
-	//free (parser);
 	return (tree);
 }

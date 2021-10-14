@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:11:48 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/12 18:28:00 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 23:48:45 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
+int			count_env_in_string(t_token *token);
+char		*check_env_in_str(t_token *token);
+char		*parser_get_env(t_token *token, int i);
+char		*get_str_with_env(t_token *token);
 t_token		*init_token(int type, char *value);
 t_token		*get_next_token(t_lexer	*lexer);
 t_lexer		*init_lexer(char *value);

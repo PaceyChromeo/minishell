@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/14 15:23:05 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/14 23:46:24 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_token	*lexer_collect_env(t_lexer *lexer)
 	char	*value;
 
 	value = NULL;
+	value = ft_realloc_char(value, lexer);
 	lexer_next_char(lexer);
 	while (ft_isalpha(lexer->c) || lexer->c == '_')
 	{
