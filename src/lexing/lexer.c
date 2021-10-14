@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:33:44 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 15:23:05 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 
 	value = NULL;
 	while (lexer->c != 32 && lexer->c != 34 && lexer->c != 39 && lexer->c != 36
-		&& lexer->c != '\0' && lexer->c != '(' && lexer->c != ')')
+		&& lexer->c != '\0' && lexer->c != '(' && lexer->c != ')'
+		&& lexer->c != '<' && lexer->c != '>')
 	{
 		value = ft_realloc_char(value, lexer);
 		lexer_next_char(lexer);

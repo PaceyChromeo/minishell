@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 22:02:26 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 15:13:33 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@ void	parser_define_more_token(t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
+		if ((parser->current_tok->type > 6 && parser->current_tok->type < 11)
+			&& parser->current_tok->next->type == token_id)
+			parser->current_tok->next->type = token_file;
+		parser->current_tok = parser->current_tok->next;
+	}
+	parser->current_tok = parser->first_tok;
+	while (parser->current_tok->type != token_eof)
+	{
 		if (parser->current_tok->type == token_id
 			&& (cmp_builtins(parser->current_tok->value)) < 7 && !cmd)
 		{
 			parser->current_tok->type = token_cmd;
 			cmd++;
 		}
-		parser->current_tok = parser->current_tok->next;
-	}
-	parser->current_tok = parser->first_tok;
-	while (parser->current_tok->type != token_eof)
-	{
-		if ((parser->current_tok->type > 6 && parser->current_tok->type < 11)
-			&& parser->current_tok->next->type == token_id)
-			parser->current_tok->next->type = token_file;
 		parser->current_tok = parser->current_tok->next;
 	}
 }
