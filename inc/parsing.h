@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/14 23:36:09 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 23:53:27 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ char		*rebuild_str_with_env(t_token *token, char **env_tab);
 void		parser_define_env(t_parser *parser);
 t_tree		*init_tree(int type);
 t_tree		*create_trees(char *cmd);
+
+void		exec_pipes(t_tree **cmd, char **env);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
+/*   Updated: 2021/10/14 23:54:29 by pacey            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int main(int argc, char **argv, char **envp)
@@ -10,10 +22,12 @@ int main(int argc, char **argv, char **envp)
     (void)envp;
     while (ok)
 	{
-		prompt_color();   
-	
-		line = readline("");
-		add_history(line);
+		//prompt_color();   
+		line = readline("~ minishell $");
+		if (ft_strlen(line) > 0)
+			add_history(line);
+		if (!ft_strcmp(line, "exit"))
+			exit(0);
 		split = ft_split_pipe(line, '|');
 		if (split != NULL)
 		{
@@ -53,7 +67,9 @@ int main(int argc, char **argv, char **envp)
 					y++;
 				}
 				root[y] = NULL;
+				exec_pipes(root, envp);
 			}
+
 		}
 	}
 	return (0);
