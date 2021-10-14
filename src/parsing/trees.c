@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/13 11:51:42 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 17:37:00 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_tree	*init_tree(int type)
 	if (!new_tree)
 		return (NULL);
 	new_tree->cmd_type = type;
+	new_tree->cmd_value = NULL;
 	new_tree->args = NULL;
 	new_tree->red = NULL;
 	new_tree->size_args = 0;
@@ -61,9 +62,17 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 	while (parser->current_tok->type != token_eof)
 	{
 		if (parser->current_tok->type == token_cmd)
-			tree->cmd_type = cmp_builtins(parser->current_tok->value);
+		{
+			if (cmp_builtins(parser->current_tok->value) < 7)
+				tree->cmd_type = cmp_builtins(parser->current_tok->value);
+			else if (cmp_binaries(parser->current_tok->value))
+				tree->cmd_type = tree_execve;
+			else
+				tree->cmd_type = tree_nocmd;
+			tree->cmd_value = ft_strdup(parser->current_tok->value);
+		}
 		if (parser->current_tok->type > 1 && parser->current_tok->type < 6)
-			tree->size_args++;
+			                    tree->size_args++;
 		if (parser->current_tok->type >= 6 && parser->current_tok->type < 11)
 			tree->size_red++;
 		parser->current_tok = parser->current_tok->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/14 15:28:33 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/14 17:33:06 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ typedef struct s_tree
 		tree_unset,
 		tree_env,
 		tree_exit,
+		tree_execve
 	}		cmd_type;
+	char	*cmd_value;
 	char	**args;
 	char	**red;
 	int		size_args;

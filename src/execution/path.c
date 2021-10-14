@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:36:44 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/14 17:26:54 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char	*get_path(char *cmd)
 			return (good_path);
 		}
 	}
+	free_tab(tab);
 	return (NULL);
 }

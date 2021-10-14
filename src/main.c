@@ -30,11 +30,11 @@ int main(int argc, char **argv, char **envp)
 				while (split[y])
 				{
 					root[y] = create_trees(split[y]);
-					// printf("tree[%d] with cmd_type : %d\nsize_args : %d size_red : %d\n", y, root[y]->cmd_type, root[y]->size_args, root[y]->size_red);
-					// for (int j = 0; root[y]->args[j]; j++)
-					// 	printf("args[%d] = %s\n", j, root[y]->args[j]);
-					// for (int x = 0; root[y]->red[x]; x++)
-					// 	printf("red[%d] = %s\n", x, root[y]->red[x]);
+					printf("tree[%d] with cmd_type : %d and name : %s\nsize_args : %d size_red : %d\n", y, root[y]->cmd_type, root[y]->cmd_value, root[y]->size_args, root[y]->size_red);
+					for (int j = 0; root[y]->args[j]; j++)
+						printf("args[%d] = %s\n", j, root[y]->args[j]);
+					for (int x = 0; root[y]->red[x]; x++)
+						printf("red[%d] = %s\n", x, root[y]->red[x]);
 					// t_lexer     *lexer = init_lexer(split[0]);
 					// t_parser    *parser = init_parser(lexer);
 					// while (parser->current_tok->type != token_eof)
