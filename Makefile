@@ -17,6 +17,7 @@ SRC_EXEC =	binaries.c \
 			builtins.c \
 			path.c \
 			pipes.c \
+			redirections.c \
 
 SRC_LEXING =	lexer.c \
 				token.c

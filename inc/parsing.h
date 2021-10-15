@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/14 17:52:56 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/15 14:28:32 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ t_tree		*init_tree(int type);
 t_tree		*create_trees(char *cmd);
 
 void		exec_pipes(t_tree **cmd, char **env);
+void		redirections(t_tree **cmds, int i);
 
 #endif
