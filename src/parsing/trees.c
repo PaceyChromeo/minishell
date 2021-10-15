@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/14 23:54:14 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/15 11:53:08 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
-		if (parser->current_tok->type >= 1 && parser->current_tok->type <= 5)
+		if (parser->current_tok->type > 1 && parser->current_tok->type < 6)
 		{
 			tree->args[i] = ft_strdup(parser->current_tok->value);
 			i++;
@@ -77,8 +77,6 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 	}
 }
 
-
-
 t_tree	*create_trees(char *cmd)
 {
 	t_tree		*tree;
@@ -91,6 +89,7 @@ t_tree	*create_trees(char *cmd)
 	while (parser->current_tok->type != token_eof)
 		parser_next_token(parser, parser->current_tok->type);
 	parser_define_more_token(parser);
+	parser_get_token_with_env(parser);
 	get_type_and_size(tree, parser);
 	get_args_and_red(tree, parser);
 	return (tree);

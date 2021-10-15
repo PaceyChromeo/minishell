@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/14 23:46:24 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/15 15:33:10 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,25 @@ void	lexer_next_char(t_lexer *lexer)
 t_token	*lexer_collect_id(t_lexer *lexer)
 {
 	char	*value;
+	char	mutex;
 
 	value = NULL;
-	while (lexer->c != 32 && lexer->c != 34 && lexer->c != 39 && lexer->c != 36
-		&& lexer->c != '\0' && lexer->c != '(' && lexer->c != ')'
+	while (lexer->c != ' ' && lexer->c != '\0'
 		&& lexer->c != '<' && lexer->c != '>')
 	{
-		value = ft_realloc_char(value, lexer);
+		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
+		if (lexer->c == 34 || lexer->c == 39)
+		{
+			mutex = lexer->c;
+			value = ft_realloc_char(value, lexer->c);
+			lexer_next_char(lexer);
+			while (lexer->c != mutex)
+			{
+				value = ft_realloc_char(value, lexer->c);
+				lexer_next_char(lexer);
+			}
+		}
 	}
 	return (init_token(token_id, value));
 }
@@ -59,7 +70,7 @@ t_token	*lexer_collect_string(t_lexer *lexer)
 	lexer_next_char(lexer);
 	while (lexer->c != quote)
 	{
-		value = ft_realloc_char(value, lexer);
+		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
 		if (lexer->c == '\0')
 		{
@@ -79,11 +90,11 @@ t_token	*lexer_collect_env(t_lexer *lexer)
 	char	*value;
 
 	value = NULL;
-	value = ft_realloc_char(value, lexer);
+	value = ft_realloc_char(value, lexer->c);
 	lexer_next_char(lexer);
 	while (ft_isalpha(lexer->c) || lexer->c == '_')
 	{
-		value = ft_realloc_char(value, lexer);
+		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
 	}
 	return (init_token(token_env, value));

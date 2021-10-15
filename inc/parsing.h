@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/14 23:53:27 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/15 10:49:40 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ char		**ft_split_pipe(char const *s, char c);
 t_parser	*init_parser(t_lexer *lexer);
 void		parser_next_token(t_parser *parser, int type);
 void		parser_define_more_token(t_parser *parser);
-char		*rebuild_str_with_env(t_token *token, char **env_tab);
-void		parser_define_env(t_parser *parser);
+void		parser_get_token_with_env(t_parser *parser);
 t_tree		*init_tree(int type);
 t_tree		*create_trees(char *cmd);
 

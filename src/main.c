@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/14 23:54:29 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/15 11:48:22 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv, char **envp)
 					y++;
 				}
 				root[y] = NULL;
-				exec_pipes(root, envp);
+				//exec_pipes(root, envp);
 			}
 
 		}

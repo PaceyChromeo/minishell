@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:16:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 18:01:58 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/15 11:44:26 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strcpy(char *cpy, char *src)
 	return (cpy);
 }
 
-char	*ft_realloc_char(char *src, t_lexer *lexer)
+char	*ft_realloc_char(char *src, char c)
 {
 	char	*new_str;
 	int		i;
@@ -51,7 +51,7 @@ char	*ft_realloc_char(char *src, t_lexer *lexer)
 		new_str = malloc(sizeof(char) * 2);
 		if (!new_str)
 			return (NULL);
-		new_str[0] = lexer->c;
+		new_str[0] = c;
 		new_str[1] = '\0';
 	}
 	else
@@ -61,7 +61,7 @@ char	*ft_realloc_char(char *src, t_lexer *lexer)
 			return (NULL);
 		while (src[++i])
 			new_str[i] = src[i];
-		new_str[i++] = lexer->c;
+		new_str[i++] = c;
 		new_str[i] = '\0';
 		free(src);
 	}

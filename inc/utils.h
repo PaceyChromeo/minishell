@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:18:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/14 16:00:12 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/15 11:43:33 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_isalpha(char c);
 void	ft_putstr_fd(char *str, int fd);
 char	*ft_strcpy(char *cpy, char *src);
-char	*ft_realloc_char(char *src, t_lexer *lexer);
+char	*ft_realloc_char(char *src, char c);
 void	*ft_calloc(int size, int type);
 void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strdup(const char *s);
 int		ft_is_ascii(char c);
+char	*ft_realloc(char *s1, char *s2);
 void	blue(void);
 void	yellow(void);
 void	white(void);

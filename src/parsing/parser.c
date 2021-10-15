@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/14 23:56:51 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/15 15:20:56 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,33 +68,16 @@ void	parser_define_more_token(t_parser *parser)
 	}
 }
 
-char	*rebuild_str_with_env(t_token *token, char **env_tab)
-{
-	int	i;
-	int	x;
-
-	x = 0;
-	i = -1;
-	while (token->value[++i])
-	{
-		env_tab[x++] = token->value;
-	}
-	return (token->value);
-}
-
-void	parser_define_env(t_parser *parser)
+void	parser_get_token_with_env(t_parser *parser)
 {
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
-		if (parser->current_tok->type == token_env)
+		if (parser->current_tok->type > 1 && parser->current_tok->type < 5)
 		{
-			free (parser->current_tok->value);
-			parser->current_tok->value = parser_get_env(parser->current_tok, 1);
+			if (count_env_in_string(parser->current_tok))
+				parser->current_tok->value = get_str_with_env(parser->current_tok);
 		}
-		if ((parser->current_tok->type == 3 || parser->current_tok->type == 4)
-			&& count_env_in_string(parser->current_tok) > 0)
-			parser->current_tok->value = get_str_with_env(parser->current_tok);
 		parser->current_tok = parser->current_tok->next;
 	}
 }
