@@ -5,7 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
+/*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
+/*   Updated: 2021/10/16 14:17:25 by pacey            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PARSING_H
 # define PARSING_H
 
 # include "minishell.h"
