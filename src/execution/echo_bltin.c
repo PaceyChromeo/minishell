@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:56:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/16 16:57:00 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 17:08:03 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static	void	print_args_with_fd_tab(t_tree *tree, int *fd_tab, int option)
 				ft_putchar_fd(' ', fd_tab[j]);
 			if (!tree->args[i + 1] && !option)
 				ft_putchar_fd('\n', fd_tab[j]);
+			close(fd_tab[j]);
 			j++;
 		}
 		i++;
@@ -132,6 +133,7 @@ void	exec_echo(t_tree *tree)
 	{
 		fd_tab = create_tab_fd(tree);
 		print_args_with_fd_tab(tree, fd_tab, option);
+		free(fd_tab);
 	}
 	else
 		print_args_with_stdout(tree, option);

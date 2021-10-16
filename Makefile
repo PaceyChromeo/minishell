@@ -13,9 +13,11 @@ SRC = main.c
 SRC_DISPLAY = prompt.c
 SRC_EXEC =	binaries.c \
 			builtins.c \
+			cd_bltin.c \
 			echo_bltin.c \
 			path.c	\
 			pipes.c \
+			pwd_bltin.c \
 			redirections.c
 SRC_LEXING =	environment.c \
 				lexer.c \

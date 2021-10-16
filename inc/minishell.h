@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/15 15:33:52 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/16 17:05:18 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <dirent.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <readline/readline.h>
