@@ -6,11 +6,6 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:15:46 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/15 10:49:40 by pacey            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef PARSING_H
 # define PARSING_H
 
 # include "minishell.h"
@@ -55,5 +50,6 @@ t_tree		*init_tree(int type);
 t_tree		*create_trees(char *cmd);
 
 void		exec_pipes(t_tree **cmd, char **env);
+void		redirections(t_tree **cmds, int i);
 
 #endif

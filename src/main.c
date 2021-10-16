@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/15 11:48:22 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 14:13:40 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ int main(int argc, char **argv, char **envp)
     while (ok)
 	{
 		//prompt_color();   
-		line = readline("~ minishell $");
+		line = readline("minishell ");
 		if (ft_strlen(line) > 0)
 			add_history(line);
-		if (!ft_strcmp(line, "exit"))
-			exit(0);
 		split = ft_split_pipe(line, '|');
-		if (split != NULL)
+		if (!ft_strcmp(line, "exit"))
+		{
+			ft_putstr_fd("exit\n", 1);
+			exit(0);
+		}
+		else if (split != NULL)
 		{
 			if (split)
 			{
@@ -69,7 +72,6 @@ int main(int argc, char **argv, char **envp)
 				root[y] = NULL;
 				//exec_pipes(root, envp);
 			}
-
 		}
 	}
 	return (0);
