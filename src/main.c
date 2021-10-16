@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/16 21:43:18 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 21:52:06 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	int	ok = 1;
-	const char *line;
-	char **split;
+	int		ok = 1;
+	char	*prompt;
+	char	*line;
+	char	**split;
 	(void)argc;
 	(void)argv;
     (void)envp;
     while (ok)
 	{
-		line = prompt_color();   
-		printf("%s", line);
-		line = readline("");
+		prompt = prompt_color();   
+		line = readline(prompt);
 		if (ft_strlen(line) > 0)
 			add_history(line);
 		split = ft_split_pipe(line, '|');
