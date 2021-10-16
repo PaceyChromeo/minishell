@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/15 15:20:56 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:54:02 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	parser_get_token_with_env(t_parser *parser)
 		if (parser->current_tok->type > 1 && parser->current_tok->type < 5)
 		{
 			if (count_env_in_string(parser->current_tok))
-				parser->current_tok->value = get_str_with_env(parser->current_tok);
+				parser->current_tok->value
+					= get_str_with_env(parser->current_tok);
 		}
 		parser->current_tok = parser->current_tok->next;
 	}

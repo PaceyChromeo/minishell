@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/16 14:17:25 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 14:35:29 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "minishell.h"
+# include "lexing.h"
 
 typedef struct s_parser
 {

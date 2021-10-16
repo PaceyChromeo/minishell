@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:02:13 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/15 11:42:52 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:56:03 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,19 @@ char	*ft_realloc(char *s1, char *s2)
 		s_realloc[i + j] = s2[j];
 	s_realloc[i + j] = '\0';
 	return (s_realloc);
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+int	create_and_open_file(char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_CREAT | O_WRONLY);
+	if (!fd)
+		return (-1);
+	return (fd);
 }

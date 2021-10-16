@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/15 17:47:52 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/16 16:48:12 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int j = 0;
-
-int	execute(t_tree **cmds, char **env, int i)
+static int	execute(t_tree **cmds, char **env, int i)
 {
-	int exec;
-	char *path;
+	int		exec;
+	char	*path;
 
 	path = get_path(cmds[i]->args[0]);
 	exec = execve(path, cmds[i]->args, env);
@@ -29,13 +27,14 @@ int	execute(t_tree **cmds, char **env, int i)
 	return (1);
 }
 
-void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
+static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 {
 	int		new_pipefd[2];
 	pid_t	pid;
 
 	pipe(new_pipefd);
-	if ((pid = fork()) == -1)
+	pid = fork();
+	if (pid == -1)
 	{
 		perror("fork");
 		return ;
@@ -61,15 +60,15 @@ void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 	close(new_pipefd[0]);
 }
 
-void exec_pipes(t_tree **cmds, char **env)
+void	exec_pipes(t_tree **cmds, char **env)
 {
-	int i;
-	int fd[2];
-	
+	int	i;
+	int	fd[2];
+
 	i = 0;
 	pipe(fd);
 	multipipes(cmds, fd, i, env);
 	close(fd[1]);
 	close(fd[0]);
-	while(wait(NULL)>0);
+	while (wait(NULL) > 0);
 }

@@ -2,8 +2,6 @@ NAME = minishell
 
 SRC_DIR = src/
 INC_DIR = inc/
-OBJ_DIR = obj/
-
 
 DISPLAY_DIR = $(addprefix ${SRC_DIR}, display/)
 LEXING_DIR = $(addprefix ${SRC_DIR}, lexing/)
@@ -15,8 +13,10 @@ SRC = main.c
 SRC_DISPLAY = prompt.c
 SRC_EXEC =	binaries.c \
 			builtins.c \
+			echo_bltin.c \
 			path.c	\
-			pipes.c
+			pipes.c \
+			redirections.c
 SRC_LEXING =	environment.c \
 				lexer.c \
 				token.c
@@ -29,7 +29,7 @@ SRC_UTILS =	debug_funcs.c \
 			utils_color.c \
 			utils.c \
 			utils2.c \
-			utils3.c \
+			utils3.c
 
 SRCS = $(addprefix ${SRC_DIR}, ${SRC})
 SRCS_DISPLAY = $(addprefix ${DISPLAY_DIR}, ${SRC_DISPLAY})
