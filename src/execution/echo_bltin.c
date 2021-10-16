@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:56:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/16 16:42:44 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:57:00 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	exec_echo(t_tree *tree)
 
 	fd_tab = NULL;
 	option = 0;
-	if (!(ft_strcmp(tree->args[i], "-n")))
+	if (!(ft_strcmp(tree->args[0], "-n")))
 		option = 1;
 	if (count_good_redir(tree->red) > 0)
 	{
