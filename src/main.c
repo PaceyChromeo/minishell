@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/16 14:50:29 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/16 21:43:18 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int main(int argc, char **argv, char **envp)
     (void)envp;
     while (ok)
 	{
-		//prompt_color();   
-		line = readline("minishell ");
+		line = prompt_color();   
+		printf("%s", line);
+		line = readline("");
 		if (ft_strlen(line) > 0)
 			add_history(line);
 		split = ft_split_pipe(line, '|');

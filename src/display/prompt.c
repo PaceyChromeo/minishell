@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:03:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/15 16:29:24 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/16 21:39:29 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,27 @@ static char	*prompt(char *invite)
 		}
 	}
 	invite = ft_strjoin(invite, "@");
-	invite = ft_strjoin(invite, getenv("USERNAME"));
+	invite = ft_realloc(invite, getenv("USERNAME"));
 	return (invite);
 }
 
-int	prompt_color(void)
+char	*prompt_color(void)
 {
-	char		*invite;
 	char const	*absolute_p;
 	char		**relative_p;
+	char		*invite;
 
 	invite = NULL;
 	invite = prompt(invite);
-	blue();
-	printf("%s", invite);
-	white();
 	absolute_p = getenv("PWD");
 	if (absolute_p == NULL)
 	{
 		absolute_p = "";
 	}
 	relative_p = ft_split(absolute_p, '/');
-	yellow();
-	printf(":~/%s", relative_p[2]);
-	white();
-	printf("$ ");
-	return (0);
+	invite = ft_realloc(invite, ":~/");
+	invite = ft_realloc(invite, relative_p[2]);
+	invite = ft_realloc(invite, "$ ");
+	free_tab(relative_p);
+	return (invite);
 }
