@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/18 13:03:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:11:24 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void		parser_define_more_token(t_parser *parser);
 void		parser_get_token_with_env(t_parser *parser);
 t_tree		*init_tree(int type);
 t_tree		*create_trees(char *cmd);
-
 void		exec_pipes(t_tree **cmd, char **env);
-void		redirections(t_tree **cmds, int i);
 
 #endif

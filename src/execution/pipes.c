@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 11:11:22 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:56:19 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 {
 	int		new_pipefd[2];
 	pid_t	pid;
+	int		fd;
 
 	pipe(new_pipefd);
 	pid = fork();
@@ -39,7 +40,6 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 		perror("fork");
 		return ;
 	}
-	
 	if (pid == 0)
 	{
 		if (cmds[i + 1] != NULL)
@@ -47,13 +47,19 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 		if (i != 0)
 			dup2(old_pipefd[0], 0);
 		if (cmds[i]->size_red > 0)
-			redirections(cmds, i);
+			fd = redirections(cmds, i);
 		close(old_pipefd[0]);
 		close(old_pipefd[1]);
 		close(new_pipefd[0]);
 		close(new_pipefd[1]);
-		if (!execute(cmds, env, i))
-			return ;
+		print_tree(cmds[i]);
+		if (cmds[i]->cmd_type >= 0 && cmds[i]->cmd_type <= 6)
+			exec_bltin(cmds[i]);
+		else if (cmds[i]->cmd_type == 7)
+		{
+			if (!execute(cmds, env, i))
+				return ;
+		}
 	}
 	close(new_pipefd[1]);
 	if (cmds[i + 1] != NULL)

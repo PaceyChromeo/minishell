@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 14:23:28 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 10:47:25 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:45:20 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static int	right_redir(t_tree **cmds, int i, int j)
 	if (fileout == -1)
 	{
 		perror("open");
-		return (0);
+		return (1);
 	}
 	if (cmds[i]->red[j + 2] == NULL)
 	 	dup2(fileout, 1);
-	return (1);
+	return (fileout);
 }
 
 static int	double_right_redir(t_tree **cmds, int i, int j)
@@ -35,12 +35,11 @@ static int	double_right_redir(t_tree **cmds, int i, int j)
 	if (fileout == -1)
 	{
 		perror("open");
-		return (0);
+		return (1);
 	}
 	if (cmds[i]->red[j + 2] == NULL)
 	 	dup2(fileout, 1);
-	
-	return (1);
+	return (fileout);
 }
 
 static int	left_redir(t_tree **cmds, int i, int j)
@@ -53,9 +52,8 @@ static int	left_redir(t_tree **cmds, int i, int j)
 		perror("open");
 		return (0);
 	}
-	if (j == 0)
-		dup2(filein, 0);
-	return (1);
+	dup2(filein, 0);
+	return (filein);
 }
 
 // static int	double_left_redir(t_tree **cmds, int i, int j)
@@ -74,9 +72,10 @@ static int	left_redir(t_tree **cmds, int i, int j)
 // 	return (1);
 // }
 
-void	redirections(t_tree **cmds, int i)
+int	redirections(t_tree **cmds, int i)
 {
 	int	j;
+	int	fd;
 
 	j = 0;
 	while (cmds[i]->red[j] != NULL)
@@ -84,19 +83,25 @@ void	redirections(t_tree **cmds, int i)
 		if (!ft_strcmp(cmds[i]->red[j], ">"))
 		{
 			//printf(">\n");
-			if (!right_redir(cmds, i, j))
-				return ;
+			fd = right_redir(cmds, i, j);
+			if (fd == -1)
+				return (-1);
+			return (fd);
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], ">>"))
 		{
 			//printf(">>\n");
-			if (!double_right_redir(cmds, i, j))
-				return ;
+			fd = double_right_redir(cmds, i, j);
+			if (!fd)
+				return (-1);
+			return (fd);
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], "<"))
 		{
-			if (!left_redir(cmds, i, j))
-				return ;
+			fd = left_redir(cmds, i, j);
+			if (!fd)
+				return (-1);
+			return (fd);
 		}
 		// else if (!ft_strcmp(cmds[i]->red[j], "<<"))
 		// {
@@ -106,4 +111,5 @@ void	redirections(t_tree **cmds, int i)
 		// }
 		j++;
 	}
+	return (-1);
 }

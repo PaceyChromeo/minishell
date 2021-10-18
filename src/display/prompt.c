@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:03:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/16 21:39:29 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/18 15:53:55 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,16 @@ char	*prompt_color(void)
 	invite = ft_realloc(invite, "$ ");
 	free_tab(relative_p);
 	return (invite);
+}
+
+char	*display_prompt(void)
+{
+	char	*prompt;
+	char	*line;
+
+	prompt = prompt_color();   
+	line = readline(prompt);
+	if (ft_strlen(line) > 0)
+		add_history(line);
+	return (line);
 }

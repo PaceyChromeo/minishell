@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 15:03:41 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:52:07 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void echo(char **arg)
 
 	opt = 0;
 	i = 1;
-
 	if (echo_option(arg[i]) == 1 && arg[i] != NULL)
 	{
 		opt = 1;
@@ -27,17 +26,13 @@ void echo(char **arg)
 	}
 	while(arg[i] != '\0')
 	{
-		if (opt == 1 && arg[i + 1] == '\0')
-			ft_putstr_fd(arg[i], STDOUT_FILENO);
-		else
-		{
-			ft_putstr_fd(arg[i], STDOUT_FILENO);
-			write(STDOUT_FILENO, " ", 1);
-		}			
+		ft_putstr_fd(arg[i], 1);
+		if (arg[i + 1])
+			write(1, " ", 1);
 		i++;
 	}
 	if (opt != 1)
-		write(STDOUT_FILENO, "\n", 1);
+		write(1, "\n", 1);
 }
 
 void cd(char *path)

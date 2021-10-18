@@ -10,8 +10,10 @@ PARSING_DIR = $(addprefix ${SRC_DIR}, parsing/)
 UTILS_DIR = $(addprefix ${SRC_DIR}, utils/)
 
 SRC = main.c
-SRC_DISPLAY =	prompt.c \
-				errors.c 
+SRC_DISPLAY =	errors.c \
+				multi_cmd.c \
+				prompt.c \
+				single_cmd.c
 SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
 			builtins.c \

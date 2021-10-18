@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   single_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 18:05:41 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/18 15:55:34 by pjacob           ###   ########.fr       */
+/*   Created: 2021/10/18 15:43:53 by pjacob            #+#    #+#             */
+/*   Updated: 2021/10/18 16:49:56 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#include "display.h"
 
-# include "minishell.h"
-# include "parsing.h"
+int	treat_single_cmd(char *line, char **envp)
+{
+	(void)envp;
+	t_tree	*cmd;
+	int		fd;
 
-char	*prompt_color(void);
-int		error_handler(t_tree *tree);
-int		check_forbidden_char(char *line);
-int		treat_single_cmd(char *line, char **envp);
-int		treat_multi_cmd(char *line, int cmd_nbr, char **envp);
-char	*display_prompt(void);
-
-#endif
+	cmd = create_trees(line);
+	//print_tree(cmd);
+	error_handler(cmd);
+	if (cmd->size_red)
+		fd = redirections(&cmd, 0);
+	else
+		fd = STDOUT_FILENO;
+	//printf("fd : %d\n", fd);
+	exec_bltin(cmd, fd);
+	return (0);
+}
