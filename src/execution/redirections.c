@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 14:23:28 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 10:47:25 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:26:20 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,43 +53,46 @@ static int	left_redir(t_tree **cmds, int i, int j)
 		perror("open");
 		return (0);
 	}
-	if (j == 0)
-		dup2(filein, 0);
+	dup2(filein, 0);
 	return (1);
 }
 
-// static int	double_left_redir(t_tree **cmds, int i, int j)
-// {
-// 	int temp;
-// 	char *line;
-
-// 	temp = open("temp.txt", O_CREAT | O_WRONLY, 0777);
-// 	while (write(1, "heredoc> ", ft_strlen("heredoc> ")) 
-// 		&& get_next_line(0, &line) > 0 && (ft_strcmp(line, ) != 0))
-// 	{
-// 		write(temp, line, ft_strlen(line));
-// 		write(temp, "\n", 1);
-// 	}
-// 	//unlink("temp.txt");
-// 	return (1);
-// }
+static int	double_left_redir(t_tree **cmds, int i, int j)
+{
+	int temp;
+	char *line;
+	char *limiter;
+	(void)i;
+	(void)j;
+	(void)cmds;
+	temp = open("temp.txt", O_CREAT | O_WRONLY, 0777);
+	while (write(1, "heredoc> ", ft_strlen("heredoc> ")) 
+		&& get_next_line(0, &line) > 0 && (ft_strcmp(line, limiter) != 0))
+	{
+		write(temp, line, ft_strlen(line));
+		write(temp, "\n", 1);
+	}
+	free(line);
+	
+	//unlink("temp.txt");
+	return (1);
+}
 
 void	redirections(t_tree **cmds, int i)
 {
 	int	j;
+	char *limiter;
 
 	j = 0;
 	while (cmds[i]->red[j] != NULL)
 	{
 		if (!ft_strcmp(cmds[i]->red[j], ">"))
 		{
-			//printf(">\n");
 			if (!right_redir(cmds, i, j))
 				return ;
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], ">>"))
 		{
-			//printf(">>\n");
 			if (!double_right_redir(cmds, i, j))
 				return ;
 		}
@@ -98,12 +101,13 @@ void	redirections(t_tree **cmds, int i)
 			if (!left_redir(cmds, i, j))
 				return ;
 		}
-		// else if (!ft_strcmp(cmds[i]->red[j], "<<"))
-		// {
-		// 	printf("<<\n");
-		// 	if (!double_left_redir(cmds, i, j))
-		// 		return ;
-		// }
+		else if (!ft_strcmp(cmds[i]->red[j], "<<"))
+		{
+			limiter = cmds[i]->red[j + 1];
+			//printf("%s\n", limiter);
+			 if (!double_left_redir(cmds, i, j))
+			 	return ;
+		}
 		j++;
 	}
 }
