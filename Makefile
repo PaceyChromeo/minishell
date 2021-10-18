@@ -28,6 +28,8 @@ SRC_PARSING =	ft_split_pipe.c \
 SRC_UTILS =	debug_funcs.c \
 			free_stuffs.c \
 			ft_split.c \
+			get_next_line_utils.c \
+			get_next_line.c \
 			utils_color.c \
 			utils.c \
 			utils2.c \
