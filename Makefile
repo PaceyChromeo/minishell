@@ -13,8 +13,10 @@ SRC = main.c
 SRC_DISPLAY =	prompt.c \
 				errors.c
 SRC_EXEC =	binaries.c \
+			builtins_cmd.c \
 			builtins.c \
 			cd_bltin.c \
+			echo_utils.c \
 			echo_bltin.c \
 			path.c	\
 			pipes.c \

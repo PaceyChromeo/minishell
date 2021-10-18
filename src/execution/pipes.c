@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 16:12:15 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/18 19:37:38 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 	}
 	if (pid == 0)
 	{
+	
 		if (cmds[i + 1] != NULL)
 			dup2(new_pipefd[1], 1);
 		if (i != 0)
@@ -51,7 +52,13 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 		close(old_pipefd[1]);
 		close(new_pipefd[0]);
 		close(new_pipefd[1]);
-		if (!execute(cmds, env, i))
+		if (cmds[i]->cmd_type >= tree_cd 
+			&& cmds[i]->cmd_type <= tree_exit)
+		{
+			bultins_cmd(cmds[i]);
+			exit(0);
+		}
+		else if (!execute(cmds, env, i))
 			return ;
 	}
 	close(new_pipefd[1]);
