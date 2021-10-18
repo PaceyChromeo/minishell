@@ -11,15 +11,20 @@ UTILS_DIR = $(addprefix ${SRC_DIR}, utils/)
 
 SRC = main.c
 SRC_DISPLAY =	prompt.c \
-				errors.c
+				errors.c 
 SRC_EXEC =	binaries.c \
+			builtins_cmd.c \
 			builtins.c \
-			cd_bltin.c \
-			echo_bltin.c \
+			echo_utils.c \
+			export_utils.c \
+			export_utils_1.c \
+			export_utils_2.c \
+			export_utils_3.c \
+			export_utils_4.c \
+			export_utils_5.c \
 			path.c	\
 			pipes.c \
-			pwd_bltin.c \
-			redirections.c
+			redirections.c 
 SRC_LEXING =	environment.c \
 				lexer.c \
 				token.c

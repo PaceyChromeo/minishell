@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:18:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/18 14:30:13 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:08:37 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ char	*ft_realloc(char *s1, char *s2);
 void	ft_putchar_fd(char c, int fd);
 int		ft_isnum(char c);
 int		ft_sch_forbidden_char(char c);
+size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
 void	blue(void);
 void	yellow(void);
 void	white(void);
+
 
 #endif
