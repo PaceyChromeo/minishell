@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 16:56:19 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/18 17:12:44 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 {
 	int		new_pipefd[2];
 	pid_t	pid;
-	int		fd;
-
+	
 	pipe(new_pipefd);
 	pid = fork();
 	if (pid == -1)
@@ -47,7 +46,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 		if (i != 0)
 			dup2(old_pipefd[0], 0);
 		if (cmds[i]->size_red > 0)
-			fd = redirections(cmds, i);
+			redirections(cmds, i);
 		close(old_pipefd[0]);
 		close(old_pipefd[1]);
 		close(new_pipefd[0]);
@@ -72,6 +71,7 @@ void	exec_pipes(t_tree **cmds, char **env)
 	int	i;
 	int	fd[2];
 
+	//print_tree(*cmds);
 	i = 0;
 	pipe(fd);
 	multipipes(cmds, fd, i, env);

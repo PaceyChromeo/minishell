@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 14:53:45 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/18 17:04:38 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ int	error_handler(t_tree *tree)
 	i = 0;
 	if (tree->size_red)
 	{
-		while (tree->args[i])
+		while (tree->red[i])
 		{
-			if (!ft_strcmp(tree->args[i], "<") || !ft_strcmp(tree->args[i], "<<")
-				|| !ft_strcmp(tree->args[i], ">") || !ft_strcmp(tree->args[i], ">>"))
+			
+			if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
+				|| !ft_strcmp(tree->red[i], ">") || !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
+				i += 2;
+			else
 				return (printf("Syntax error\n"));
-			i += 2;
 		}
 	}
 	return (0);

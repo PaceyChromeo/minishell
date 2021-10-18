@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 16:52:07 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/18 17:16:33 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ void echo(char **arg)
 	}
 	while(arg[i] != '\0')
 	{
-		ft_putstr_fd(arg[i], 1);
+		//ft_putstr_fd(arg[i], 1);
+		printf("%s", arg[i]);
 		if (arg[i + 1])
-			write(1, " ", 1);
+			printf(" ");
 		i++;
 	}
 	if (opt != 1)
-		write(1, "\n", 1);
+		printf("\n");
 }
 
 void cd(char *path)
