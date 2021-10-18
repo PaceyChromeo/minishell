@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 16:54:10 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/18 17:19:35 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int exec_bltin(t_tree *tree)
 	path = NULL;
 	if (tree->cmd_type == 0)
 	{
-		print_tree(tree);
+		//print_tree(tree);
 		echo(tree->args);
 	}
 	if (tree->cmd_type == 1)
