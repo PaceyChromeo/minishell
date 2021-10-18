@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:05:41 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/16 21:11:49 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/18 14:30:59 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define DISPLAY_H
 
 # include "minishell.h"
+# include "parsing.h"
 
 char	*prompt_color(void);
+int		error_handler(t_tree *tree);
+int		check_forbidden_char(char *line);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   binaries.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:50:45 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/16 16:43:02 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/18 13:36:02 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 int	cmp_binaries(char *cmd_value)
 {
-	char	*cmd_path;
+	char const	*cmd_path;
 
 	cmd_path = get_path(cmd_value);
-	if (!access(cmd_path, X_OK))
+	if (cmd_path)
 	{
-		free(cmd_path);
-		return (1);
+		if (!access(cmd_path, X_OK))
+		{
+			free((void *)cmd_path);
+			return (1);
+		}
 	}
-	free(cmd_path);
 	return (0);
 }

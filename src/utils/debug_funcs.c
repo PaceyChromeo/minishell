@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_funcs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:53:12 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/16 16:55:49 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/18 13:38:57 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,35 @@ void	print_strs(char **strs)
 	}
 }
 
-void	print_tree(t_tree **root)
+void	print_tree(t_tree *tree)
+{
+	printf("NAME OF CMD = [ %s ]\n", tree->cmd_value);
+	printf("TYPE OF CMD = [ %d ]\n", tree->cmd_type);
+	if (tree->size_args)
+	{
+		printf("ARGS = ");
+		print_strs(tree->args);
+		printf("\n");
+	}
+	if (tree->size_red)
+	{
+		printf("REDIRECTIONS = ");
+		print_strs(tree->red);
+		printf("\n");
+	}
+	printf("SIZE ARGS = [ %d ]\n", tree->size_args);
+	printf("SIZE REDIR = [ %d ]\n", tree->size_red);
+	printf("------------------------------------\n");
+}
+
+void	print_trees(t_tree **root)
 {
 	int	i;
 
 	i = 0;
 	while (root[i] != NULL)
 	{
-		printf("\nNumero de commande : [ \033[31m%d\033[0m ]\n", i + 1);
-		printf("TYPE OF CMD = [ %d ] ARGS = ", root[i]->cmd_type);
-		print_strs(root[i]->args);
-		printf("\n");
-		printf("REDIRECTIONS = ");
-		print_strs(root[i]->red);
-		printf("\nSIZE ARGS = [ %d ]\n", root[i]->size_args);
-		printf("SIZE REDIR = [ %d ]\n", root[i]->size_red);
+		print_tree(root[i]);
 		i++;
 	}
 }

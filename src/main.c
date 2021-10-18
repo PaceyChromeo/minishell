@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 11:13:46 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/18 14:33:28 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,50 @@ int main(int argc, char **argv, char **envp)
 	char	*prompt;
 	char	*line;
 	char	**split;
-	int	cmd_nbr;
-	int y;
-	t_tree **root;
+	int		cmd_nbr;
+	int		i;
+	t_tree	**root;
+	t_tree	*single_cmd;
 	
-	y = 0;
+	i = 0;
+	single_cmd = NULL;
+	root = NULL;
     while (1)
 	{
 		prompt = prompt_color();   
 		line = readline(prompt);
 		if (ft_strlen(line) > 0)
 			add_history(line);
-		split = ft_split_pipe(line, '|');
-		if (!ft_strcmp(line, "exit"))
+		if (check_forbidden_char(line))
+			return (printf("Forbidden character ';' or '\\'\n"));
+		cmd_nbr = count_pipes(line, '|');
+		if (!cmd_nbr)
 		{
-			ft_putstr_fd("exit\n", 1);
-			exit(0);
+			single_cmd = create_trees(line);
+			print_tree(single_cmd);
+			error_handler(single_cmd);
 		}
-		else if (split != NULL)
+		else
 		{
-			if (split)
+			split = ft_split_pipe(line, '|');
+			root = ft_calloc(cmd_nbr, sizeof(t_tree));
+			if (!root)
+				exit (0);
+			while (split[i])
 			{
-				cmd_nbr = count_pipes(line, '|') + 2;
-				root = ft_calloc(cmd_nbr, sizeof(t_tree));
-				if (!root)
-					exit (0);
-				while (split[y])
-				{
-					root[y] = create_trees(split[y]);
-					y++;
-				}
-				root[y] = NULL;
-				print_tree(root);
-				exec_pipes(root, envp);
+				root[i] = create_trees(split[i]);
+				error_handler(root[i]);
+				i++;
+			}
+			root[i] = NULL;
+			print_trees(root);
+			free(split);
+			exec_pipes(root, envp);
+			if (!ft_strcmp(line, "exit"))
+			{
+				ft_putstr_fd("exit\n", 1);
+				free(split);
+				exit(0);
 			}
 		}
 	}

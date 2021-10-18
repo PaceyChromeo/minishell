@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:02:13 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/16 21:41:35 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/18 14:22:45 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,9 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-int	create_and_open_file(char *filename)
+int	ft_isnum(char c)
 {
-	int	fd;
-
-	fd = open(filename, O_CREAT | O_WRONLY);
-	if (!fd)
-		return (-1);
-	return (fd);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }
