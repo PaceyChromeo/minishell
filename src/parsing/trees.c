@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 10:12:48 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/18 11:24:09 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
-		if (parser->current_tok->type > 1 && parser->current_tok->type < 6)
+		if (parser->current_tok->type >= 1 && parser->current_tok->type < 6)
 		{
 			tree->args[i] = ft_strdup(parser->current_tok->value);
 			i++;

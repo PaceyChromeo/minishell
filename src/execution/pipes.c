@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/16 16:48:12 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/18 11:11:22 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	execute(t_tree **cmds, char **env, int i)
 	int		exec;
 	char	*path;
 
-	path = get_path(cmds[i]->args[0]);
+	path = get_path(cmds[i]->cmd_value);
 	exec = execve(path, cmds[i]->args, env);
 	if (exec == -1)
 	{
@@ -39,6 +39,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 		perror("fork");
 		return ;
 	}
+	
 	if (pid == 0)
 	{
 		if (cmds[i + 1] != NULL)

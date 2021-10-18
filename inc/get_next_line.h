@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 08:54:58 by hkrifa           ###   ########.fr       */
+/*   Created: 2021/04/17 11:59:40 by dlago-mo          #+#    #+#             */
+/*   Updated: 2021/10/18 09:04:19 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-# include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include <signal.h>
-# include <stddef.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <dirent.h>
+# include <stdlib.h>
 # include <fcntl.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "display.h"
-# include "execution.h"
-# include "lexing.h"
-# include "parsing.h"
-# include "utils.h"
-# include "get_next_line.h"
+# include "minishell.h"
+
+char	*ft_strchr(const char *str, int c);
+char	*ft_substr(char *s, unsigned int start, unsigned int len);
+int		get_next_line(int fd, char **line);
 
 #endif

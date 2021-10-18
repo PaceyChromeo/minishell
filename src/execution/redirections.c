@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 14:23:28 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/16 16:45:21 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/18 10:47:25 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	right_redir(t_tree **cmds, int i, int j)
 		perror("open");
 		return (0);
 	}
+	if (cmds[i]->red[j + 2] == NULL)
+	 	dup2(fileout, 1);
 	return (1);
 }
 
@@ -35,6 +37,9 @@ static int	double_right_redir(t_tree **cmds, int i, int j)
 		perror("open");
 		return (0);
 	}
+	if (cmds[i]->red[j + 2] == NULL)
+	 	dup2(fileout, 1);
+	
 	return (1);
 }
 
@@ -48,21 +53,26 @@ static int	left_redir(t_tree **cmds, int i, int j)
 		perror("open");
 		return (0);
 	}
+	if (j == 0)
+		dup2(filein, 0);
 	return (1);
 }
 
-static int	double_left_redir(t_tree **cmds, int i, int j)
-{
-	int	filein;
+// static int	double_left_redir(t_tree **cmds, int i, int j)
+// {
+// 	int temp;
+// 	char *line;
 
-	filein = open(cmds[i]->red[j + 1], O_RDONLY, 0777);
-	if (filein == -1)
-	{
-		perror("open");
-		return (0);
-	}
-	return (1);
-}
+// 	temp = open("temp.txt", O_CREAT | O_WRONLY, 0777);
+// 	while (write(1, "heredoc> ", ft_strlen("heredoc> ")) 
+// 		&& get_next_line(0, &line) > 0 && (ft_strcmp(line, ) != 0))
+// 	{
+// 		write(temp, line, ft_strlen(line));
+// 		write(temp, "\n", 1);
+// 	}
+// 	//unlink("temp.txt");
+// 	return (1);
+// }
 
 void	redirections(t_tree **cmds, int i)
 {
@@ -73,11 +83,13 @@ void	redirections(t_tree **cmds, int i)
 	{
 		if (!ft_strcmp(cmds[i]->red[j], ">"))
 		{
+			//printf(">\n");
 			if (!right_redir(cmds, i, j))
 				return ;
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], ">>"))
 		{
+			//printf(">>\n");
 			if (!double_right_redir(cmds, i, j))
 				return ;
 		}
@@ -86,11 +98,12 @@ void	redirections(t_tree **cmds, int i)
 			if (!left_redir(cmds, i, j))
 				return ;
 		}
-		else if (!ft_strcmp(cmds[i]->red[j], "<<"))
-		{
-			if (!double_left_redir(cmds, i, j))
-				return ;
-		}
+		// else if (!ft_strcmp(cmds[i]->red[j], "<<"))
+		// {
+		// 	printf("<<\n");
+		// 	if (!double_left_redir(cmds, i, j))
+		// 		return ;
+		// }
 		j++;
 	}
 }
