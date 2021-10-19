@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 14:02:54 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:04:05 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ t_token	*lexer_collect_string(t_lexer *lexer)
 		if (lexer->c == '\0')
 		{
 			free(value);
-			return (init_token(token_eof, NULL));
+			ft_putstr_fd("Syntax error : Parenthesis open\n", STDOUT_FILENO);
+			return (init_token(token_error, NULL));
 		}
 	}
 	lexer_next_char(lexer);

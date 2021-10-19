@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:18:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 11:29:13 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:25:04 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_tab(char **tab);
 void	free_token(t_token *token);
 void	free_parser(t_parser *parser);
 void	free_tree(t_tree *tree);
-void	free_trees(t_tree **root);
+void	free_all(t_tree **root, char **split, char *line);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strcat(char *dest, const char *src);

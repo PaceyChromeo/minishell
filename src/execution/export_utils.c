@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/19 11:42:20 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:47:13 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 }
 
 /* Cree une cellule pour l ajouter a la liste */
-static	lst_env	*creat_cell(char *str);
-
 static	lst_env	*creat_cell(char *str)
 {
 	lst_env	*cell;

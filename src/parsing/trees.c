@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 14:28:43 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:26:07 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,19 @@ t_tree	*create_trees(char *cmd)
 	lexer = init_lexer(cmd);
 	parser = init_parser(lexer);
 	while (parser->current_tok->type != token_eof)
+	{
+		if (parser->current_tok->type == token_error)
+		{
+			free_parser(parser);
+			ft_putstr_fd("Syntax error : Tree not created\n", STDOUT_FILENO);
+			return (NULL);
+		}
 		parser_next_token(parser, parser->current_tok->type);
+	}
 	parser_define_more_token(parser);
 	parser_get_token_with_env(parser);
 	get_type_and_size(tree, parser);
 	get_args_and_red(tree, parser);
 	free_parser(parser);
-	free(lexer);
 	return (tree);
 }

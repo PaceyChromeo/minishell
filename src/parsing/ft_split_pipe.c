@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:11 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/12 22:44:36 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/19 15:20:53 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	index_pipes(char const *line, char c, int i)
 	return (i);
 }
 
-static char	**ft_copy_strings(const char *s, char **dst, char c, int total)
+static char	**ft_copy_strings(char *s, char **dst, char c, int total)
 {
 	int	i;
 	int	j;
@@ -72,7 +72,7 @@ static char	**ft_copy_strings(const char *s, char **dst, char c, int total)
 
 	i = 0;
 	j = 0;
-	while (s[i] && j < total)
+	while (j < total)
 	{
 		k = 0;
 		while (s[i] == ' ')
@@ -91,7 +91,7 @@ static char	**ft_copy_strings(const char *s, char **dst, char c, int total)
 	return (dst);
 }
 
-char	**ft_split_pipe(char const *s, char c)
+char	**ft_split_pipe(char *s, char c)
 {
 	char	**dst;
 	int		total;
