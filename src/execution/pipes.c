@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/19 14:35:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:44:23 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	pid_t	pid;
 	
 	pipe(new_pipefd);
-	// printf("oldfd[0] : %d oldfd[1]: %d\n", old_pipefd[0], old_pipefd[1]);
-	// printf("new_pipefd[0] : %d new_pipefd[1]: %d\n", new_pipefd[0], new_pipefd[1]);
-	if (cmds[i]->size_red > 0)
-		if (redirections(cmds, i) == -1)
-			return ;
 	pid = fork();
 	if (pid == -1)
 	{
