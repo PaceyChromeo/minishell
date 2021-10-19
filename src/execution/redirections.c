@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 14:23:28 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 17:25:59 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:35:34 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,21 +89,35 @@ int	redirections(t_tree **cmds, int i)
 		{
 			//printf(">\n");
 			if (!right_redir(cmds, i, j))
+<<<<<<< HEAD
 				return (-1);
 			return (0);
-		}
-		else if (!ft_strcmp(cmds[i]->red[j], ">>"))
+=======
 		{
-			//printf(">>\n");
 			if (!double_right_redir(cmds, i, j))
+<<<<<<< HEAD
 				return (-1);
 			return (0);
+=======
+				return (0);
+>>>>>>> 5f9ec7d54c14f37760abfd3c5197f5115d53cb2f
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], "<"))
 		{
 			if (!left_redir(cmds, i, j))
+<<<<<<< HEAD
 				return (-1);
 			return (0);
+=======
+				return (0);
+		}
+		else if (!ft_strcmp(cmds[i]->red[j], "<<"))
+		{
+			limiter = cmds[i]->red[j + 1];
+			//printf("%s\n", limiter);
+			 if (!double_left_redir(cmds, i, j))
+			 	return (0);
+>>>>>>> 5f9ec7d54c14f37760abfd3c5197f5115d53cb2f
 		}
 		// else if (!ft_strcmp(cmds[i]->red[j], "<<"))
 		// {
@@ -114,5 +128,9 @@ int	redirections(t_tree **cmds, int i)
 		// }
 		j++;
 	}
+<<<<<<< HEAD
 	return (0);
+=======
+	return (1);
+>>>>>>> 5f9ec7d54c14f37760abfd3c5197f5115d53cb2f
 }

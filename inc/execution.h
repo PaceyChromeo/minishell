@@ -6,7 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/19 09:53:06 by pjacob           ###   ########.fr       */
+=======
+/*   Updated: 2021/10/19 10:51:27 by hkrifa           ###   ########.fr       */
+>>>>>>> 5f9ec7d54c14f37760abfd3c5197f5115d53cb2f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +22,14 @@
 
 typedef struct	t_env
 {
-	char			*var_env;
-	struct t_env	*next;
-}				lst_env;
+	char *var_env;
+	struct t_env *next;
+}	lst_env;
+
+typedef struct s_var {
+	int i;
+	char **env;
+} t_var;
 
 int		cmp_builtins(char *value);
 void	bultins_cmd(t_tree *cmd);
