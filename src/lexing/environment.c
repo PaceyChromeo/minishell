@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 10:56:19 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 22:13:13 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,81 +27,57 @@ int	count_env_in_string(t_token *token)
 	return (env);
 }
 
-int	check_quote_surround(t_token *token, int i)
-{
-	int	quote;
-	int	j;
-
-	j = i;
-	while ((token->value[i] != 34 && token->value[i] != 39) && i >= 0)
-		i--;
-	if (i < 0)
-		return (0);
-	quote = (int)token->value[i];
-	while ((token->value[j] != 34 && token->value[j] != 39) && token->value[j])
-		j++;
-	if (quote == token->value[j])
-		return (quote);
-	else
-		return (0);
-}
-
-char	*get_env(t_token *token, int i)
+char	*get_env(char *token_value, int i)
 {
 	char	*env;
 	int		size;
 	int		x;
 
 	x = 0;
-	size = i;
-	if (ft_isalpha(token->value[size]) || token->value[size] == '_')
-		size++;
-	while (ft_isalpha(token->value[size]) || token->value[size] == '_'
-		|| ft_isnum(token->value[size]))
-		size++;
+	size = ft_strlen(token_value);
+	// if (ft_isalpha(token_value[size]) || token_value[size] == '_')
+	// 	size++;
+	// while (ft_isalpha(token_value[size]) || token_value[size] == '_'
+	// 	|| ft_isnum(token_value[size]))
+	// 	size++;
 	env = ft_calloc((size - i) + 1, sizeof(char));
 	if (!env)
 		return (NULL);
 	while (i < size)
 	{
-		env[x] = token->value[i];
+		env[x] = token_value[i];
 		i++;
 		x++;
 	}
 	env[x] = '\0';
-	token->value = getenv(env);
+	token_value = getenv(env);
 	free(env);
-	return (token->value);
+	return (token_value);
 }
 
 static int	count_total_string(t_token *token)
 {
-	int	i;
-	int	size;
+	int		i;
+	int		size;
+	char	*tok_value;
 
 	size = 0;
 	i = -1;
-	while (token->value[++i])
+	tok_value = ft_strdup(token->value);
+	while (tok_value[++i])
 	{
-		if (token->value[i] == 34 && ((token->type == 2 || token->type == 4)
-				&& check_quote_surround(token, i) != 39))
-			i++;
-		if (token->value[i] == '$' && (check_quote_surround(token, i) == 34
-				|| (token->type == 4 && check_quote_surround(token, i) != 39)))
+		if (tok_value[i] == '$' && (token->type == token_id
+			|| token->type == token_string_dq))
 		{
 			i++;
-			size += ft_strlen(get_env(token, i));
-			while (ft_isalpha(token->value[i]) || token->value[i] == '_')
+			size += ft_strlen(get_env(tok_value, i));
+			while (ft_isalpha(token->value[i]) || token->value[i] == '_'
+				|| ft_isnum(token->value[i]))
 				i++;
-			while ((token->value[i] != 34 || token->value[i] != '$')
-				&& token->value[i])
-			{
-				i++;
-				size++;
-			}
 		}
 		size++;
 	}
+	free(tok_value);
 	return (size);
 }
 
@@ -118,15 +94,13 @@ char	*get_str_with_env(t_token *token)
 		return (NULL);
 	while (token->value[i])
 	{
-		if (token->value[i] == 34 && ((token->type == 2 || token->type == 4)
-				&& check_quote_surround(token, i) != 39))
-			i++;
-		if (token->value[i] == '$' && (check_quote_surround(token, i) == 34
-				|| (token->type == 4 && check_quote_surround(token, i) != 39)))
+		if (token->value[i] == '$' && (token->type == token_id
+			|| token->type == token_string_dq))
 		{
 			i++;
-			string_with_env = ft_realloc(string_with_env, get_env(token, i));
-			while (ft_isalpha(token->value[i]) || token->value[i] == '_')
+			string_with_env = ft_realloc(string_with_env, get_env(token->value, i));
+			while (ft_isalpha(token->value[i]) || token->value[i] == '_'
+				|| ft_isnum(token->value[i]))
 				i++;
 		}
 		string_with_env = ft_realloc_char(string_with_env, token->value[i]);

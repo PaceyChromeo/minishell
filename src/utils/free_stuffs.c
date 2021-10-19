@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuffs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 15:26:12 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 21:56:17 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	free_parser(t_parser *parser)
 
 void	free_tree(t_tree *tree)
 {
+	free(tree->full_cmd);
 	if (tree->cmd_type >= 0 && tree->cmd_type <= 7)
 		free(tree->cmd_value);
 	if (tree->size_args)

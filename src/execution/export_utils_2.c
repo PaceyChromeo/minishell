@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 15:03:52 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/19 20:49:53 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void print_list(lst_env *lst)
 {
-	int i;
-	i = 0;
-
 	while (lst)
 	{
 		ft_putstr_fd(lst->var_env, 1);
@@ -59,7 +56,7 @@ lst_env *push_env_to_list(char **env)
 	int i;
 	lst_env *lst = empty_list();
 	i = 0;
-	while (env[i + 2] != '\0')
+	while (env[i + 2])
 		i++;
 	while (env[i])
 	{

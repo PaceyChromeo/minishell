@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 15:26:07 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 21:59:39 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tree	*init_tree(int type)
+t_tree	*init_tree(int type, char *cmd)
 {
 	t_tree	*new_tree;
+	char	*full_cmd;
 
 	new_tree = ft_calloc(1, sizeof(t_tree));
 	if (!new_tree)
 		return (NULL);
+	full_cmd = ft_strdup(cmd);
 	new_tree->cmd_type = type;
+	new_tree->full_cmd = full_cmd;
 	new_tree->cmd_value = NULL;
 	new_tree->args = NULL;
 	new_tree->red = NULL;
@@ -86,8 +89,11 @@ t_tree	*create_trees(char *cmd)
 	t_tree		*tree;
 	t_lexer		*lexer;
 	t_parser	*parser;
-
-	tree = init_tree(tree_nocmd);
+	//char		*full_cmd;
+	
+	tree = init_tree(tree_nocmd, cmd);
+	//full_cmd = ft_strdup(cmd);
+	//tree->full_cmd = full_cmd;
 	lexer = init_lexer(cmd);
 	parser = init_parser(lexer);
 	while (parser->current_tok->type != token_eof)

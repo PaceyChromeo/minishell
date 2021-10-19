@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_funcs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:53:12 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 13:38:57 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 21:56:40 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	print_strs(char **strs)
 
 void	print_tree(t_tree *tree)
 {
+	printf("FULL CMD = [ %s ]\n", tree->full_cmd);
 	printf("NAME OF CMD = [ %s ]\n", tree->cmd_value);
 	printf("TYPE OF CMD = [ %d ]\n", tree->cmd_type);
 	if (tree->size_args)

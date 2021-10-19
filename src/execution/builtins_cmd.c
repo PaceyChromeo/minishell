@@ -3,35 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/19 14:40:24 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 22:21:55 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	echo(char **arg)
+void	echo(t_tree *tree)
 {
 	int i;
 	int opt;
 
 	opt = 0;
-	i = 1;
-	if (echo_option(arg[i]) == 1 && arg[i] != NULL)
-	{
+	i = 0;
+	if (tree->size_args > 1 && echo_option(tree->args[1]))
 		opt = 1;
-		i++;
-	}
-	while(arg[i] != '\0')
+	while(tree->full_cmd[i])
 	{
-		ft_putstr_fd(arg[i], STDOUT_FILENO);
-		if (arg[i + 1])
-			ft_putchar_fd(' ', STDOUT_FILENO);
+		if (tree->full_cmd[i] != 34 && tree->full_cmd[i] != 39)
+			ft_putchar_fd(tree->full_cmd[i], STDOUT_FILENO);
+		if (tree->full_cmd[i] == 39 && tree->full_cmd[i + 1])
+		{
+			i++;
+			while (tree->full_cmd[i] != 39 && tree->full_cmd[i])
+				ft_putchar_fd(tree->full_cmd[i++], STDOUT_FILENO);
+		}
+		if (tree->full_cmd[i] == '$' && (ft_isalpha(tree->full_cmd[i + 1])
+			|| ft_isnum(tree->full_cmd[i + 1]) || tree->full_cmd[i + 1] == '_'))
+			i += echo_print_env(tree->full_cmd, i + 1);
+		if (tree->full_cmd[i] == 34 && tree->full_cmd[i + 1])
+		{
+			i++;
+			while (tree->full_cmd[i] != 34 && tree->full_cmd[i])
+			{
+				if (tree->full_cmd[i] == '$' && (ft_isalpha(tree->full_cmd[i + 1])
+					|| ft_isnum(tree->full_cmd[i + 1]) || tree->full_cmd[i + 1] == '_'))
+					i += echo_print_env(tree->full_cmd, i + 1);
+			}	
+		}
 		i++;
 	}
-	if (opt != 1)
+	if (!opt)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
@@ -60,7 +75,7 @@ void	pwd(void)
 void	bultins_cmd(t_tree *cmd)
 {
 	if (cmd->cmd_type == tree_echo)
-		echo(cmd->args);
+		echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)
 		pwd();
 	else if (cmd->cmd_type == tree_cd)

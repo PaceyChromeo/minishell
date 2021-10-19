@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:43:38 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 15:03:56 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/19 20:50:15 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ lst_env *update_var(lst_env **lst, char *var_name, char *update)
 {
 	lst_env *temp = *lst;
 	(void)update;
-	int i;
-	i = 0;
+	
 	while (temp->next != NULL)
 	{
 		temp = temp->next;

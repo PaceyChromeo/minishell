@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 14:44:00 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 22:22:09 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 # include "minishell.h"
 # include "parsing.h"
 
-typedef struct t_env
+typedef struct	t_env
 {
-	char *var_env;
-	struct t_env *next;
-}	lst_env;
+	char			*var_env;
+	struct t_env	*next;
+}				lst_env;
 
-typedef struct s_var {
-	int i;
-	char **env;
-} t_var;
+typedef struct	s_var
+{
+	int		i;
+	char	**env;
+}				t_var;
 
 /* FONCTIONS DE PIPES ET REDIRECTIONS */
 
@@ -43,10 +44,12 @@ void	bultins_cmd(t_tree *cmd);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
 void	exec_echo(t_tree *tree, int fd);
-void	echo(char **arg);
+void	echo(t_tree *tree);
 void	cd(char *path);
 void	pwd(void);
 void	export(char **args,char **env);
+int		echo_option(char *option);
+int		echo_print_env(char *cmd, int i);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */
 
@@ -77,6 +80,5 @@ int		count_quotes(char *str);
 int		count_equals(char *str);
 int		check_export_args_str(char *str, int arg_pos);
 int		count_tab_nbr(char **args);
-int		echo_option(char *option);
 
 #endif

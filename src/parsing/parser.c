@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 14:48:18 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 21:30:33 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,16 @@ void	parser_get_token_with_env(t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok)
 	{
-		if (parser->current_tok->type > 1 && parser->current_tok->type < 5)
+		if (parser->current_tok->type == token_id
+			|| parser->current_tok->type == token_string_dq)
 		{
 			if (count_env_in_string(parser->current_tok))
 				parser->current_tok->value
 					= get_str_with_env(parser->current_tok);
 		}
 		if (parser->current_tok->type == token_env)
-			parser->current_tok->value = ft_strdup(get_env(parser->current_tok, 1));
+			parser->current_tok->value
+				= ft_strdup(get_env(parser->current_tok->value, 1));
 		parser->current_tok = parser->current_tok->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 15:09:03 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 21:58:56 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_tree
 		tree_nocmd
 	}		cmd_type;
 	char	*cmd_value;
+	char	*full_cmd;
 	char	**args;
 	char	**red;
 	int		size_args;
@@ -52,7 +53,7 @@ t_parser	*init_parser(t_lexer *lexer);
 void		parser_next_token(t_parser *parser, int type);
 void		parser_define_more_token(t_parser *parser);
 void		parser_get_token_with_env(t_parser *parser);
-t_tree		*init_tree(int type);
+t_tree		*init_tree(int type, char *cmd);
 t_tree		*create_trees(char *cmd);
 void		exec_pipes(t_tree **cmd, char **env);
 

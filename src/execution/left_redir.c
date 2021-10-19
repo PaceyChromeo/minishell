@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/19 15:33:22 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 20:54:08 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ int	left_redir(t_tree **cmds, int i, int j)
 	}
 	dup2(filein, 0);
 	return (1);
+}
+
+int	double_left_redir(t_tree **cmds, int i, int j)
+{
+	(void)cmds;
+	i = 0;
+	j = 0;
+	return (i + j);
 }
 
 int	open_heredoc(t_tree **cmds, int i, int j)

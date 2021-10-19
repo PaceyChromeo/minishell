@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:18:21 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/19 14:40:35 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 22:26:57 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,15 @@ int echo_option(char *option)
 		return (1);
 	}
 	return (0);	
+}
+
+int	echo_print_env(char *cmd, int i)
+{
+	char	*env;
+
+	env = get_env(cmd, i);
+	ft_putstr_fd(env, STDOUT_FILENO);
+	i += ft_strlen(env);
+	free(env);
+	return (i);
 }
