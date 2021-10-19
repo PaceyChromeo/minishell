@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 17:43:30 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 09:29:59 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 	}
 	if (pid == 0)
 	{
+	
 		if (cmds[i + 1] != NULL)
 			dup2(new_pipefd[1], 1);
 		if (i != 0)
@@ -55,13 +56,14 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], int i, char **env)
 		close(old_pipefd[1]);
 		close(new_pipefd[0]);
 		close(new_pipefd[1]);
-		if (cmds[i]->cmd_type >= 0 && cmds[i]->cmd_type <= 6)
-			exec_bltin(cmds[i]);
-		else if (cmds[i]->cmd_type == 7)
+		if (cmds[i]->cmd_type >= tree_cd 
+			&& cmds[i]->cmd_type <= tree_exit)
 		{
-			if (!execute(cmds, env, i))
-				return ;
+			bultins_cmd(cmds[i]);
+			exit(0);
 		}
+		else if (!execute(cmds, env, i))
+			return ;
 	}
 	close(new_pipefd[1]);
 	if (cmds[i + 1] != NULL)

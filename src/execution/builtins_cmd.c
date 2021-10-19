@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 17:25:10 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 09:27:40 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ void pwd(void)
 		ft_putstr_fd(buf, STDOUT_FILENO);
 		write(STDOUT_FILENO, "\n", 1);
 	}
+}
+
+void	bultins_cmd(t_tree *cmd)
+{
+	if (cmd->cmd_type == tree_echo)
+		echo(cmd->args);
+	else if (cmd->cmd_type == tree_pwd)
+		pwd();
+	else if (cmd->cmd_type == tree_cd)
+		cd(cmd->args[1]);
 }

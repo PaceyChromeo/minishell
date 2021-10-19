@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:18:21 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 15:03:45 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/19 09:29:21 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ int echo_option(char *option)
 		return 1;
 	}
 	return 0;
+<<<<<<< HEAD
+=======
 }
+
+char *ft_strstr(char *str, char *to_find)
+{
+	int i;
