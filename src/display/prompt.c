@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:03:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 18:34:52 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:29:27 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*display_prompt(void)
 
 	prompt = prompt_color();   
 	line = readline(prompt);
+	free(prompt);
 	if (ft_strlen(line) > 0)
 		add_history(line);
 	return (line);

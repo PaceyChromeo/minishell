@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 15:37:07 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/18 17:04:38 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int check_forbidden_char(char *line)
 	while (line[i])
 	{
 		if (ft_sch_forbidden_char(line[i]))
+		{
+			ft_putstr_fd("Invalid character\n", STDOUT_FILENO);
 			return (1);
+		}
 		i++;
 	}
 	return (0);
