@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 15:04:04 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/19 11:42:20 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
+{
+	size_t	i;
+	size_t	src_len;
+
+	i = 0;
+	src_len = 0;
+	if (!dest)
+		return (0);
+	while (src[src_len])
+		src_len++;
+	if (!destsize)
+		return (src_len);
+	while (src[i] && i < destsize - 1)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (src_len);
+}
 
 /* Cree une cellule pour l ajouter a la liste */
 static	lst_env	*creat_cell(char *str);

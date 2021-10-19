@@ -15,13 +15,18 @@ SRC_DISPLAY =	prompt.c \
 SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
 			builtins.c \
-			cd_bltin.c \
 			echo_utils.c \
-			echo_bltin.c \
+			export_utils_1.c \
+			export_utils_2.c \
+			export_utils_3.c \
+			export_utils_4.c \
+			export_utils_5.c \
+			export_utils.c \
+			left_redir.c \
 			path.c	\
 			pipes.c \
-			pwd_bltin.c \
-			redirections.c
+			redirections.c \
+			right_redir.c
 SRC_LEXING =	environment.c \
 				lexer.c \
 				token.c

@@ -6,13 +6,13 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 18:29:54 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:01:52 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void echo(char **arg)
+void	echo(char **arg)
 {
 	int i;
 	int opt;
@@ -35,7 +35,7 @@ void echo(char **arg)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
-void cd(char *path)
+void	cd(char *path)
 {
 	if (access(path, F_OK) == 0)
 		chdir(path);
@@ -43,7 +43,7 @@ void cd(char *path)
 		perror(path);
 }
 
-void pwd(void)
+void	pwd(void)
 {
 	char *buf;
 	buf = NULL;

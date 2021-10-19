@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 10:51:27 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 13:55:48 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,21 @@ typedef struct s_var {
 	char **env;
 } t_var;
 
+/* FONCTIONS DE PIPES ET REDIRECTIONS */
+
+void	exec_pipes(t_tree **cmds, char **env);
+int		redirections(t_tree **cmds, int i);
+int		right_redir(t_tree **cmds, int i, int j);
+int		double_right_redir(t_tree **cmds, int i, int j);
+int		left_redir(t_tree **cmds, int i, int j);
+int		double_left_redir(t_tree **cmds, int i, int j);
+
+/* ---------------------------------- */
+
 int		cmp_builtins(char *value);
 void	bultins_cmd(t_tree *cmd);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
-void	exec_pipes(t_tree **cmds, char **env);
-int		redirections(t_tree **cmds, int i);
 void	exec_echo(t_tree *tree, int fd);
 void	echo(char **arg);
 void	cd(char *path);
@@ -50,8 +59,10 @@ lst_env	*add_at(lst_env *lst, char *str, int pos);
 /***********************************/
 /*FONCTIONS NECESSAIRE POUR LE BUILTIN EXPORT*/
 
+size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
 char	*ft_strstr_equalizer(char *str, char *to_find);
-char	*ft_strstr(char *str, char *to_find); 
+char	*ft_strstr(char *str, char *to_find);
+//char	*ft_strstr(char *str, char *to_find); 
 void	print_list(lst_env *lst); /*AFFICHE LA LISTE CHAINER DONNER */
 char	*add_quote(char *arg); /*AJOUTE LES DOUBLES QUOTES DANS LES VARIABLE ENV*/
 lst_env	*push_env_to_list(char **env); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
