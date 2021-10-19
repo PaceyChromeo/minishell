@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 14:23:28 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/18 16:26:20 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 10:51:12 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	double_left_redir(t_tree **cmds, int i, int j)
 	return (1);
 }
 
-void	redirections(t_tree **cmds, int i)
+int	redirections(t_tree **cmds, int i)
 {
 	int	j;
 	char *limiter;
@@ -89,25 +89,26 @@ void	redirections(t_tree **cmds, int i)
 		if (!ft_strcmp(cmds[i]->red[j], ">"))
 		{
 			if (!right_redir(cmds, i, j))
-				return ;
+				return (0);
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], ">>"))
 		{
 			if (!double_right_redir(cmds, i, j))
-				return ;
+				return (0);
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], "<"))
 		{
 			if (!left_redir(cmds, i, j))
-				return ;
+				return (0);
 		}
 		else if (!ft_strcmp(cmds[i]->red[j], "<<"))
 		{
 			limiter = cmds[i]->red[j + 1];
 			//printf("%s\n", limiter);
 			 if (!double_left_redir(cmds, i, j))
-			 	return ;
+			 	return (0);
 		}
 		j++;
 	}
+	return (1);
 }

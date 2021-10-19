@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/18 13:03:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 10:51:45 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ t_tree		*init_tree(int type);
 t_tree		*create_trees(char *cmd);
 
 void		exec_pipes(t_tree **cmd, char **env);
-void		redirections(t_tree **cmds, int i);
 
 #endif

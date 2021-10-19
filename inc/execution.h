@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/18 18:40:41 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 10:51:27 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ typedef struct t_env
 	struct t_env *next;
 }	lst_env;
 
+typedef struct s_var {
+	int i;
+	char **env;
+} t_var;
 
 int		cmp_builtins(char *value);
 void	bultins_cmd(t_tree *cmd);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
 void	exec_pipes(t_tree **cmds, char **env);
-void	redirections(t_tree **cmds, int i);
+int		redirections(t_tree **cmds, int i);
 void	exec_echo(t_tree *tree, int fd);
 void	echo(char **arg);
 void	cd(char *path);
