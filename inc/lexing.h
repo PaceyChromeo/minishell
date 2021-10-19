@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:11:48 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 10:33:32 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:01:33 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_token
 		token_lparen,
 		token_rparen,
 		token_eof,
+		token_error
 	}	type;
 	char			*value;
 	struct s_token	*prev;

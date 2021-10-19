@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/19 14:32:25 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:24:25 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 	
     while (1)
 	{
-		system("leaks minishell");
+		//system("leaks minishell");
 		line = display_prompt();   
 		if (check_forbidden_char(line))
 			return (printf("Forbidden character : ';' or '\\'\n"));
@@ -42,6 +42,11 @@ int main(int argc, char **argv, char **envp)
 			while (split[i])
 			{
 				root[i] = create_trees(split[i]);
+				if (!root[i])
+				{
+					free_all(root, split, line);
+					return (0);
+				}
 				error_handler(root[i]);
 				i++;
 			}
@@ -56,9 +61,7 @@ int main(int argc, char **argv, char **envp)
 			bultins_cmd(root[0]);
 		else
 			exec_pipes(root, envp);
-		free_tab(split);
-		free_trees(root);
-		free(line);
+		free_all(root, split, line);
 	}
 	return (0);
 }

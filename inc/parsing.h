@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 14:35:02 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:09:03 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_tree
 }				t_tree;
 
 int			count_pipes(char const *line, char c);
-char		**ft_split_pipe(char const *s, char c);
+char		**ft_split_pipe(char *s, char c);
 t_parser	*init_parser(t_lexer *lexer);
 void		parser_next_token(t_parser *parser, int type);
 void		parser_define_more_token(t_parser *parser);

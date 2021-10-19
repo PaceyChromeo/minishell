@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 14:18:30 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:26:12 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	free_parser(t_parser *parser)
 		parser->current_tok = parser->current_tok->next;
 		free_token(parser->first_tok);
 	}
+	free(parser->lexer);
 	free(parser);
 }
 
@@ -58,7 +59,7 @@ void	free_tree(t_tree *tree)
 	free(tree);
 }
 
-void	free_trees(t_tree **root)
+void	free_all(t_tree **root, char **split, char *line)
 {
 	int	i;
 
@@ -69,4 +70,6 @@ void	free_trees(t_tree **root)
 		i++;
 	}
 	free(root);
+	free_tab(split);
+	free(line);
 }

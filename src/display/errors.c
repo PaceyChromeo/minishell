@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 17:04:38 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:30:43 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	error_handler(t_tree *tree)
 	int	i;
 
 	i = 0;
+	if (tree->cmd_type == tree_nocmd)
+		return (printf("Invalid command : %s\n", tree->cmd_value));
 	if (tree->size_red)
 	{
 		while (tree->red[i])
