@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 10:11:49 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:26:43 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	parser_define_more_token(t_parser *parser)
 
 	cmd = 0;
 	parser->current_tok = parser->first_tok;
-	while (parser->current_tok->type != token_eof)
+	while (parser->current_tok)
 	{
 		if ((parser->current_tok->type > 6 && parser->current_tok->type < 11)
 			&& parser->current_tok->next->type == token_id)
@@ -57,7 +57,7 @@ void	parser_define_more_token(t_parser *parser)
 		parser->current_tok = parser->current_tok->next;
 	}
 	parser->current_tok = parser->first_tok;
-	while (parser->current_tok->type != token_eof)
+	while (parser->current_tok)
 	{
 		if (parser->current_tok->type == token_id && !cmd)
 		{
@@ -71,14 +71,17 @@ void	parser_define_more_token(t_parser *parser)
 void	parser_get_token_with_env(t_parser *parser)
 {
 	parser->current_tok = parser->first_tok;
-	while (parser->current_tok->type != token_eof)
+	while (parser->current_tok)
 	{
 		if (parser->current_tok->type > 1 && parser->current_tok->type < 5)
 		{
+			printf("value : %s\n", parser->current_tok->value);
 			if (count_env_in_string(parser->current_tok))
 				parser->current_tok->value
 					= get_str_with_env(parser->current_tok);
 		}
+		if (parser->current_tok->type == token_env)
+			parser->current_tok->value = ft_strdup(get_env(parser->current_tok, 1));
 		parser->current_tok = parser->current_tok->next;
 	}
 }

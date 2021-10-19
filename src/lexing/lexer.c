@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 14:21:15 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:02:54 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,14 @@ void	lexer_next_char(t_lexer *lexer)
 t_token	*lexer_collect_id(t_lexer *lexer)
 {
 	char	*value;
-	char	mutex;
 
 	value = NULL;
 	while (lexer->c != ' ' && lexer->c != '\0'
 		&& lexer->c != '<' && lexer->c != '>')
 	{
-		value = ft_realloc_char(value, lexer->c);
-		lexer_next_char(lexer);
-		if (lexer->c == 34 || lexer->c == 39)
-		{
-			mutex = lexer->c;
+		if (lexer->c != 34 && lexer->c != 39)
 			value = ft_realloc_char(value, lexer->c);
-			lexer_next_char(lexer);
-			while (lexer->c != mutex)
-			{
-				value = ft_realloc_char(value, lexer->c);
-				lexer_next_char(lexer);
-			}
-		}
+		lexer_next_char(lexer);
 	}
 	return (init_token(token_id, value));
 }

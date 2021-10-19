@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/14 23:53:52 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/19 11:09:17 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@ char	*get_path(char *cmd)
 	path = getenv("PATH");
 	tab = ft_split(path, ':');
 	while (tab[++i])
-		tab[i] = ft_strjoin(tab[i], "/");
+		tab[i] = ft_realloc(tab[i], "/");
 	i = -1;
 	while (tab[++i])
-		tab[i] = ft_strjoin(tab[i], cmd);
+		tab[i] = ft_realloc(tab[i], cmd);
 	i = -1;
 	while (tab[++i])
 	{
+		good_path = ft_strdup(tab[i]);
 		if (access(tab[i], F_OK) == 0)
 		{
-			good_path = ft_strdup(tab[i]);
 			free_tab(tab);
 			return (good_path);
 		}
+		free(good_path);
 	}
 	free_tab(tab);
 	return (NULL);

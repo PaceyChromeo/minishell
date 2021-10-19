@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:18:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/18 15:08:37 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/19 11:29:13 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 void	print_tree(t_tree *tree);
 void	print_trees(t_tree **root);
 void	free_tab(char **tab);
+void	free_token(t_token *token);
 void	free_parser(t_parser *parser);
 void	free_tree(t_tree *tree);
 void	free_trees(t_tree **root);

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 09:28:49 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 09:53:06 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 # include "minishell.h"
 # include "parsing.h"
 
-typedef struct t_env
+typedef struct	t_env
 {
-	char *var_env;
-	struct t_env *next;
-}	lst_env;
-
+	char			*var_env;
+	struct t_env	*next;
+}				lst_env;
 
 int		cmp_builtins(char *value);
 void	bultins_cmd(t_tree *cmd);
@@ -35,17 +34,20 @@ void	cd(char *path);
 void	pwd(void);
 void	export(char **args,char **env);
 
+
 /*FONCTION POUR LISTE CHAINER EXPORT */
 
+char	*ft_strstr(char *str, char *to_find);
+char	*ft_strstr_equalizer(char *str, char *to_find);
 int		len_list(lst_env *lst);
 lst_env	*free_list(lst_env *lst);
 lst_env	*empty_list(void);
 int		is_empty_list(lst_env *lst);
 lst_env	*add_at(lst_env *lst, char *str, int pos);
-<<<<<<< HEAD
+
 /***********************************/
 /*FONCTIONS NECESSAIRE POUR LE BUILTIN EXPORT*/
-=======
+
 lst_env	*push_env_to_list(char **env); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
 void	add_var_last(lst_env **lst, char *str); /* AJOUTE UNE STR A LA DERNIER POSITION DE LA LISTE*/
 int		check_if_done(lst_env *lst); /*VERIFIE SI LA LISTE CHAINER ET TRIER*/

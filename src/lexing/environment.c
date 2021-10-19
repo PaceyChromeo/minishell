@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/16 16:52:16 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/19 10:56:19 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_quote_surround(t_token *token, int i)
 		return (0);
 }
 
-static char	*get_env(t_token *token, int i)
+char	*get_env(t_token *token, int i)
 {
 	char	*env;
 	int		size;
@@ -54,7 +54,10 @@ static char	*get_env(t_token *token, int i)
 
 	x = 0;
 	size = i;
-	while (ft_isalpha(token->value[size]) || token->value[size] == '_')
+	if (ft_isalpha(token->value[size]) || token->value[size] == '_')
+		size++;
+	while (ft_isalpha(token->value[size]) || token->value[size] == '_'
+		|| ft_isnum(token->value[size]))
 		size++;
 	env = ft_calloc((size - i) + 1, sizeof(char));
 	if (!env)
@@ -66,10 +69,12 @@ static char	*get_env(t_token *token, int i)
 		x++;
 	}
 	env[x] = '\0';
-	return (getenv(env));
+	token->value = getenv(env);
+	free(env);
+	return (token->value);
 }
 
-int	count_total_string(t_token *token)
+static int	count_total_string(t_token *token)
 {
 	int	i;
 	int	size;

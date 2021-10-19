@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 13:34:44 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:28:43 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 
 	i = 0;
 	j = 0;
-	tree->args = ft_calloc(tree->size_args + 1, sizeof(char *));
-	tree->red = ft_calloc(tree->size_red + 1, sizeof(char *));
+	if (tree->size_args > 0)
+		tree->args = ft_calloc(tree->size_args + 1, sizeof(char *));
+	if (tree->size_red > 0)
+		tree->red = ft_calloc(tree->size_red + 1, sizeof(char *));
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_eof)
 	{
@@ -52,8 +54,10 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 		}
 		parser->current_tok = parser->current_tok->next;
 	}
-	tree->args[i] = NULL;
-	tree->red[j] = NULL;
+	if (tree->size_args > 0)
+		tree->args[i] = NULL;
+	if (tree->size_red > 0)
+		tree->red[j] = NULL;
 }
 
 static void	get_type_and_size(t_tree *tree, t_parser *parser)
@@ -93,5 +97,6 @@ t_tree	*create_trees(char *cmd)
 	get_type_and_size(tree, parser);
 	get_args_and_red(tree, parser);
 	free_parser(parser);
+	free(lexer);
 	return (tree);
 }

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:18:21 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/19 09:29:21 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/19 09:53:52 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,22 @@ int echo_option(char *option)
 
 	i = 0;
 	if (option == NULL)
-		return 0;
+		return (0);
 	if (ft_strstr(option, "-n") != 0)
 	{
 		if(option[i] == '-')
 		{
 			i++;
 			if (option[i] != 'n' && option[i] != 'e')
-				return 0;
+				return (0);
 		}
 		while (option[i] != '\0')
 		{
 			if (option[i] != 'n' && option[i] != 'e')
-				return 0;
+				return (0);
 			i++;
 		}
-		return 1;
+		return (1);
 	}
-	return 0;
-<<<<<<< HEAD
-=======
+	return (0);	
 }
-
-char *ft_strstr(char *str, char *to_find)
-{
-	int i;

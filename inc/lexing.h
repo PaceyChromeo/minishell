@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:11:48 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/18 18:18:24 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/19 10:33:32 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_token
 
 int			count_env_in_string(t_token *token);
 int			check_env_surrounding(t_token *token, int i);
+char		*get_env(t_token *token, int i);
 char		*get_str_with_env(t_token *token);
 t_token		*init_token(int type, char *value);
 t_token		*get_next_token(t_lexer	*lexer);

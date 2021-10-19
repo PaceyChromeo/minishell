@@ -15,9 +15,13 @@ SRC_DISPLAY =	errors.c \
 SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
 			builtins.c \
-			cd_bltin.c \
 			echo_utils.c \
-			echo_bltin.c \
+			export_utils_1.c \
+			export_utils_2.c \
+			export_utils_3.c \
+			export_utils_4.c \
+			export_utils_5.c \
+			export_utils.c \
 			path.c	\
 			pipes.c \
 			redirections.c 
