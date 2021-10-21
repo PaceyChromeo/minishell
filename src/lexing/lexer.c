@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 11:46:19 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 13:38:39 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 
 	value = NULL;
 	while (lexer->c != ' ' && lexer->c != '\0' && lexer->c != '<'
-		&& lexer->c != '>' && lexer->c != 34 && lexer->c != 39)
+		&& lexer->c != '>' && lexer->c != '"' && lexer->c != 39)
 	{
 		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);

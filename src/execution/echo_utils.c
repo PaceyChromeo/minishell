@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:18:21 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 11:03:40 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 13:59:58 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ int	print_quote(char *cmd, int i, char c)
 
 int	echo_print_env(char *cmd, int i)
 {
-	char	*env;
-
-	env = get_env(cmd, i);
-	ft_putstr_fd(env, STDOUT_FILENO);
+	ft_putstr_fd(get_env(cmd, i), STDOUT_FILENO);
 	while (ft_isalpha(cmd[i]) || ft_isnum(cmd[i]) || cmd[i] == '_')
 		i++;
 	return (i - 1);

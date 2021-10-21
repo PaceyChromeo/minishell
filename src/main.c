@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 12:05:13 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 13:17:08 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 	
     while (1)
 	{
-		//system("leaks minishell");
+		system("leaks minishell");
 		line = display_prompt();   
 		if (check_forbidden_char(line))
 			return (printf("Forbidden character : ';' or '\\'\n"));
@@ -51,7 +51,7 @@ int main(int argc, char **argv, char **envp)
 			}
 			root[i] = NULL;
 		}
-		print_trees(root);
+		//print_trees(root);
 		if (!ft_strcmp(line, "exit"))
 		{
 			ft_putstr_fd("exit\n", 1);

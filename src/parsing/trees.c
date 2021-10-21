@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 11:56:09 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 13:40:37 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	get_args(t_tree *tree, t_parser *parser)
 			tree->args[i] = ft_strdup(parser->current_tok->value);
 			i++;
 		}
+		parser->current_tok = parser->current_tok->next;
 	}
 	tree->args[i] = NULL;
 }
@@ -86,7 +87,7 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 static void	get_type_and_size(t_tree *tree, t_parser *parser)
 {
 	parser->current_tok = parser->first_tok;
-	while (parser->current_tok)
+	while (parser->current_tok->type != token_eof)
 	{
 		if (parser->current_tok->type == token_cmd)
 		{
@@ -113,15 +114,16 @@ t_tree	*create_trees(char *cmd)
 	tree = init_tree(tree_nocmd, cmd);
 	lexer = init_lexer(cmd);
 	parser = init_parser(lexer);
-	while (parser->current_tok)
+	while (parser->current_tok->type != token_eof)
 	{
+		print_token(parser->current_tok);
 		if (parser->current_tok->type == token_error)
 		{
 			free_parser(parser);
 			ft_putstr_fd("Syntax error : Tree not created\n", STDOUT_FILENO);
 			return (NULL);
 		}
-		parser_next_token(parser, parser->current_tok->type);
+		parser_next_token(parser);
 	}
 	parser_define_more_token(parser);
 	parser_get_token_with_env(parser);
