@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 10:52:28 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:29:19 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	error_handler(t_tree *tree)
 
 	i = 0;
 	if (tree->cmd_type == tree_nocmd)
+	{
+		global = 127;
 		return (printf("Invalid command : %s\n", tree->cmd_value));
+	}
 	if (tree->size_red)
 	{
 		while (tree->red[i])

@@ -11,7 +11,8 @@ UTILS_DIR = $(addprefix ${SRC_DIR}, utils/)
 
 SRC = main.c
 SRC_DISPLAY =	errors.c \
-				prompt.c
+				prompt.c \
+				signals.c 
 SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
 			builtins.c \
@@ -74,7 +75,8 @@ TEXT4 = "Obj"
 		@${CC} $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 
 $(NAME): $(OBJS)
-		@${CC} $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
+		cp ./readline/libreadline.a ./
+		@${CC} $(CFLAGS) $(OBJS) libreadline.a -lncurses -o $(NAME)
 		@printf "\n"
 		@printf "\033[0m"$(NAME)$(TEXT2)
 

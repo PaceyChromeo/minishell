@@ -6,11 +6,13 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 14:56:39 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:48:30 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int global;
 
 int main(int argc, char **argv, char **envp)
 {
@@ -62,6 +64,7 @@ int main(int argc, char **argv, char **envp)
 		else
 			exec_pipes(root, envp);
 		free_all(root, split, line);
+		printf("exit status: %d\n", global);
 	}
 	return (0);
 }
