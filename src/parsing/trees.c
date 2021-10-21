@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 13:40:37 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 14:47:20 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ t_tree	*create_trees(char *cmd)
 	parser = init_parser(lexer);
 	while (parser->current_tok->type != token_eof)
 	{
-		print_token(parser->current_tok);
 		if (parser->current_tok->type == token_error)
 		{
 			free_parser(parser);
