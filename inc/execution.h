@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 22:22:09 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/20 15:26:06 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ int		cmp_builtins(char *value);
 void	bultins_cmd(t_tree *cmd);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
-void	exec_echo(t_tree *tree, int fd);
 void	echo(t_tree *tree);
 void	cd(char *path);
 void	pwd(void);
 void	export(char **args,char **env);
-int		echo_option(char *option);
+int		echo_option(char *option, int i);
 int		echo_print_env(char *cmd, int i);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */

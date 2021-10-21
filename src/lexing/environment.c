@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 22:13:13 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/20 19:09:49 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ char	*get_env(char *token_value, int i)
 	int		x;
 
 	x = 0;
-	size = ft_strlen(token_value);
-	// if (ft_isalpha(token_value[size]) || token_value[size] == '_')
-	// 	size++;
-	// while (ft_isalpha(token_value[size]) || token_value[size] == '_'
-	// 	|| ft_isnum(token_value[size]))
-	// 	size++;
+	size = i;
+	if (ft_isalpha(token_value[size]) || token_value[size] == '_')
+		size++;
+	while (ft_isalpha(token_value[size]) || token_value[size] == '_'
+		|| ft_isnum(token_value[size]))
+		size++;
 	env = ft_calloc((size - i) + 1, sizeof(char));
 	if (!env)
 		return (NULL);
@@ -66,6 +66,7 @@ static int	count_total_string(t_token *token)
 	tok_value = ft_strdup(token->value);
 	while (tok_value[++i])
 	{
+		printf("size = %d\n", size);
 		if (tok_value[i] == '$' && (token->type == token_id
 			|| token->type == token_string_dq))
 		{

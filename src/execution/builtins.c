@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 17:19:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/20 15:21:00 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,4 @@ int	cmp_builtins(char *value)
 	}
 	free (bltin_lst);
 	return (7);
-}
-
-int exec_bltin(t_tree *tree)
-{
-	char *path;
-
-	path = NULL;
-	if (tree->cmd_type == 0)
-	{
-		//print_tree(tree);
-		echo(tree->args);
-	}
-	if (tree->cmd_type == 1)
-	{
-		path = getcwd(NULL, 0);
-		cd(path);
-		free(path);
-	}
-	// if (tree->cmd_type == 2)
-	// if (tree->cmd_type == 3)
-	// if (tree->cmd_type == 4)
-	// if (tree->cmd_type == 5)
-	// if (tree->cmd_type == 6)
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/19 21:35:58 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/20 18:35:54 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int main(int argc, char **argv, char **envp)
 			}
 			root[i] = NULL;
 		}
-		print_trees(root);
 		if (!ft_strcmp(line, "exit"))
 		{
 			ft_putstr_fd("exit\n", 1);
