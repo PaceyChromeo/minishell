@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 10:42:45 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:02:32 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	echo(t_tree *tree)
 {
-	int i;
-	int opt;
+	int	i;
+	int	opt;
 
 	opt = 0;
-	i = echo_option(tree->full_cmd, 5);
+	i = echo_option(tree->f_cmd, 5);
 	if (tree->size_args > 1 && i)
 		opt = 1;
 	else
 		i = 5;
-	while(tree->full_cmd[i])
+	while (tree->f_cmd[i])
 	{
-		if (tree->full_cmd[i] != 34 && tree->full_cmd[i] != 39
-			&& tree->full_cmd[i] != '$')
-			ft_putchar_fd(tree->full_cmd[i], STDOUT_FILENO);
-		if (tree->full_cmd[i] == 39 && tree->full_cmd[i + 1])
-			i = print_quote(tree->full_cmd, i + 1, 39);
-		if (tree->full_cmd[i] == 34 && tree->full_cmd[i + 1])
-			i = print_quote(tree->full_cmd, i + 1, 34);
-		if (tree->full_cmd[i] == '$' && (ft_isalpha(tree->full_cmd[i + 1])
-			|| ft_isnum(tree->full_cmd[i + 1]) || tree->full_cmd[i + 1] == '_'))
-			i = echo_print_env(tree->full_cmd, i + 1);
+		if (tree->f_cmd[i] != 34 && tree->f_cmd[i] != 39
+			&& tree->f_cmd[i] != '$')
+			ft_putchar_fd(tree->f_cmd[i], STDOUT_FILENO);
+		if (tree->f_cmd[i] == 39 && tree->f_cmd[i + 1])
+			i = print_quote(tree->f_cmd, i + 1, 39);
+		if (tree->f_cmd[i] == 34 && tree->f_cmd[i + 1])
+			i = print_quote(tree->f_cmd, i + 1, 34);
+		if (tree->f_cmd[i] == '$' && (ft_isalpha(tree->f_cmd[i + 1])
+				|| ft_isnum(tree->f_cmd[i + 1]) || tree->f_cmd[i + 1] == '_'))
+			i = echo_print_env(tree->f_cmd, i + 1);
 		i++;
 	}
 	if (!opt)
@@ -51,11 +51,12 @@ void	cd(char *path)
 
 void	pwd(void)
 {
-	char *buf;
+	char	*buf;
+
 	buf = NULL;
 	buf = getcwd(NULL, 0);
 	if (buf == NULL)
-		 perror(buf);
+		perror(buf);
 	else
 	{
 		ft_putstr_fd(buf, STDOUT_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 21:58:56 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 11:01:50 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_tree
 		tree_nocmd
 	}		cmd_type;
 	char	*cmd_value;
-	char	*full_cmd;
+	char	*f_cmd;
 	char	**args;
 	char	**red;
 	int		size_args;

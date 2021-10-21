@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_funcs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:53:12 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/19 21:56:40 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 11:56:43 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 // {
 	// 	printf("token type : %d | token value : %s\n", parser->current_tok->type, parser->current_tok->value);
 	// 	parser->current_tok = parser->current_tok->next;
-// }
-					
+// }			
 void	print_strs(char **strs)
 {
 	int	i;

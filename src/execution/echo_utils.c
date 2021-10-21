@@ -6,13 +6,13 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:18:21 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 10:46:09 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:03:40 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int echo_option(char *full_cmd, int i)
+int	echo_option(char *full_cmd, int i)
 {
 	if (full_cmd == NULL)
 		return (0);
@@ -33,10 +33,10 @@ int echo_option(char *full_cmd, int i)
 		}
 		return (i);
 	}
-	return (0);	
+	return (0);
 }
 
-int print_quote(char *cmd, int i, char c)
+int	print_quote(char *cmd, int i, char c)
 {
 	if (c == 39)
 	{
@@ -51,16 +51,16 @@ int print_quote(char *cmd, int i, char c)
 		while (cmd[i] != 34 && cmd[i])
 		{
 			if (cmd[i] == '$' && (ft_isalpha(cmd[i + 1])
-				|| ft_isnum(cmd[i + 1]) || cmd[i + 1] == '_'))
+					|| ft_isnum(cmd[i + 1]) || cmd[i + 1] == '_'))
 				i = echo_print_env(cmd, i + 1) + 1;
 			if (cmd[i] != 34)
 				ft_putchar_fd(cmd[i], STDOUT_FILENO);
 			else
-				break;
+				break ;
 			i++;
 		}
 	}
-	return (i);	
+	return (i);
 }
 
 int	echo_print_env(char *cmd, int i)
