@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 08:54:58 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 14:32:20 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@
 # include "parsing.h"
 # include "utils.h"
 # include "get_next_line.h"
+extern int global;
 
+void	rl_replace_line(const char *text, int clear_undo);
 #endif

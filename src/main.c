@@ -6,11 +6,13 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 10:07:40 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 14:31:36 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int global;
 
 int main(int argc, char **argv, char **envp)
 {
@@ -24,8 +26,9 @@ int main(int argc, char **argv, char **envp)
 	
     while (1)
 	{
-		//system("leaks minishell");
-		line = display_prompt();   
+		signal(SIGQUIT, handler_int);
+		signal(SIGINT, handler_int);
+		line = display_prompt();
 		if (check_forbidden_char(line))
 			return (printf("Forbidden character : ';' or '\\'\n"));
 		cmd_nbr = count_pipes(line, '|');
@@ -62,6 +65,7 @@ int main(int argc, char **argv, char **envp)
 		else
 			exec_pipes(root, envp);
 		free_all(root, split, line);
+		printf("exit status: %d\n", global);
 	}
 	return (0);
 }

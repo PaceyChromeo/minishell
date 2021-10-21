@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 09:58:52 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 10:21:51 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,11 @@ void	exec_pipes(t_tree **cmds, char **env)
 	multipipes(cmds, fd, &var);
 	close(fd[1]);
 	close(fd[0]);
-	while ((waitpid(var.pid , &status, 0) > 0))
+	while ((waitpid(var.pid , &status, WUNTRACED) > 0));
+	if (WIFEXITED(status))
 	{
-		
+		global = WEXITSTATUS(status);
 	}
-		;
+
 }
+
