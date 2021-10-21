@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 11:31:58 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:03:33 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ int	double_left_redir(t_tree **cmds, int i, int j)
 
 int	open_heredoc(t_tree **cmds, int i, int j)
 {
-	int temp;
-	char *line;
-	char *limiter;
+	int		temp;
+	char	*line;
+	char	*limiter;
 
 	limiter = cmds[i]->red[j + 1];
 	temp = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	while (write(1, "> ", ft_strlen("> ")) 
+	while (write(1, "> ", ft_strlen("> "))
 		&& get_next_line(0, &line) > 0 && (ft_strcmp(line, limiter) != 0))
 	{
 		write(temp, line, ft_strlen(line));
@@ -63,7 +63,7 @@ int	open_heredoc(t_tree **cmds, int i, int j)
 
 void	loop_double_redir(t_tree **cmds, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (cmds[i]->red[j] != NULL)

@@ -6,11 +6,24 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 11:09:17 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:26:48 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	**get_tab_path(char **tab, char *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		tab[i] = ft_realloc(tab[i], "/");
+	i = -1;
+	while (tab[++i])
+		tab[i] = ft_realloc(tab[i], cmd);
+	return (tab);
+}
 
 char	*get_path(char *cmd)
 {
@@ -19,14 +32,9 @@ char	*get_path(char *cmd)
 	char	**tab;
 	int		i;
 
-	i = -1;
 	path = getenv("PATH");
 	tab = ft_split(path, ':');
-	while (tab[++i])
-		tab[i] = ft_realloc(tab[i], "/");
-	i = -1;
-	while (tab[++i])
-		tab[i] = ft_realloc(tab[i], cmd);
+	tab = get_tab_path(tab, cmd);
 	i = -1;
 	while (tab[++i])
 	{

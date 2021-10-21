@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_funcs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:53:12 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/19 21:56:40 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 12:04:22 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 // {
 	// 	printf("token type : %d | token value : %s\n", parser->current_tok->type, parser->current_tok->value);
 	// 	parser->current_tok = parser->current_tok->next;
-// }
-					
+// }			
 void	print_strs(char **strs)
 {
 	int	i;
@@ -43,7 +42,7 @@ void	print_strs(char **strs)
 
 void	print_tree(t_tree *tree)
 {
-	printf("FULL CMD = [ %s ]\n", tree->full_cmd);
+	printf("FULL CMD = [ %s ]\n", tree->f_cmd);
 	printf("NAME OF CMD = [ %s ]\n", tree->cmd_value);
 	printf("TYPE OF CMD = [ %d ]\n", tree->cmd_type);
 	if (tree->size_args)

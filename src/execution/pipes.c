@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 11:56:56 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:04:06 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	execute(t_tree **cmds, char **env, int i)
 	return (1);
 }
 
-static void	is_child(t_tree **cmds, int old_pipefd[2], int new_pipefd[2], t_var *var)
+static void	is_child(t_tree **cmds, int old_pipefd[2],
+	int new_pipefd[2], t_var *var)
 {
 	if (cmds[var->i + 1] != NULL)
 		dup2(new_pipefd[1], 1);
@@ -71,7 +72,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	if (cmds[var->i + 1] != NULL)
 	{
 		var->i++;
-		multipipes(cmds, new_pipefd, var);	
+		multipipes(cmds, new_pipefd, var);
 	}
 	close(new_pipefd[0]);
 }

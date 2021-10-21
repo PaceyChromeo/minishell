@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 21:59:39 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 11:56:09 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_tree	*init_tree(int type, char *cmd)
 		return (NULL);
 	full_cmd = ft_strdup(cmd);
 	new_tree->cmd_type = type;
-	new_tree->full_cmd = full_cmd;
+	new_tree->f_cmd = full_cmd;
 	new_tree->cmd_value = NULL;
 	new_tree->args = NULL;
 	new_tree->red = NULL;
@@ -31,42 +31,62 @@ t_tree	*init_tree(int type, char *cmd)
 	return (new_tree);
 }
 
-static void	get_args_and_red(t_tree *tree, t_parser *parser)
+static void	get_args(t_tree *tree, t_parser *parser)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	if (tree->size_args > 0)
-		tree->args = ft_calloc(tree->size_args + 1, sizeof(char *));
-	if (tree->size_red > 0)
-		tree->red = ft_calloc(tree->size_red + 1, sizeof(char *));
+	tree->args = ft_calloc(tree->size_args + 1, sizeof(char *));
+	if (!tree->args)
+	{
+		tree->args = NULL;
+		return ;
+	}
 	parser->current_tok = parser->first_tok;
-	while (parser->current_tok->type != token_eof)
+	while (parser->current_tok)
 	{
 		if (parser->current_tok->type > 0 && parser->current_tok->type < 6)
 		{
 			tree->args[i] = ft_strdup(parser->current_tok->value);
 			i++;
 		}
-		if (parser->current_tok->type > 5 && parser->current_tok->type < 11)
-		{
-			tree->red[j] = ft_strdup(parser->current_tok->value);
-			j++;
-		}
-		parser->current_tok = parser->current_tok->next;
 	}
+	tree->args[i] = NULL;
+}
+
+static void	get_args_and_red(t_tree *tree, t_parser *parser)
+{
+	int	i;
+
 	if (tree->size_args > 0)
-		tree->args[i] = NULL;
+		get_args(tree, parser);
 	if (tree->size_red > 0)
-		tree->red[j] = NULL;
+	{
+		i = 0;
+		tree->red = ft_calloc(tree->size_red + 1, sizeof(char *));
+		if (!tree->red)
+		{
+			tree->red = NULL;
+			return ;
+		}
+		parser->current_tok = parser->first_tok;
+		while (parser->current_tok)
+		{
+			if (parser->current_tok->type > 5 && parser->current_tok->type < 11)
+			{
+				tree->red[i] = ft_strdup(parser->current_tok->value);
+				i++;
+			}
+			parser->current_tok = parser->current_tok->next;
+		}
+		tree->red[i] = NULL;
+	}
 }
 
 static void	get_type_and_size(t_tree *tree, t_parser *parser)
 {
 	parser->current_tok = parser->first_tok;
-	while (parser->current_tok->type != token_eof)
+	while (parser->current_tok)
 	{
 		if (parser->current_tok->type == token_cmd)
 		{
@@ -89,14 +109,11 @@ t_tree	*create_trees(char *cmd)
 	t_tree		*tree;
 	t_lexer		*lexer;
 	t_parser	*parser;
-	//char		*full_cmd;
-	
+
 	tree = init_tree(tree_nocmd, cmd);
-	//full_cmd = ft_strdup(cmd);
-	//tree->full_cmd = full_cmd;
 	lexer = init_lexer(cmd);
 	parser = init_parser(lexer);
-	while (parser->current_tok->type != token_eof)
+	while (parser->current_tok)
 	{
 		if (parser->current_tok->type == token_error)
 		{

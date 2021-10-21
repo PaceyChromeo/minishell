@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/19 20:49:53 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 11:07:39 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void print_list(lst_env *lst)
+void	print_list(lst_env *lst)
 {
 	while (lst)
 	{
@@ -22,17 +22,17 @@ void print_list(lst_env *lst)
 	}
 }
 
-char *add_quote(char *arg)
+char	*add_quote(char *arg)
 {
-	int i;
-	int j;
-	char *str;
-	int equals;
+	int		i;
+	int		j;
+	char	*str;
+	int		equals;
 
 	equals = 0;
 	str = malloc(sizeof(char) * ft_strlen(arg) + 3);
 	if (str == NULL)
-		return NULL;
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (arg[i] != '\0')
@@ -43,18 +43,19 @@ char *add_quote(char *arg)
 			str[j++] = arg[i++];
 			str[j++] = '"';
 		}
-		str[j++] = arg[i++];	
+		str[j++] = arg[i++];
 	}
 	str[j++] = '"';
 	str[j] = '\0';
-
-	return str;
+	return (str);
 }
 
-lst_env *push_env_to_list(char **env)
+lst_env	*push_env_to_list(char **env)
 {
-	int i;
-	lst_env *lst = empty_list();
+	int		i;
+	lst_env	*lst;
+
+	lst = empty_list();
 	i = 0;
 	while (env[i + 2])
 		i++;
@@ -63,14 +64,14 @@ lst_env *push_env_to_list(char **env)
 		lst = add_at(lst, add_quote(env[i]), 0);
 		i--;
 	}
-	return lst;
+	return (lst);
 }
 
-void add_var_last(lst_env **lst, char *str)
+void	add_var_last(lst_env **lst, char *str)
 {
 	if (count_equals(str) > 0)
 		str = add_quote(str);
-	add_at(*lst,str,len_list(*lst));
+	add_at(*lst, str, len_list(*lst));
 }
 
 int	check_if_done(lst_env *lst)

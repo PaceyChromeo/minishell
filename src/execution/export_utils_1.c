@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:28:34 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/18 15:03:49 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:04:37 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-
 /*Chercher dans la une chaine de caractere une autre chaine de caractere*/
-char *ft_strstr(char *str, char *to_find)
+char	*ft_strstr(char *str, char *to_find)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -36,10 +35,10 @@ char *ft_strstr(char *str, char *to_find)
 	return (0);
 }
 
-char *ft_strstr_equalizer(char *str, char *to_find)
+char	*ft_strstr_equalizer(char *str, char *to_find)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (str[i] != '=')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/20 19:20:41 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 11:46:19 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 
 	value = NULL;
 	while (lexer->c != ' ' && lexer->c != '\0' && lexer->c != '<'
-			&& lexer->c != '>' && lexer->c != 34 && lexer->c != 39)
+		&& lexer->c != '>' && lexer->c != 34 && lexer->c != 39)
 	{
 		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
@@ -82,7 +82,7 @@ t_token	*lexer_collect_env(t_lexer *lexer)
 	value = ft_realloc_char(value, lexer->c);
 	lexer_next_char(lexer);
 	if ((!ft_isalpha(lexer->c) && lexer->c != '_'))
-		return(init_token(token_env, value));
+		return (init_token(token_env, value));
 	while (ft_isalpha(lexer->c) || lexer->c == '_' || ft_isnum(lexer->c))
 	{
 		value = ft_realloc_char(value, lexer->c);
