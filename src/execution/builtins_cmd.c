@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/20 18:39:11 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 11:58:40 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,12 @@ void	pwd(void)
 	}
 }
 
-void	bultins_cmd(t_tree *cmd)
+void	bultins_cmd(t_tree *cmd, int nbr_cmd)
 {
+	//printf("%d\n", nbr_cmd);
+	(void)nbr_cmd;
+	 if (cmd->size_red > 0)
+	 	redirections(&cmd, 0);
 	if (cmd->cmd_type == tree_echo)
 		echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)

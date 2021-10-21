@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 10:07:40 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:58:34 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int main(int argc, char **argv, char **envp)
 			exit(0);
 		}
 		else if (cmd_nbr == 0 && root[0]->cmd_type != tree_execve && root)
-			bultins_cmd(root[0]);
+			bultins_cmd(root[0], cmd_nbr);
 		else
 			exec_pipes(root, envp);
 		free_all(root, split, line);
