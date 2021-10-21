@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/19 14:44:23 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 09:58:52 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,21 @@ static void	is_child(t_tree **cmds, int old_pipefd[2], int new_pipefd[2], t_var 
 static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int		new_pipefd[2];
-	pid_t	pid;
+	//pid_t	pid;
 	
 	pipe(new_pipefd);
-	pid = fork();
-	if (pid == -1)
+	var->pid = fork();
+	if (var->pid == -1)
 	{
 		perror("fork");
 		return ;
 	}
-	if (pid == 0)
+	if (var->pid == 0)
+	{
+		if (cmds[var->i]->size_red > 0)
+			loop_double_redir(cmds, var->i);
 		is_child(cmds, old_pipefd, new_pipefd, var);
+	}
 	close(new_pipefd[1]);
 	if (cmds[var->i + 1] != NULL)
 	{
@@ -77,6 +81,8 @@ void	exec_pipes(t_tree **cmds, char **env)
 {
 	int	fd[2];
 	t_var var;
+	int status;
+	//pid_t pid;
 
 	var.i = 0;
 	var.env = env;
@@ -84,5 +90,9 @@ void	exec_pipes(t_tree **cmds, char **env)
 	multipipes(cmds, fd, &var);
 	close(fd[1]);
 	close(fd[0]);
-	while (wait(NULL) > 0);
+	while ((waitpid(var.pid , &status, 0) > 0))
+	{
+		
+	}
+		;
 }

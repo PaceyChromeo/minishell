@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 10:31:43 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 10:48:07 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	t_env
 typedef struct	s_var
 {
 	int		i;
+	pid_t pid;
 	char	**env;
 }				t_var;
 
@@ -33,8 +34,9 @@ typedef struct	s_var
 void	exec_pipes(t_tree **cmds, char **env);
 int		redirections(t_tree **cmds, int i);
 int		right_redir(t_tree **cmds, int i, int j);
-int		double_right_redir(t_tree **cmds, int i, int j);
 int		left_redir(t_tree **cmds, int i, int j);
+void	loop_double_redir(t_tree **cmds, int i);
+int		double_right_redir(t_tree **cmds, int i, int j);
 int		double_left_redir(t_tree **cmds, int i, int j);
 
 /* ---------------------------------- */
