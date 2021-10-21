@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:03:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 14:29:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 10:52:48 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*display_prompt(void)
 	char	*prompt;
 	char	*line;
 
-	prompt = prompt_color();   
+	prompt = prompt_color();
 	line = readline(prompt);
 	free(prompt);
 	if (ft_strlen(line) > 0)

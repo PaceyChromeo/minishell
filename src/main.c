@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 14:31:36 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/21 15:29:07 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv, char **envp)
 			exit(0);
 		}
 		else if (cmd_nbr == 0 && root[0]->cmd_type != tree_execve && root)
-			bultins_cmd(root[0]);
+			bultins_cmd(root[0], cmd_nbr);
 		else
 			exec_pipes(root, envp);
 		free_all(root, split, line);

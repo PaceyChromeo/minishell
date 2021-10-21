@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 10:21:51 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/21 15:29:29 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	execute(t_tree **cmds, char **env, int i)
 	return (1);
 }
 
-static void	is_child(t_tree **cmds, int old_pipefd[2], int new_pipefd[2], t_var *var)
+static void	is_child(t_tree **cmds, int old_pipefd[2],
+	int new_pipefd[2], t_var *var)
 {
 	if (cmds[var->i + 1] != NULL)
 		dup2(new_pipefd[1], 1);
@@ -40,10 +41,10 @@ static void	is_child(t_tree **cmds, int old_pipefd[2], int new_pipefd[2], t_var 
 	close(old_pipefd[1]);
 	close(new_pipefd[0]);
 	close(new_pipefd[1]);
-	if (cmds[var->i]->cmd_type >= tree_cd 
-		&& cmds[var->i]->cmd_type <= tree_exit)
+	if (cmds[var->i]->cmd_type != tree_execve)
 	{
-		bultins_cmd(cmds[var->i]);
+		printf("la\n");
+		bultins_cmd(cmds[var->i], 1);
 		exit(STDERR_FILENO);
 	}
 	else if (!execute(cmds, var->env, var->i))
@@ -53,7 +54,6 @@ static void	is_child(t_tree **cmds, int old_pipefd[2], int new_pipefd[2], t_var 
 static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int		new_pipefd[2];
-	//pid_t	pid;
 	
 	pipe(new_pipefd);
 	var->pid = fork();
@@ -72,7 +72,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	if (cmds[var->i + 1] != NULL)
 	{
 		var->i++;
-		multipipes(cmds, new_pipefd, var);	
+		multipipes(cmds, new_pipefd, var);
 	}
 	close(new_pipefd[0]);
 }
@@ -82,7 +82,6 @@ void	exec_pipes(t_tree **cmds, char **env)
 	int	fd[2];
 	t_var var;
 	int status;
-	//pid_t pid;
 
 	var.i = 0;
 	var.env = env;

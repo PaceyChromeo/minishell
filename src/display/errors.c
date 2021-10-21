@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 12:18:10 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/21 15:29:19 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	error_handler(t_tree *tree)
 	{
 		while (tree->red[i])
 		{
-			
 			if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
-				|| !ft_strcmp(tree->red[i], ">") || !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
+					|| !ft_strcmp(tree->red[i], ">")
+					|| !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
 				i += 2;
 			else
 				return (printf("Syntax error\n"));
@@ -37,7 +37,7 @@ int	error_handler(t_tree *tree)
 	return (0);
 }
 
-int check_forbidden_char(char *line)
+int	check_forbidden_char(char *line)
 {
 	int	i;
 

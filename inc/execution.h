@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 10:07:29 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:03:16 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		double_left_redir(t_tree **cmds, int i, int j);
 /* ---------------------------------- */
 
 int		cmp_builtins(char *value);
-void	bultins_cmd(t_tree *cmd);
+void	bultins_cmd(t_tree *cmd, int cmd_nbr);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
 void	echo(t_tree *tree);
@@ -50,6 +50,7 @@ void	cd(char *path);
 void	pwd(void);
 void	export(char **args,char **env);
 int		echo_option(char *option, int i);
+int		print_quote(char *cmd, int i, char c);
 int		echo_print_env(char *cmd, int i);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */
