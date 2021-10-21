@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 21:30:33 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 14:46:27 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,15 @@ t_parser	*init_parser(t_lexer *lexer)
 	parser->current_tok = get_next_token(parser->lexer);
 	parser->prev_tok = NULL;
 	parser->first_tok = parser->current_tok;
-	parser->token_size = 1;
 	return (parser);
 }
 
-void	parser_next_token(t_parser *parser, int type)
+void	parser_next_token(t_parser *parser)
 {
-	if ((int)parser->current_tok->type == type)
-	{
-		parser->prev_tok = parser->current_tok;
-		parser->current_tok = get_next_token(parser->lexer);
-		parser->prev_tok->next = parser->current_tok;
-		parser->current_tok->prev = parser->prev_tok;
-		if (parser->current_tok->type != token_eof)
-			parser->token_size++;
-	}
-	else
-		printf("Unexpected token : %s with type %d\n",
-			parser->current_tok->value, parser->current_tok->type);
+	parser->prev_tok = parser->current_tok;
+	parser->current_tok = get_next_token(parser->lexer);
+	parser->prev_tok->next = parser->current_tok;
+	parser->current_tok->prev = parser->prev_tok;
 }
 
 void	parser_define_more_token(t_parser *parser)
@@ -70,6 +61,8 @@ void	parser_define_more_token(t_parser *parser)
 
 void	parser_get_token_with_env(t_parser *parser)
 {
+	char	*tmp;
+
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok)
 	{
@@ -77,12 +70,20 @@ void	parser_get_token_with_env(t_parser *parser)
 			|| parser->current_tok->type == token_string_dq)
 		{
 			if (count_env_in_string(parser->current_tok))
+			{
+				tmp = parser->current_tok->value;
 				parser->current_tok->value
 					= get_str_with_env(parser->current_tok);
+				free(tmp);
+			}
 		}
 		if (parser->current_tok->type == token_env)
+		{
+			tmp = parser->current_tok->value;
 			parser->current_tok->value
-				= ft_strdup(get_env(parser->current_tok->value, 1));
+				= get_str_with_env(parser->current_tok);
+			free(tmp);
+		}
 		parser->current_tok = parser->current_tok->next;
 	}
 }

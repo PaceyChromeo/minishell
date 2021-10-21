@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 12:03:22 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:06:38 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	echo(t_tree *tree)
 		i = 5;
 	while (tree->f_cmd[i])
 	{
+		
 		if (tree->f_cmd[i] != 34 && tree->f_cmd[i] != 39
 			&& tree->f_cmd[i] != '$')
 			ft_putchar_fd(tree->f_cmd[i], STDOUT_FILENO);
@@ -64,12 +65,8 @@ void	pwd(void)
 	}
 }
 
-void	bultins_cmd(t_tree *cmd, int nbr_cmd)
+void	bultins_cmd(t_tree *cmd)
 {
-	//printf("%d\n", nbr_cmd);
-	(void)nbr_cmd;
-	 if (cmd->size_red > 0)
-	 	redirections(&cmd, 0);
 	if (cmd->cmd_type == tree_echo)
 		echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)

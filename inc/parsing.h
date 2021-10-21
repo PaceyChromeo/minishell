@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 11:01:50 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:14:35 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_parser
 	t_token	*current_tok;
 	t_token	*prev_tok;
 	t_token	*first_tok;
-	ssize_t	token_size;
 }				t_parser;
 
 typedef struct s_tree
@@ -50,7 +49,7 @@ typedef struct s_tree
 int			count_pipes(char const *line, char c);
 char		**ft_split_pipe(char *s, char c);
 t_parser	*init_parser(t_lexer *lexer);
-void		parser_next_token(t_parser *parser, int type);
+void		parser_next_token(t_parser *parser);
 void		parser_define_more_token(t_parser *parser);
 void		parser_get_token_with_env(t_parser *parser);
 t_tree		*init_tree(int type, char *cmd);

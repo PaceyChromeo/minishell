@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:18:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/19 15:25:04 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:18:15 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 
+void	print_token(t_token *token);
 void	print_tree(t_tree *tree);
 void	print_trees(t_tree **root);
 void	free_tab(char **tab);

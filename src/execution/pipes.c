@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 12:04:06 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:10:20 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	is_child(t_tree **cmds, int old_pipefd[2],
 	close(new_pipefd[1]);
 	if (cmds[var->i]->cmd_type != tree_execve)
 	{
-		printf("la\n");
-		bultins_cmd(cmds[var->i], 1);
+		//printf("la\n");
+		bultins_cmd(cmds[var->i]);
 		exit(STDERR_FILENO);
 	}
 	else if (!execute(cmds, var->env, var->i))
