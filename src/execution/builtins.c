@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/18 17:19:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/20 08:45:44 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int exec_bltin(t_tree *tree)
 	if (tree->cmd_type == 0)
 	{
 		//print_tree(tree);
-		echo(tree->args);
+		echo(tree);
 	}
 	if (tree->cmd_type == 1)
 	{
