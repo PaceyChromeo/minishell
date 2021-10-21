@@ -17,12 +17,12 @@ SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
 			builtins.c \
 			echo_utils.c \
-			export_utils_1.c \
-			export_utils_2.c \
-			export_utils_3.c \
-			export_utils_4.c \
-			export_utils_5.c \
 			export_utils.c \
+			export_utils1.c \
+			export_utils2.c \
+			export_utils3.c \
+			export_utils4.c \
+			export_utils5.c \
 			left_redir.c \
 			path.c	\
 			pipes.c \

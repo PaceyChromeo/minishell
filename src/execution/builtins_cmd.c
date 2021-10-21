@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 15:06:38 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 17:14:13 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,15 @@ void	echo(t_tree *tree)
 	int	opt;
 
 	opt = 0;
-	i = echo_option(tree->f_cmd, 5);
-	if (tree->size_args > 1 && i)
+	i = 5;
+	printf("before trim : %s\n", tree->f_cmd);
+	if (tree->size_red)
+		trim_redirections(tree);
+	printf("after trim : %s\n", tree->f_cmd);
+	i += echo_option(tree->f_cmd, i);
+	if (tree->size_args > 1 && i != 5)
 		opt = 1;
-	else
-		i = 5;
-	while (tree->f_cmd[i])
-	{
-		
-		if (tree->f_cmd[i] != 34 && tree->f_cmd[i] != 39
-			&& tree->f_cmd[i] != '$')
-			ft_putchar_fd(tree->f_cmd[i], STDOUT_FILENO);
-		if (tree->f_cmd[i] == 39 && tree->f_cmd[i + 1])
-			i = print_quote(tree->f_cmd, i + 1, 39);
-		if (tree->f_cmd[i] == 34 && tree->f_cmd[i + 1])
-			i = print_quote(tree->f_cmd, i + 1, 34);
-		if (tree->f_cmd[i] == '$' && (ft_isalpha(tree->f_cmd[i + 1])
-				|| ft_isnum(tree->f_cmd[i + 1]) || tree->f_cmd[i + 1] == '_'))
-			i = echo_print_env(tree->f_cmd, i + 1);
-		i++;
-	}
+	exec_echo(tree, i);
 	if (!opt)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }

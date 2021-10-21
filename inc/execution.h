@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 14:56:48 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/21 17:20:56 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct	t_env
 typedef struct	s_var
 {
 	int		i;
-	pid_t pid;
+	pid_t	pid;
 	char	**env;
 }				t_var;
 
@@ -50,8 +50,9 @@ void	cd(char *path);
 void	pwd(void);
 void	export(char **args,char **env);
 int		echo_option(char *option, int i);
-int		print_quote(char *cmd, int i, char c); 
-int		echo_print_env(char *cmd, int i);
+void	trim_redirections(t_tree *tree);
+void	exec_echo(t_tree *tree, int i);
+int		count_total_redirections(t_tree *tree);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */
 
