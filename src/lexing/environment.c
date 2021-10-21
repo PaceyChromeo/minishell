@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/20 19:09:49 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 10:09:09 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,22 @@ static int	count_total_string(t_token *token)
 	char	*tok_value;
 
 	size = 0;
-	i = -1;
+	i = 0;
 	tok_value = ft_strdup(token->value);
-	while (tok_value[++i])
+	while (tok_value[i])
 	{
-		printf("size = %d\n", size);
 		if (tok_value[i] == '$' && (token->type == token_id
 			|| token->type == token_string_dq))
 		{
 			i++;
 			size += ft_strlen(get_env(tok_value, i));
-			while (ft_isalpha(token->value[i]) || token->value[i] == '_'
-				|| ft_isnum(token->value[i]))
+			while ((ft_isalpha(token->value[i]) || token->value[i] == '_'
+				|| ft_isnum(token->value[i])))
 				i++;
+			if (!tok_value[i])
+				return (size);
 		}
+		i++;
 		size++;
 	}
 	free(tok_value);
@@ -103,6 +105,11 @@ char	*get_str_with_env(t_token *token)
 			while (ft_isalpha(token->value[i]) || token->value[i] == '_'
 				|| ft_isnum(token->value[i]))
 				i++;
+			if (!token->value[i])
+			{
+				string_with_env[size] = '\0';			
+				return (string_with_env);
+			}
 		}
 		string_with_env = ft_realloc_char(string_with_env, token->value[i]);
 		i++;

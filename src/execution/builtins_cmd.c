@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/20 18:39:11 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 10:42:45 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,12 @@ void	echo(t_tree *tree)
 			&& tree->full_cmd[i] != '$')
 			ft_putchar_fd(tree->full_cmd[i], STDOUT_FILENO);
 		if (tree->full_cmd[i] == 39 && tree->full_cmd[i + 1])
-		{
-			i++;
-			while (tree->full_cmd[i] != 39 && tree->full_cmd[i])
-			{
-				ft_putchar_fd(tree->full_cmd[i], STDOUT_FILENO);
-				i++;
-			}
-		}
+			i = print_quote(tree->full_cmd, i + 1, 39);
+		if (tree->full_cmd[i] == 34 && tree->full_cmd[i + 1])
+			i = print_quote(tree->full_cmd, i + 1, 34);
 		if (tree->full_cmd[i] == '$' && (ft_isalpha(tree->full_cmd[i + 1])
 			|| ft_isnum(tree->full_cmd[i + 1]) || tree->full_cmd[i + 1] == '_'))
-		{
 			i = echo_print_env(tree->full_cmd, i + 1);
-		
-		}
-		if (tree->full_cmd[i] == 34 && tree->full_cmd[i + 1])
-		{
-			i++;
-			while (tree->full_cmd[i] != 34 && tree->full_cmd[i])
-			{
-				if (tree->full_cmd[i] == '$' && (ft_isalpha(tree->full_cmd[i + 1])
-					|| ft_isnum(tree->full_cmd[i + 1]) || tree->full_cmd[i + 1] == '_'))
-					i = echo_print_env(tree->full_cmd, i + 1) + 1;
-				if (tree->full_cmd[i] != 34)
-					ft_putchar_fd(tree->full_cmd[i], STDOUT_FILENO);
-				i++;
-			}	
-		}
 		i++;
 	}
 	if (!opt)

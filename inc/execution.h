@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/20 15:26:06 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/21 10:31:43 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	cd(char *path);
 void	pwd(void);
 void	export(char **args,char **env);
 int		echo_option(char *option, int i);
+int		print_quote(char *cmd, int i, char c);
 int		echo_print_env(char *cmd, int i);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */
