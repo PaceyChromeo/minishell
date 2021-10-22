@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/22 10:38:51 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 13:56:58 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ static int	count_total_string(t_token *token)
 				free(tok_value);
 				return (size);
 			}
+			if (tok_value[i] == '$' && !tok_value[i + 1])
+			{
+				free(tok_value);
+				return (size + 1);
+			}
 		}
 		if (tok_value[i] != '$')
 		{
@@ -107,6 +112,12 @@ static char	*str_with_env(t_token *token, char *str_with_env, int size)
 				i++;
 			if (!token->value[i])
 			{
+				str_with_env[size] = '\0';
+				return (str_with_env);
+			}
+			if (token->value[i] == '$' && !token->value[i + 1])
+			{
+				str_with_env[size - 1] = '$';
 				str_with_env[size] = '\0';
 				return (str_with_env);
 			}

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 11:11:49 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 14:00:27 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	get_args(t_tree *tree, t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok)
 	{
-		if (parser->current_tok->type > 0 && parser->current_tok->type < 6)
+		if ((parser->current_tok->type > 0 && parser->current_tok->type < 6)
+			|| parser->current_tok->value)
 		{
 			tree->args[i] = ft_strdup(parser->current_tok->value);
 			i++;
@@ -98,7 +99,8 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 				tree->cmd_type = tree_execve;
 			tree->cmd_value = ft_strdup(parser->current_tok->value);
 		}
-		if (parser->current_tok->type > 0 && parser->current_tok->type < 6)
+		if ((parser->current_tok->type > 0 && parser->current_tok->type < 6)
+			|| parser->current_tok->value)
 			tree->size_args++;
 		if (parser->current_tok->type > 5 && parser->current_tok->type < 11)
 			tree->size_red++;
@@ -117,6 +119,7 @@ t_tree	*create_trees(char *cmd)
 	parser = init_parser(lexer);
 	while (parser->current_tok->type != token_eof)
 	{
+		print_token(parser->current_tok);
 		if (parser->current_tok->type == token_error)
 		{
 			print_token(parser->current_tok);
