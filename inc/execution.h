@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 17:20:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 11:49:36 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ void	echo(t_tree *tree);
 void	cd(char *path);
 void	pwd(void);
 void	export(char **args,char **env);
-int		echo_option(char *option, int i);
-void	trim_redirections(t_tree *tree);
-void	exec_echo(t_tree *tree, int i);
-int		count_total_redirections(t_tree *tree);
+int		echo_option(char **args, int i);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */
 

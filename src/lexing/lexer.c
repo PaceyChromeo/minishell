@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 10:53:32 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 13:53:01 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ t_token	*lexer_collect_env(t_lexer *lexer)
 	{
 		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
+		if (lexer->c == ' ')
+		{
+			lexer_next_char(lexer);
+			return (init_token(token_env, value));
+		}
 		if ((!ft_isalpha(lexer->c) && lexer->c != '_') && lexer->c != '?')
 			return (init_token(token_env, value));
 		else if (lexer->c == '?')

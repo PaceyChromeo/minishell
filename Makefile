@@ -16,7 +16,6 @@ SRC_DISPLAY =	errors.c \
 SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
 			builtins.c \
-			echo_utils.c \
 			export_utils.c \
 			export_utils1.c \
 			export_utils2.c \
