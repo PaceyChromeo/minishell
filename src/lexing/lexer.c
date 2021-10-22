@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 13:53:01 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 17:27:51 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	lexer_next_char(t_lexer *lexer)
 t_token	*lexer_collect_id(t_lexer *lexer)
 {
 	char	*value;
-	int		i;
 
 	value = NULL;
 	while (lexer->c != ' ' && lexer->c != '\0'
@@ -45,41 +44,18 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 	{
 		if (lexer->c == 34)
 		{
-			lexer_next_char(lexer);
-			while (lexer->c != 34 && lexer->c)
-			{
-				if (lexer->c == '$')
-				{
-					lexer_next_char(lexer);
-					i = lexer->index;
-					while (ft_isalpha(lexer->c) || ft_isnum(lexer->c) || lexer->c == '_')
-						lexer_next_char(lexer);
-					value = ft_realloc(value, get_env(lexer->value, i));
-				}
-			}
-			if (!lexer->c)
-			{
-				free(value);
+			value = collect_id_single_quote(lexer, value);
+			if (!value)
 				return (init_token(token_error, NULL));
-			}
-			lexer_next_char(lexer);
 		}
 		if (lexer->c == 39)
 		{
-			lexer_next_char(lexer);
-			while (lexer->c != 39 && lexer->c)
-			{
-				value = ft_realloc_char(value, lexer->c);
-				lexer_next_char(lexer);		
-			}
-			if (!lexer->c)
-			{
-				free(value);
+			value = collect_id_double_quote(lexer,value);
+			if (!value)
 				return (init_token(token_error, NULL));
-			}
 			lexer_next_char(lexer);
 		}
-		if (lexer->c)
+		if (lexer->c && lexer->c != 34 && lexer->c != 39)
 		{
 			value = ft_realloc_char(value, lexer->c);
 			lexer_next_char(lexer);

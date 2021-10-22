@@ -29,6 +29,7 @@ SRC_EXEC =	binaries.c \
 			right_redir.c
 SRC_LEXING =	environment.c \
 				lexer.c \
+				lexing_utils.c \
 				token.c
 SRC_PARSING =	ft_split_pipe.c \
 				parser.c \

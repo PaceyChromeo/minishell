@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:11:48 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/22 11:02:23 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 17:14:27 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_token		*get_next_token(t_lexer	*lexer);
 t_lexer		*init_lexer(char *value);
 void		lexer_next_char(t_lexer *lexer);
 t_token		*lexer_collect_id(t_lexer *lexer);
+char		*collect_id_single_quote(t_lexer *lexer, char *value);
+char		*collect_id_double_quote(t_lexer *lexer, char *value);
 t_token		*lexer_collect_string(t_lexer *lexer);
 t_token		*lexer_collect_env(t_lexer *lexer);
 

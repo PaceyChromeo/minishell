@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 12:03:33 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/22 16:30:00 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	left_redir(t_tree **cmds, int i, int j)
 {
 	int	filein;
-	
+
 	filein = open(cmds[i]->red[j + 1], O_RDONLY, 0777);
 	if (filein == -1)
 	{
@@ -28,7 +28,8 @@ int	left_redir(t_tree **cmds, int i, int j)
 
 int	double_left_redir(t_tree **cmds, int i, int j)
 {
-	int filein;
+	int	filein;
+
 	(void)cmds;
 	(void)i;
 	(void)j;
@@ -57,7 +58,6 @@ int	open_heredoc(t_tree **cmds, int i, int j)
 		write(temp, "\n", 1);
 		free(line);
 	}
-	//unlink("temp.txt");
 	return (1);
 }
 

@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/22 11:41:19 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 16:29:20 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execution.h"
 
 static int	execute(t_tree **cmds, char **env, int i)
 {
@@ -53,7 +53,7 @@ static void	is_child(t_tree **cmds, int old_pipefd[2],
 static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int		new_pipefd[2];
-	
+
 	pipe(new_pipefd);
 	var->pid = fork();
 	if (var->pid == -1)
@@ -78,9 +78,9 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 
 void	exec_pipes(t_tree **cmds, char **env)
 {
-	int	fd[2];
-	t_var var;
-	int status;
+	int		fd[2];
+	t_var	var;
+	int		status;
 
 	var.i = 0;
 	var.env = env;
@@ -88,11 +88,10 @@ void	exec_pipes(t_tree **cmds, char **env)
 	multipipes(cmds, fd, &var);
 	close(fd[1]);
 	close(fd[0]);
-	while ((waitpid(var.pid , &status, WUNTRACED) > 0));
+	while ((waitpid(var.pid, &status, WUNTRACED) > 0))
+		;
 	if (WIFEXITED(status))
 	{
 		global = WEXITSTATUS(status);
 	}
-
 }
-

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 14:23:28 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/21 17:28:31 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 16:30:16 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	redirections(t_tree **cmds, int i)
 	int	j;
 
 	j = 0;
-	//print_tree(cmds[i]);
 	while (cmds[i]->red[j] != NULL)
 	{
 		if (!ft_strcmp(cmds[i]->red[j], ">")
