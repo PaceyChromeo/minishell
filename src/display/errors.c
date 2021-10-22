@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 15:29:19 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/22 11:12:56 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	error_handler(t_tree *tree)
 					|| !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
 				i += 2;
 			else
-				return (printf("Syntax error\n"));
+				return (printf("Redirection error\n"));
 		}
 	}
 	return (0);

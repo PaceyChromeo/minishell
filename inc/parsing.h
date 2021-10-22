@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 12:14:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 11:11:39 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_tree
 	char	**red;
 	int		size_args;
 	int		size_red;
+	int		exit_status;
+	char	*str_error;
 }				t_tree;
 
 int			count_pipes(char const *line, char c);
