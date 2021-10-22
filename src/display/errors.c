@@ -6,7 +6,7 @@
 /*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 14:06:14 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/22 14:29:02 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	error_handler(t_tree *tree)
 	int	i;
 
 	i = 0;
-	printf("cmd_value: %s\n", tree->args[0]);
-	printf("cmd_value: %s\n", tree->args[0]);
+//	printf("cmd_value: %s\n", tree->args[0]);
+//	printf("cmd_value: %s\n", tree->args[0]);
 
 	if (tree->cmd_type == tree_nocmd && ft_strcmp(tree->args[0], "$?") != 0 && ft_strcmp(tree->f_cmd, "$?+$?") != 0 && ft_strcmp(tree->f_cmd, "$? + $?") != 0 )
 	{
 		global = 127;
 		return (printf("bash: command not found\n"));
 	}
-	else if (tree->cmd_type == tree_nocmd && ft_strcmp(tree->args[0], "$?") == 0 && ft_strcmp(tree->f_cmd, "$?+$?") != 0 && ft_strcmp(tree->f_cmd, "$? + $?") == 0)
+	else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->args[0], "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) && ft_strcmp(tree->f_cmd, "$?+$?") != 0) 
 	{
 	//	printf("cmd_value: %s\n", tree->cmd_value);
 	//	global = 127;
