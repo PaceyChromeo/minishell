@@ -6,14 +6,10 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 16:25:39 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 17:31:00 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "display.h"
-
-int	error_handler(t_tree *tree)
-{
 	int	i;
 
 	i = 0;
