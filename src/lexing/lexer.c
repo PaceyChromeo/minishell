@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 13:38:39 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 10:53:32 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,53 @@ void	lexer_next_char(t_lexer *lexer)
 t_token	*lexer_collect_id(t_lexer *lexer)
 {
 	char	*value;
+	int		i;
 
 	value = NULL;
-	while (lexer->c != ' ' && lexer->c != '\0' && lexer->c != '<'
-		&& lexer->c != '>' && lexer->c != '"' && lexer->c != 39)
+	while (lexer->c != ' ' && lexer->c != '\0'
+		&& lexer->c != '<' && lexer->c != '>')
 	{
-		value = ft_realloc_char(value, lexer->c);
-		lexer_next_char(lexer);
+		if (lexer->c == 34)
+		{
+			lexer_next_char(lexer);
+			while (lexer->c != 34 && lexer->c)
+			{
+				if (lexer->c == '$')
+				{
+					lexer_next_char(lexer);
+					i = lexer->index;
+					while (ft_isalpha(lexer->c) || ft_isnum(lexer->c) || lexer->c == '_')
+						lexer_next_char(lexer);
+					value = ft_realloc(value, get_env(lexer->value, i));
+				}
+			}
+			if (!lexer->c)
+			{
+				free(value);
+				return (init_token(token_error, NULL));
+			}
+			lexer_next_char(lexer);
+		}
+		if (lexer->c == 39)
+		{
+			lexer_next_char(lexer);
+			while (lexer->c != 39 && lexer->c)
+			{
+				value = ft_realloc_char(value, lexer->c);
+				lexer_next_char(lexer);		
+			}
+			if (!lexer->c)
+			{
+				free(value);
+				return (init_token(token_error, NULL));
+			}
+			lexer_next_char(lexer);
+		}
+		if (lexer->c)
+		{
+			value = ft_realloc_char(value, lexer->c);
+			lexer_next_char(lexer);
+		}
 	}
 	return (init_token(token_id, value));
 }
@@ -79,14 +119,23 @@ t_token	*lexer_collect_env(t_lexer *lexer)
 	char	*value;
 
 	value = NULL;
-	value = ft_realloc_char(value, lexer->c);
-	lexer_next_char(lexer);
-	if ((!ft_isalpha(lexer->c) && lexer->c != '_'))
-		return (init_token(token_env, value));
-	while (ft_isalpha(lexer->c) || lexer->c == '_' || ft_isnum(lexer->c))
+	while (lexer->c == '$')
 	{
 		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
+		if ((!ft_isalpha(lexer->c) && lexer->c != '_') && lexer->c != '?')
+			return (init_token(token_env, value));
+		else if (lexer->c == '?')
+		{
+			value = ft_realloc_char(value, lexer->c);
+			lexer_next_char(lexer);
+			return (init_token(token_env, value));
+		}
+		while (ft_isalpha(lexer->c) || lexer->c == '_' || ft_isnum(lexer->c))
+		{
+			value = ft_realloc_char(value, lexer->c);
+			lexer_next_char(lexer);
+		}
 	}
 	return (init_token(token_env, value));
 }

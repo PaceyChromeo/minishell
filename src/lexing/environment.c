@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 14:44:10 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 10:38:51 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,11 @@ static int	count_total_string(t_token *token)
 				return (size);
 			}
 		}
-		i++;
-		size++;
+		if (tok_value[i] != '$')
+		{
+			i++;
+			size++;
+		}
 	}
 	free(tok_value);
 	return (size);
@@ -95,8 +98,7 @@ static char	*str_with_env(t_token *token, char *str_with_env, int size)
 	i = 0;
 	while (token->value[i])
 	{
-		if (token->value[i] == '$' && (token->type == token_id
-				|| token->type == token_string_dq))
+		while (token->value[i] == '$')
 		{
 			i++;
 			str_with_env = ft_realloc(str_with_env, get_env(token->value, i));
@@ -112,6 +114,7 @@ static char	*str_with_env(t_token *token, char *str_with_env, int size)
 		str_with_env = ft_realloc_char(str_with_env, token->value[i]);
 		i++;
 	}
+	str_with_env[size] = '\0';
 	return (str_with_env);
 }
 
@@ -123,7 +126,6 @@ char	*get_str_with_env(t_token *token)
 
 	i = 0;
 	size = count_total_string(token);
-	printf("size : %d\n", size);
 	string_with_env = ft_calloc(size + 1, sizeof(char *));
 	if (!string_with_env)
 		return (NULL);

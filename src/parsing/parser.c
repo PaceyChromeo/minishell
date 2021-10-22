@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 14:46:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 10:56:59 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ void	parser_get_token_with_env(t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok)
 	{
-		if (parser->current_tok->type == token_id
-			|| parser->current_tok->type == token_string_dq)
+		if (parser->current_tok->type == token_string_dq)
 		{
 			if (count_env_in_string(parser->current_tok))
 			{
@@ -77,7 +76,8 @@ void	parser_get_token_with_env(t_parser *parser)
 				free(tmp);
 			}
 		}
-		if (parser->current_tok->type == token_env)
+		if (parser->current_tok->type == token_env
+			&& ft_strcmp(parser->current_tok->value, "$?"))
 		{
 			tmp = parser->current_tok->value;
 			parser->current_tok->value

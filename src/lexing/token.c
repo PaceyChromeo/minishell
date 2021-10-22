@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:08:31 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 14:11:01 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 09:51:47 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,30 @@ static	t_token	*lexer_collect_redir(t_lexer *lexer)
 	}
 }
 
+static t_token	*get_single_token(t_lexer *lexer)
+{
+	if (lexer->c == '+')
+		return (lexer_collect_token(lexer, init_token(token_plus, "+")));
+	if (lexer->c == '-')
+		return (lexer_collect_token(lexer, init_token(token_minus, "-")));
+	if (lexer->c == '*')
+		return (lexer_collect_token(lexer, init_token(token_time, "*")));
+	if (lexer->c == '(')
+		return (lexer_collect_token(lexer, init_token(token_lparen, "(")));
+	if (lexer->c == ')')
+		return (lexer_collect_token(lexer, init_token(token_rparen, ")")));
+	return (init_token(token_eof, NULL));
+}
+
 t_token	*get_next_token(t_lexer	*lexer)
 {
 	while (lexer->c != '\0' && lexer->index < ft_strlen(lexer->value))
 	{
 		if (lexer->c == ' ')
 			lexer_next_char(lexer);
+		if (lexer->c == '+' || lexer->c == '-' || lexer->c == '*'
+			|| lexer->c == '(' || lexer->c == ')')
+			return (get_single_token(lexer));
 		if (ft_is_ascii(lexer->c) && (lexer->c != 34 && lexer->c != 39
 				&& lexer->c != '$' && lexer->c != '>' && lexer->c != '<'
 				&& lexer->c != '(' && lexer->c != ')'))
@@ -73,10 +91,7 @@ t_token	*get_next_token(t_lexer	*lexer)
 			return (lexer_collect_env(lexer));
 		if (lexer->c == '>' || lexer->c == '<')
 			return (lexer_collect_redir(lexer));
-		if (lexer->c == '(')
-			return (lexer_collect_token(lexer, init_token(token_lparen, "(")));
-		if (lexer->c == ')')
-			return (lexer_collect_token(lexer, init_token(token_rparen, ")")));
+		
 	}
 	return (init_token(token_eof, NULL));
 }

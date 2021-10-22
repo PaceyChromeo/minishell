@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 17:14:13 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 10:03:49 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,32 @@
 void	echo(t_tree *tree)
 {
 	int	i;
+	int	j;
 	int	opt;
 
 	opt = 0;
-	i = 5;
-	printf("before trim : %s\n", tree->f_cmd);
-	if (tree->size_red)
-		trim_redirections(tree);
-	printf("after trim : %s\n", tree->f_cmd);
-	i += echo_option(tree->f_cmd, i);
-	if (tree->size_args > 1 && i != 5)
-		opt = 1;
-	exec_echo(tree, i);
-	if (!opt)
-		ft_putchar_fd('\n', STDOUT_FILENO);
+	i = 1;
+	j = 0;
+	if (tree->size_args > 1)
+	{
+		while (i < tree->size_args)
+		{
+			ft_putstr_fd(tree->args[i], STDOUT_FILENO);
+			if (i < tree->size_args - 1)
+				ft_putchar_fd(' ', STDOUT_FILENO);
+			if (i == tree->size_args - 1 && !opt)
+				ft_putchar_fd('\n', STDOUT_FILENO);
+			i++;
+		}
+	}
+	// printf("before trim : %s\n", tree->f_cmd);
+	// if (tree->size_red)
+	// 	trim_redirections(tree);
+	// printf("after trim : %s\n", tree->f_cmd);
+	// i += echo_option(tree->f_cmd, i);
+	// if (tree->size_args > 1 && i != 5)
+	// 	opt = 1;
+	// exec_echo(tree, i);
 }
 
 void	cd(char *path)
