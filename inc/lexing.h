@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:11:48 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/22 17:14:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/23 11:39:29 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,12 @@ typedef struct s_token
 	{
 		token_cmd = 1,
 		token_id,
-		token_string_sq,
-		token_string_dq,
 		token_env,
 		token_file,
 		token_sred_l,
 		token_sred_r,
 		token_dred_l,
 		token_dred_r,
-		token_lparen,
-		token_rparen,
 		token_eof,
 		token_error
 	}	type;
@@ -54,9 +50,8 @@ t_token		*get_next_token(t_lexer	*lexer);
 t_lexer		*init_lexer(char *value);
 void		lexer_next_char(t_lexer *lexer);
 t_token		*lexer_collect_id(t_lexer *lexer);
-char		*collect_id_single_quote(t_lexer *lexer, char *value);
-char		*collect_id_double_quote(t_lexer *lexer, char *value);
-t_token		*lexer_collect_string(t_lexer *lexer);
+char		*collect_id_string(t_lexer *lexer, char *value);
+char		*collect_id_env(t_lexer *lexer, char *value);
 t_token		*lexer_collect_env(t_lexer *lexer);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/22 13:56:58 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 18:35:36 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,7 @@ char	*get_str_with_env(t_token *token)
 {
 	char	*string_with_env;
 	int		size;
-	int		i;
 
-	i = 0;
 	size = count_total_string(token);
 	string_with_env = ft_calloc(size + 1, sizeof(char *));
 	if (!string_with_env)

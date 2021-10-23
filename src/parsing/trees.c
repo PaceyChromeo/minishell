@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 14:12:14 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/22 18:51:10 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	get_args(t_tree *tree, t_parser *parser)
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok)
 	{
-		if ((parser->current_tok->type > 0 && parser->current_tok->type < 6)
+		if ((parser->current_tok->type > 0 && parser->current_tok->type < 4)
 			&& parser->current_tok->value)
 		{
 			tree->args[i] = ft_strdup(parser->current_tok->value);
@@ -75,7 +75,7 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 		parser->current_tok = parser->first_tok;
 		while (parser->current_tok)
 		{
-			if (parser->current_tok->type > 5 && parser->current_tok->type < 11)
+			if (parser->current_tok->type > 3 && parser->current_tok->type < 9)
 			{
 				tree->red[i] = ft_strdup(parser->current_tok->value);
 				i++;
@@ -99,10 +99,10 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 				tree->cmd_type = tree_execve;
 			tree->cmd_value = ft_strdup(parser->current_tok->value);
 		}
-		if ((parser->current_tok->type > 0 && parser->current_tok->type < 6)
+		if ((parser->current_tok->type > 0 && parser->current_tok->type < 4)
 			&& parser->current_tok->value)
 			tree->size_args++;
-		if (parser->current_tok->type > 5 && parser->current_tok->type < 11)
+		if (parser->current_tok->type > 3 && parser->current_tok->type < 9)
 			tree->size_red++;
 		parser->current_tok = parser->current_tok->next;
 	}

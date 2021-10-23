@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 17:27:51 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/23 11:53:36 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,52 +42,22 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 	while (lexer->c != ' ' && lexer->c != '\0'
 		&& lexer->c != '<' && lexer->c != '>')
 	{
-		if (lexer->c == 34)
+		if (lexer->c == 34 || lexer->c == 39)
 		{
-			value = collect_id_single_quote(lexer, value);
+			value = collect_id_string(lexer, value);
 			if (!value)
 				return (init_token(token_error, NULL));
 		}
-		if (lexer->c == 39)
-		{
-			value = collect_id_double_quote(lexer,value);
-			if (!value)
-				return (init_token(token_error, NULL));
-			lexer_next_char(lexer);
-		}
-		if (lexer->c && lexer->c != 34 && lexer->c != 39)
+		else if (lexer->c == '$')
+			value = collect_id_env(lexer, value);
+		else if (lexer->c && lexer->c != 34 && lexer->c != 39
+			&& lexer->c != '$' && lexer->c != ' ')
 		{
 			value = ft_realloc_char(value, lexer->c);
 			lexer_next_char(lexer);
 		}
 	}
 	return (init_token(token_id, value));
-}
-
-t_token	*lexer_collect_string(t_lexer *lexer)
-{
-	char	quote;
-	char	*value;
-
-	quote = lexer->c;
-	value = NULL;
-	lexer_next_char(lexer);
-	while (lexer->c != quote)
-	{
-		value = ft_realloc_char(value, lexer->c);
-		lexer_next_char(lexer);
-		if (lexer->c == '\0')
-		{
-			free(value);
-			ft_putstr_fd("Syntax error : Parenthesis open\n", STDOUT_FILENO);
-			return (init_token(token_error, NULL));
-		}
-	}
-	lexer_next_char(lexer);
-	if (quote == 34)
-		return (init_token(token_string_dq, value));
-	else
-		return (init_token(token_string_sq, value));
 }
 
 t_token	*lexer_collect_env(t_lexer *lexer)
@@ -99,12 +69,12 @@ t_token	*lexer_collect_env(t_lexer *lexer)
 	{
 		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
-		if (lexer->c == ' ')
+		if (lexer->c == ' ' || !lexer->c)
 		{
 			lexer_next_char(lexer);
 			return (init_token(token_env, value));
 		}
-		if ((!ft_isalpha(lexer->c) && lexer->c != '_') && lexer->c != '?')
+		else if (!ft_isalpha(lexer->c) && lexer->c != '_' && lexer->c != '?')
 			return (init_token(token_env, value));
 		else if (lexer->c == '?')
 		{

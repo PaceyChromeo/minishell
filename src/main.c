@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/22 14:51:55 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/23 11:43:58 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **envp)
 				if (!root[i])
 				{
 					free_all(root, split, line);
-					return (0);
+					exit(0);
 				}
 				error_handler(root[i]);
 				i++;
