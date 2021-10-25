@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/23 13:06:05 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/25 10:23:55 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,53 @@
 
 int global;
 
+void	start_minishell(t_tree **root, char *line, int cmd_nbr, char **envp)
+{
+	if (!ft_strcmp(line, "exit"))
+		{
+			ft_putstr_fd("exit\n", 1);
+			exit(0);
+		}
+		else if (cmd_nbr == 0 && root[0]->cmd_type == tree_cd && root)
+			bultins_cmd(root[0]);
+		else
+			exec_pipes(root, envp);
+}
+
+t_tree	**get_root(char **split, char *line, int cmd_nbr)
+{
+	int i;
+	t_tree **root;
+	
+	root = ft_calloc(cmd_nbr + 2, sizeof(t_tree));
+	if (!root)
+		root = NULL;
+	if (root && split)
+	{
+		i = 0;
+		while (split[i])
+		{
+			root[i] = create_trees(split[i]);
+			if (!root[i])
+			{
+				free_all(root, split, line);
+				exit(0);
+			}
+			error_handler(root[i]);
+			i++;
+		}
+		root[i] = NULL;
+	}
+	return(root);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
 	char	*line;
 	int		cmd_nbr;
-	int		i;
+	//int		i;
 	char	**split;
 	t_tree	**root;
 	
@@ -34,35 +74,9 @@ int main(int argc, char **argv, char **envp)
 		split = ft_split_pipe(line, '|');
 		if (!split)
 			split = NULL;
-		root = ft_calloc(cmd_nbr + 2, sizeof(t_tree));
-		if (!root)
-			root = NULL;
-		if (root && split)
-		{
-			i = 0;
-			while (split[i])
-			{
-				root[i] = create_trees(split[i]);
-				if (!root[i])
-				{
-					free_all(root, split, line);
-					exit(0);
-				}
-				error_handler(root[i]);
-				i++;
-			}
-			root[i] = NULL;
-		}
+		root = get_root(split, line, cmd_nbr);
 		print_trees(root);
-		if (!ft_strcmp(line, "exit"))
-		{
-			ft_putstr_fd("exit\n", 1);
-			exit(0);
-		}
-		else if (cmd_nbr == 0 && root[0]->cmd_type == tree_cd && root)
-			bultins_cmd(root[0]);
-		else
-			exec_pipes(root, envp);
+		start_minishell(root, line, cmd_nbr, envp);
 		free_all(root, split, line);
 	//	printf("exit status: %d\n", global);
 	}
