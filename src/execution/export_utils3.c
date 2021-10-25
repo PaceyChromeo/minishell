@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils_3.c                                   :+:      :+:    :+:   */
+/*   export_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:43:38 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 11:16:37 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 17:32:45 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-lst_env	*sort_env_var(lst_env **lst)
+void	sort_env_var(lst_env **lst)
 {
 	lst_env	*prec;
 	lst_env	*cur;
 	char	*temp_str;
 	int		i;
 
-	prec = *lst;
-	cur = *lst;
 	temp_str = NULL;
+	cur = *lst;
+	prec = *lst;
 	cur = cur->next;
 	while (check_if_done(*lst) == 1)
 	{
@@ -33,9 +33,9 @@ lst_env	*sort_env_var(lst_env **lst)
 		}
 		if (prec->var_env[i] > cur->var_env[i])
 		{
-			temp_str = ft_strdup(cur->var_env);
-			cur->var_env = ft_strdup(prec->var_env);
-			prec->var_env = ft_strdup(temp_str);
+			temp_str = cur->var_env;
+			cur->var_env = prec->var_env;
+			prec->var_env = temp_str;
 			prec = *lst;
 			cur = (*lst)->next;
 			if (cur == NULL)
@@ -49,64 +49,70 @@ lst_env	*sort_env_var(lst_env **lst)
 				break ;
 		}
 	}
-	return (*lst);
 }
 
 lst_env	*push_env_to_list_declare_x(lst_env *d_env)
 {
 	int		i;
+	char	*declare;
+	char	*x;
 	lst_env	*lst;
 
 	lst = empty_list();
 	i = 0;
+	x = "declare -x ";
 	while (d_env)
 	{
-		lst = add_at(lst, ft_strjoin("declare -x ", d_env->var_env), i);
+		declare = ft_strjoin(x, d_env->var_env);
+		lst = add_at(lst, declare, i);
 		i++;
 		d_env = d_env->next;
 	}
+	free_list (d_env);
 	return (lst);
 }
 
-char	*add_new(char *update, char *dest)
+void	add_new(lst_env **lst, char *new_content, char *var_dest)
+{
+	int		i;
+	lst_env	*temp;
+
+	i = 0;
+	temp = *lst;
+	while (temp != NULL)
+	{
+		if (ft_strstr_int(temp->var_env, var_dest) != 0)
+		{
+			temp->var_env = add_content_to_var(temp->var_env, new_content);
+			break ;
+		}
+		temp = temp->next;
+	}
+}
+
+char	*add_content_to_var(char *dest, char *content_to_add)
 {
 	int		i;
 	int		j;
-	char	*dest2;
+	char	*new_dest_content;
 
-	i = 0;
 	j = 0;
-	dest2 = malloc(sizeof(char *) * (ft_strlen(dest) + ft_strlen(update) + 1));
-	ft_strlcpy(dest2, dest, ft_strlen(dest));
-	while (dest2[i + 1] != '\0')
+	i = 0;
+	while (dest[i] != '=')
 		i++;
 	i++;
-	while (update[j])
+	new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 3));
+	i = 0;
+	while (dest[i] != '=')
 	{
-		dest2[i] = update[j];
+		new_dest_content[i] = dest[i];
 		i++;
-		j++;
 	}
-	dest2[i] = '"';
+	new_dest_content[i] = dest[i];
 	i++;
-	dest2[i] = '\0';
-	return (dest2);
-}
-
-lst_env	*update_var(lst_env **lst, char *var_name, char *update)
-{
-	lst_env	*temp;
-
-	(void)update;
-	temp = *lst;
-	while (temp->next != NULL)
-	{
-		temp = temp->next;
-		if (ft_strstr_equalizer(temp->var_env, var_name) != 0)
-		{
-			temp->var_env = add_new(update, temp->var_env);
-			break ;
-		}
-	}
-	return (temp);
+	while (content_to_add[j] != '\0')
+		new_dest_content[i++] = content_to_add[j++];
+	new_dest_content[i] = '\0';
+	free (dest);
+	return (new_dest_content);
 }

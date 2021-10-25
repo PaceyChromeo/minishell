@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 16:37:15 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/25 17:35:26 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	is_child(t_tree **cmds, int old_pipefd[2],
 	close(new_pipefd[1]);
 	if (cmds[var->i]->cmd_type != tree_execve)
 	{
-		bultins_cmd(cmds[var->i]);
+		builtins_cmd(cmds[var->i], var->env);
 		exit(STDERR_FILENO);
 	}
 	else if (!execute(cmds, var->env, var->i))

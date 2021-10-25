@@ -3,38 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/19 14:47:13 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 17:32:18 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
-{
-	size_t	i;
-	size_t	src_len;
-
-	i = 0;
-	src_len = 0;
-	if (!dest)
-		return (0);
-	while (src[src_len])
-		src_len++;
-	if (!destsize)
-		return (src_len);
-	while (src[i] && i < destsize - 1)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (src_len);
-}
-
 /* Cree une cellule pour l ajouter a la liste */
+static	lst_env	*creat_cell(char *str);
+
 static	lst_env	*creat_cell(char *str)
 {
 	lst_env	*cell;
@@ -72,13 +52,50 @@ lst_env	*add_at(lst_env *lst, char *str, int pos)
 	lst_env	*cur;
 	lst_env	*cell;
 	int		i;
+	char	*temp_str;
 
+	temp_str = ft_strdup(str);
 	prec = lst;
 	cur = lst;
 	i = 0;
-	cell = creat_cell(str);
+	cell = creat_cell(temp_str);
 	if (is_empty_list(lst))
+	{
 		return (cell);
+	}
+	if (pos == 0)
+	{
+		cell->next = lst;
+		return (cell);
+	}
+	while (i < pos)
+	{
+		prec = cur;
+		cur = cur->next;
+		i++;
+	}
+	prec->next = cell;
+	cell->next = cur;
+	return (lst);
+}
+
+lst_env	*add_at_push_to_env(lst_env *lst, char *str, int pos)
+{
+	lst_env	*prec;
+	lst_env	*cur;
+	lst_env	*cell;
+	int		i;
+	char *quotes;
+	
+	quotes = add_quote(str);
+	prec = lst;
+	cur = lst;
+	i = 0;
+	cell = creat_cell(quotes);
+	if (is_empty_list(lst))
+	{
+		return (cell);
+	}
 	if (pos == 0)
 	{
 		cell->next = lst;

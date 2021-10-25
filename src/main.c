@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 16:37:25 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/25 17:36:19 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	start_minishell(t_tree **root, char *line, int cmd_nbr, char **envp)
 			exit(0);
 		}
 		else if (cmd_nbr == 0 && root[0]->cmd_type == tree_cd && root)
-			bultins_cmd(root[0]);
+			builtins_cmd(root[0], envp);
 		else	
 		{
 			if (root[0]->cmd_value 

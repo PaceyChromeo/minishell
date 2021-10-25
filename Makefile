@@ -15,6 +15,7 @@ SRC_DISPLAY =	errors.c \
 				signals.c 
 SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
+			builtins_cmd1.c \
 			builtins.c \
 			export_utils.c \
 			export_utils1.c \
@@ -22,6 +23,7 @@ SRC_EXEC =	binaries.c \
 			export_utils3.c \
 			export_utils4.c \
 			export_utils5.c \
+			export_utils6.c \
 			left_redir.c \
 			path.c	\
 			pipes.c \

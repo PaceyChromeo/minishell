@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils_2.c                                   :+:      :+:    :+:   */
+/*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 11:07:39 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 17:32:38 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
-void	print_list(lst_env *lst)
-{
-	while (lst)
-	{
-		ft_putstr_fd(lst->var_env, 1);
-		write(1, "\n", 2);
-		lst = lst->next;
-	}
-}
 
 char	*add_quote(char *arg)
 {
@@ -30,14 +20,20 @@ char	*add_quote(char *arg)
 	int		equals;
 
 	equals = 0;
-	str = malloc(sizeof(char) * ft_strlen(arg) + 3);
+	str = ft_calloc(sizeof(char), ft_strlen(arg) + 3);
 	if (str == NULL)
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (arg[i] != '\0')
 	{
-		if (arg[i] == '=' && equals == 0)
+		if (arg[i] == '=' && equals == 0 && arg[i + 1] == 0)
+		{
+			str[j++] = arg[i];
+			str[j++] = '"';
+			break ;
+		}
+		else if (arg[i] == '=' && equals == 0)
 		{
 			equals++;
 			str[j++] = arg[i++];
@@ -46,7 +42,7 @@ char	*add_quote(char *arg)
 		str[j++] = arg[i++];
 	}
 	str[j++] = '"';
-	str[j] = '\0';
+	str[j++] = '\0';
 	return (str);
 }
 
@@ -57,21 +53,37 @@ lst_env	*push_env_to_list(char **env)
 
 	lst = empty_list();
 	i = 0;
-	while (env[i + 2])
+	while (env[i + 2] != '\0')
 		i++;
 	while (env[i])
 	{
-		lst = add_at(lst, add_quote(env[i]), 0);
+		lst = add_at_push_to_env(lst, env[i], 0);
 		i--;
 	}
 	return (lst);
 }
 
-void	add_var_last(lst_env **lst, char *str)
+void	add_var_last(lst_env **lst, char *str, int export)
 {
-	if (count_equals(str) > 0)
-		str = add_quote(str);
-	add_at(*lst, str, len_list(*lst));
+	int		i;
+	char	*rstr;
+	char	**var;
+
+	i = 0;
+	rstr = add_quote(str);
+	var = ft_split(rstr, '=');
+	if (check_if_arg_in_env(var[0], *lst) == 0 && export == 0)
+	{
+		free(rstr);
+		free_tab(var);
+		return ;
+	}
+	if (check_if_arg_in_env(rstr, *lst) != 0)
+		add_new(lst, var[1], var[0]);
+	else
+		add_at(*lst, rstr, len_list(*lst));
+	free(rstr);
+	free_tab(var);
 }
 
 int	check_if_done(lst_env *lst)
