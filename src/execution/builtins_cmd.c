@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 14:41:12 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 16:43:00 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	echo(t_tree *tree)
 			opt = 1;
 		while (i < tree->size_args)
 		{
-			ft_putstr_fd(tree->args[i], STDOUT_FILENO);
+			if (!ft_strcmp(tree->args[i], "$?"))
+				ft_putnbr_fd(global, STDOUT_FILENO);
+			else	
+				ft_putstr_fd(tree->args[i], STDOUT_FILENO);
 			if (i < tree->size_args - 1)
 				ft_putchar_fd(' ', STDOUT_FILENO);
 			if (i == tree->size_args - 1 && !opt)

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 14:43:55 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 16:39:03 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,12 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 	while (lexer->c != ' ' && lexer->c != '\0'
 		&& lexer->c != '<' && lexer->c != '>')
 	{
-		printf("lexer->c : %c lexer->value[%d] : %c\n", lexer->c, lexer->index, lexer->value[lexer->index]);
-		if (((lexer->c == 34 && lexer->value[lexer->index + 1] != 34)
-			|| (lexer->c == 39 && lexer->value[lexer->index + 1] != 39))
-			&& lexer->value[lexer->index + 1])
+		if (lexer->c == 34 || lexer->c == 39)
 		{
 			value = collect_id_string(lexer, value);
-			if (!value)
+			if (value && !ft_strcmp(value, "error_quote"))
 				return (init_token(token_error, NULL));
 		}
-		else if (((lexer->c == 34 && lexer->value[lexer->index + 1] == 34)
-			|| (lexer->c == 39 && lexer->value[lexer->index + 1] == 39))
-			&& lexer->value[lexer->index + 1])
-		{
-			lexer_next_char(lexer);
-			lexer_next_char(lexer);
-		}	
 		else if (lexer->c == '$')
 			value = collect_id_env(lexer, value);
 		else

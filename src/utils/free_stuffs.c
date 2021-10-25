@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 14:11:40 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 15:56:26 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	free_tab(char **tab)
 
 void	free_token(t_token *token)
 {
-	printf("token->value : %s\n",token->value);
-	if (token->value)
+	if (token->type > 0 && token->type < 9)
 		free(token->value);
+	token->value = NULL;
 	token->next = NULL;
 	token->prev = NULL;
 	free(token);
