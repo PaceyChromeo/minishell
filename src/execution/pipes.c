@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 11:04:24 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/25 16:37:15 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int		new_pipefd[2];
 
-
-	
 	pipe(new_pipefd);
 	var->pid = fork();
 	if (var->pid == -1)
@@ -84,13 +82,13 @@ void	exec_pipes(t_tree **cmds, char **env)
 	int	fd[2];
 	t_var var;
 	int status;
+	
 	var.i = 0;
 	var.env = env;
 	pipe(fd);
 	multipipes(cmds, fd, &var);
 	signal(SIGINT, handler_child);
 	signal(SIGQUIT, handler_child);
-	
 	close(fd[1]);
 	close(fd[0]);
 	while ((waitpid(var.pid, &status, WUNTRACED) > 0))

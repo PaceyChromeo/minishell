@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 13:51:21 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 16:37:25 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,13 @@ void	start_minishell(t_tree **root, char *line, int cmd_nbr, char **envp)
 			bultins_cmd(root[0]);
 		else	
 		{
-			if (root[0]->size_args)	
-			{
-				if (ft_strcmp(root[0]->cmd_value, "sort") == 0)
-					global = 255;
-				else if (ft_strcmp(root[0]->cmd_value, "cat") == 0)
-					global = 130;
-				exec_pipes(root, envp);
-			}
+			if (root[0]->cmd_value 
+				&& ft_strcmp(root[0]->cmd_value, "sort") == 0)
+				global = 255;
+			else if (root[0]->cmd_value 
+				&& ft_strcmp(root[0]->cmd_value, "cat") == 0)
+				global = 130;
+			exec_pipes(root, envp);
 		}
 	}
 }
@@ -80,7 +79,7 @@ int main(int argc, char **argv, char **envp)
 		signal(SIGINT, handler_signals);
 		signal(SIGQUIT, handler_signals);
 		//system("leaks minishell");
-		line = display_prompt();   
+		line = display_prompt();
 		if (check_forbidden_char(line))
 			return (printf("Forbidden character : ';' or '\\'\n"));
 		cmd_nbr = count_pipes(line, '|');
@@ -88,10 +87,8 @@ int main(int argc, char **argv, char **envp)
 		if (!split)
 			split = NULL;
 		root = get_root(split, line, cmd_nbr);
-		print_trees(root);
 		start_minishell(root, line, cmd_nbr, envp);
 		free_all(root, split, line);
-		
 	}
 	return (0);
 }
