@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/23 11:48:21 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/25 15:18:14 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static char	*collect_id_double_quote(t_lexer *lexer, char *value)
 {
 	int	i;
 
+	//printf("lexer->index : %d lexer->c : %c\n", lexer->index, lexer->c);
 	lexer_next_char(lexer);
+	//printf("lexer->index : %d lexer->c : %c\n", lexer->index, lexer->c);
 	while (lexer->c != 34 && lexer->c)
 	{
 		if (lexer->c == '$')
@@ -59,7 +61,9 @@ char	*collect_id_string(t_lexer *lexer, char *value)
 {
 	if (lexer->c == 34)
 	{
+		//printf("lexer->index : %d lexer->c : %c\n", lexer->index, lexer->c);
 		value = collect_id_double_quote(lexer, value);
+		//printf("lexer->index : %d lexer->c : %c\n", lexer->index, lexer->c);
 		if (!value)
 		{
 			free(value);
