@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 11:00:25 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/25 13:51:21 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,27 @@ int global;
 
 void	start_minishell(t_tree **root, char *line, int cmd_nbr, char **envp)
 {
-	if (!ft_strcmp(line, "exit"))
+	if (line)
+	{
+		if (!ft_strcmp(line, "exit"))
 		{
 			ft_putstr_fd("exit\n", 1);
 			exit(0);
 		}
 		else if (cmd_nbr == 0 && root[0]->cmd_type == tree_cd && root)
 			bultins_cmd(root[0]);
-
 		else	
-		{	
-			if (ft_strcmp(root[0]->cmd_value, "sort") == 0)
-				global = 255;
-			else if (ft_strcmp(root[0]->cmd_value, "cat") == 0)
-				global = 130;
-			exec_pipes(root, envp);
+		{
+			if (root[0]->size_args)	
+			{
+				if (ft_strcmp(root[0]->cmd_value, "sort") == 0)
+					global = 255;
+				else if (ft_strcmp(root[0]->cmd_value, "cat") == 0)
+					global = 130;
+				exec_pipes(root, envp);
+			}
 		}
+	}
 }
 
 t_tree	**get_root(char **split, char *line, int cmd_nbr)
@@ -67,10 +72,8 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	char	*line;
 	int		cmd_nbr;
-	//int		i;
 	char	**split;
 	t_tree	**root;
-
 	
     while (1)
 	{
@@ -92,4 +95,3 @@ int main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-

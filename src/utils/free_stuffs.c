@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuffs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 12:04:33 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/25 14:11:40 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	free_tab(char **tab)
 
 void	free_token(t_token *token)
 {
-	if (token->type > 0 && token->type < 11)
+	printf("token->value : %s\n",token->value);
+	if (token->value)
 		free(token->value);
 	token->next = NULL;
 	token->prev = NULL;
@@ -51,7 +52,7 @@ void	free_parser(t_parser *parser)
 void	free_tree(t_tree *tree)
 {
 	free(tree->f_cmd);
-	if (tree->cmd_type >= 0 && tree->cmd_type <= 7)
+	if (tree->cmd_type >= 0 && tree->cmd_type <= 8)
 		free(tree->cmd_value);
 	if (tree->size_args)
 		free_tab(tree->args);
