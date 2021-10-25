@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/22 12:10:09 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 10:12:57 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,16 @@ void	echo(t_tree *tree)
 
 void	cd(char *path)
 {
+	char *home;
+
 	if (access(path, F_OK) == 0)
 		chdir(path);
+	else if (!path)
+	{
+		home = getenv("HOME");
+		if (access(home, F_OK) == 0)
+			chdir(home);
+	}
 	else
 		perror(path);
 }
