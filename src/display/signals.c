@@ -6,11 +6,11 @@
 /*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:26:16 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 11:10:55 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/25 11:23:35 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "display.h"
+#include "minishell.h"
 
 void	handler_signals(int sig)
 {
@@ -65,7 +65,7 @@ void	handler_child(int sig)
 		}
 		if(sig == SIGINT)
 			global += 0;
-			else if (sig == SIGQUIT)
+		else if (sig == SIGQUIT)
 			global += 1;
 		wait(NULL);
 		rl_on_new_line();

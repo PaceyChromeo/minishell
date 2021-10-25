@@ -76,7 +76,7 @@ TEXT4 = "Obj"
 
 $(NAME): $(OBJS)
 		cp ./readline/libreadline.a ./
-		@${CC} $(CFLAGS) $(OBJS) -lreadline -lncurses -o $(NAME)
+		@${CC} $(CFLAGS) $(OBJS) libreadline.a -lncurses -o $(NAME)
 		@printf "\n"
 		@printf "\033[0m"$(NAME)$(TEXT2)
 
