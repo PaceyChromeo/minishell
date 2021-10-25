@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/22 17:32:18 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 11:03:45 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 int	left_redir(t_tree **cmds, int i, int j)
 {
 	int	filein;
-
 	filein = open(cmds[i]->red[j + 1], O_RDONLY, 0777);
 	if (filein == -1)
 	{
-	//	perror("o");
+		perror("o");
 		return (0);
 	}
 	dup2(filein, 0);

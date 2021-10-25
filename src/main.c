@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 10:23:55 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/25 11:00:25 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,15 @@ void	start_minishell(t_tree **root, char *line, int cmd_nbr, char **envp)
 		}
 		else if (cmd_nbr == 0 && root[0]->cmd_type == tree_cd && root)
 			bultins_cmd(root[0]);
-		else
+
+		else	
+		{	
+			if (ft_strcmp(root[0]->cmd_value, "sort") == 0)
+				global = 255;
+			else if (ft_strcmp(root[0]->cmd_value, "cat") == 0)
+				global = 130;
 			exec_pipes(root, envp);
+		}
 }
 
 t_tree	**get_root(char **split, char *line, int cmd_nbr)
@@ -63,9 +70,12 @@ int main(int argc, char **argv, char **envp)
 	//int		i;
 	char	**split;
 	t_tree	**root;
+
 	
     while (1)
 	{
+		signal(SIGINT, handler_signals);
+		signal(SIGQUIT, handler_signals);
 		//system("leaks minishell");
 		line = display_prompt();   
 		if (check_forbidden_char(line))
@@ -78,7 +88,7 @@ int main(int argc, char **argv, char **envp)
 		print_trees(root);
 		start_minishell(root, line, cmd_nbr, envp);
 		free_all(root, split, line);
-	//	printf("exit status: %d\n", global);
+		
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:05:41 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/21 15:28:19 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/25 10:47:27 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ char	*prompt_color(void);
 int		error_handler(t_tree *tree);
 int		check_forbidden_char(char *line);
 char	*display_prompt(void);
-void	handler_int(int sig);
+void	handler_signals(int sig);
+void	handler_child(int sig);
+
 void	rl_replace_line(const char *text, int clear_undo);
 
 #endif
