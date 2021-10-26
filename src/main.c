@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 17:36:19 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/26 13:41:54 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_tree	**get_root(char **split, char *line, int cmd_nbr)
 			if (!root[i])
 			{
 				free_all(root, split, line);
-				exit(0);
+				return(NULL);
 			}
 			error_handler(root[i]);
 			i++;
@@ -87,7 +87,8 @@ int main(int argc, char **argv, char **envp)
 		if (!split)
 			split = NULL;
 		root = get_root(split, line, cmd_nbr);
-		start_minishell(root, line, cmd_nbr, envp);
+		if (root)
+			start_minishell(root, line, cmd_nbr, envp);
 		free_all(root, split, line);
 	}
 	return (0);
