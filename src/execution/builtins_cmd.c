@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/26 12:45:41 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 15:48:44 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	echo(t_tree *tree)
+int	echo(t_tree *tree)
 {
 	int	i;
 	int	opt;
 
 	opt = 0;
 	i = 1;
+	print_tree(tree);
 	if (tree->size_args > 1)
 	{
 		i = echo_option(tree->args, i);
@@ -39,10 +40,11 @@ void	echo(t_tree *tree)
 	}
 	else
 		ft_putchar_fd('\n', STDOUT_FILENO);
-		
+	global = 0;
+	return (global);
 }
 
-void	cd(char *path)
+int	cd(char *path)
 {
 	char *home;
 
@@ -56,9 +58,11 @@ void	cd(char *path)
 	}
 	else
 		perror(path);
+	global = 0;
+	return (global);
 }
 
-void	pwd(void)
+int	pwd(void)
 {
 	char	*buf;
 
@@ -71,29 +75,51 @@ void	pwd(void)
 		ft_putstr_fd(buf, STDOUT_FILENO);
 		write(STDOUT_FILENO, "\n", 1);
 	}
+	global = 0;
+	return (global);
 }
 
-void	exit_cmd(t_tree *cmd)
+int	exit_cmd(t_tree *cmd)
 {
-	//print_tree(cmd);
 	int ret;
+	int	i;
 
-	if (cmd->args[1])
+	i = 0;
+	if (cmd->size_args == 2)
+	{
+		while (cmd->args[1][i])
+		{
+			if (!ft_isnum(cmd->args[1][i]))
+			{
+				printf("exit: %s: numeric argument required\n", cmd->args[1]);
+				global = 255;
+				return (global);
+			}
+			i++;
+		}
 		ret = ft_atoi(cmd->args[1]);
+	}
+	else if (cmd->size_args > 2)
+	{
+		printf("exit: too many arguments\n");
+		global = 255;
+		return (global);	
+	}
 	else
 		ret = 0;
 	global = ret;
+	return (global);
 }
 
 int	builtins_cmd(t_tree *cmd)
 {
 	if (cmd->cmd_type == tree_echo)
-		echo(cmd);
+		global = echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)
-		pwd();
+		global = pwd();
 	else if (cmd->cmd_type == tree_cd)
-		cd(cmd->args[1]);
+		global = cd(cmd->args[1]);
 	else if (cmd->cmd_type == tree_exit)
-		exit_cmd(cmd);
-	return (0);
+		global = exit_cmd(cmd);
+	return (global);
 }

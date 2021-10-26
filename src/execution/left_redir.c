@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/25 11:03:45 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/26 15:13:56 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ int	left_redir(t_tree **cmds, int i, int j)
 	if (filein == -1)
 	{
 		perror("o");
-		return (0);
+		global = 1;
+		return (global);
 	}
 	dup2(filein, 0);
-	return (1);
+	return (0);
 }
 
 int	double_left_redir(t_tree **cmds, int i, int j)
@@ -36,10 +37,11 @@ int	double_left_redir(t_tree **cmds, int i, int j)
 	if (filein == -1)
 	{
 		perror("open");
-		return (0);
+		global = 1;
+		return (global);
 	}
 	dup2(filein, 0);
-	return (1);
+	return (0);
 }
 
 int	open_heredoc(t_tree **cmds, int i, int j)

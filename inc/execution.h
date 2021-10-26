@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/26 12:48:40 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 15:17:11 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int		cmp_builtins(char *value);
 int		builtins_cmd(t_tree *cmd);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
-void	echo(t_tree *tree);
-void	cd(char *path);
-void	pwd(void);
-void	export (char **args,char **env);
+int		echo(t_tree *tree);
+int		cd(char *path);
+int		pwd(void);
+int		export (char **args,char **env);
 int		echo_option(char **args, int i);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */

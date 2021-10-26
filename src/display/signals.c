@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:26:16 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 17:05:59 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 17:42:06 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	handler_signals(int sig)
 			if (exec == -1)
 				perror("execve");
 		}
+		free_tab(path);
 		wait(NULL);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -46,30 +47,31 @@ void	handler_signals(int sig)
 
 void	handler_child(int sig)
 {
-	int		exec;
-	char	**path = NULL;
-	int		pid;
+	//int		exec;
+	//char	**path = NULL;
+	//int		pid;
 	
-	path = (char **)malloc(sizeof(char *) * 2 + 1);
-	path[0] = ft_strdup("/bin/stty");
-	path[1] = ft_strdup("-echoctl");
-	path[2] = 0;
+	//path = (char **)malloc(sizeof(char *) * 2 + 1);
+	//path[0] = ft_strdup("/bin/stty");
+	//path[1] = ft_strdup("-echoctl");
+	//path[2] = 0;
 	if (sig == SIGINT || sig == SIGQUIT)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			printf("\n");
-			exec = execve(path[0], path, NULL);
-			if (exec == -1)
-				perror("execve");
-		}
+		// pid = fork();
+		// if (pid == 0)
+		// {
+		// 	printf("\n");
+		// 	exec = execve(path[0], path, NULL);
+		// 	if (exec == -1)
+		// 		perror("execve");
+		// }
+		//free_tab(path);
 		if(sig == SIGINT)
 			global += 0;
 		else if (sig == SIGQUIT)
 			global += 1;
 		wait(NULL);
-		rl_on_new_line();
+		//rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 17:39:12 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/26 15:23:55 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void export(char **args,char **env)
+int	export(char **args,char **env)
 {
 	lst_env *lst = empty_list();
 	int i;
@@ -52,4 +52,6 @@ void export(char **args,char **env)
 		print_list(lst);
 	}
 	free_list(lst);
+	global = 0;
+	return (global);	
 }

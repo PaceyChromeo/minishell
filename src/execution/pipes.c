@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/26 12:18:29 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 18:40:38 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ static int	execute(t_tree **cmds, char **env, int i)
 	if (exec == -1)
 	{
 		perror("execve");
-		return (0);
+		global = 1;
+		return (global);
 	}
-	return (1);
+	return (0);
 }
 
-static void	is_child(t_tree **cmds, int old_pipefd[2],
+static int	is_child(t_tree **cmds, int old_pipefd[2],
 	int new_pipefd[2], t_var *var)
 {
 	if (cmds[var->i + 1] != NULL)
@@ -35,22 +36,23 @@ static void	is_child(t_tree **cmds, int old_pipefd[2],
 	if (var->i != 0)
 		dup2(old_pipefd[0], 0);
 	if (cmds[var->i]->size_red > 0)
-		if (!redirections(cmds, var->i))
-			exit(STDERR_FILENO);
+		if (redirections(cmds, var->i))
+			exit(global);
 	close(old_pipefd[0]);
 	close(old_pipefd[1]);
 	close(new_pipefd[0]);
 	close(new_pipefd[1]);
-	if (cmds[var->i]->cmd_type != tree_execve)
+	if (cmds[var->i]->cmd_type != tree_execve && cmds[var->i]->cmd_type != tree_nocmd)
 	{
-		builtins_cmd(cmds[var->i]);
-		exit(STDERR_FILENO);
+		global = builtins_cmd(cmds[var->i]);
+		exit (global);
 	}
-	else if (!execute(cmds, var->env, var->i))
-		exit(STDERR_FILENO);
+	else if (cmds[var->i]->cmd_type == tree_execve)
+		execute(cmds, var->env, var->i);
+	return (global);
 }
 
-static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
+static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int		new_pipefd[2];
 
@@ -59,7 +61,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	if (var->pid == -1)
 	{
 		perror("fork");
-		return ;
+		return (-1);
 	}
 	if (var->pid == 0)
 	{
@@ -75,6 +77,7 @@ static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 		multipipes(cmds, new_pipefd, var);
 	}
 	close(new_pipefd[0]);
+	return (0);
 }
 
 void	exec_pipes(t_tree **cmds, char **env)
@@ -93,10 +96,21 @@ void	exec_pipes(t_tree **cmds, char **env)
 	close(fd[0]);
 	while ((waitpid(var.pid, &status, WUNTRACED) > 0))
 		;
-	if (WIFEXITED(status))
-	{
-		global = WEXITSTATUS(status);
-		if (global == 2)
-			global += 125;
-	}
+	int x = WIFEXITED(status);
+	int y = WEXITSTATUS(status);
+	printf("x : %d y : %d\n", x, y);
+	// if (!y)
+	// {
+	// 	if (global != 130 || global != 131 || global != 255 | global !=)
+	// 		global = 0;
+			
+	// }
+	// if (WIFEXITED(status))
+	// {
+	// 	//global = WEXITSTATUS(status);
+	// 	if (global == 2)
+	// 		global += 125;
+	// }
+	// else
+	// 	global = 0;
 }
