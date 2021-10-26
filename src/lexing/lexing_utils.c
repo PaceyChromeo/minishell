@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 17:05:45 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/26 11:38:24 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static char	*collect_id_double_quote(t_lexer *lexer, char *value)
 {
+	char *env;
+
+	env = NULL;
 	lexer_next_char(lexer);
 	while (lexer->c != 34 && lexer->c)
 	{
@@ -35,11 +38,8 @@ static char	*collect_id_single_quote(t_lexer *lexer, char *value)
 	lexer_next_char(lexer);
 	while (lexer->c != 39 && lexer->c)
 	{
-		if (lexer->c != 39 && lexer->c)
-		{
-			value = ft_realloc_char(value, lexer->c);
-			lexer_next_char(lexer);
-		}
+		value = ft_realloc_char(value, lexer->c);
+		lexer_next_char(lexer);
 		if (!lexer->c)
 			return (NULL);
 	}
@@ -75,9 +75,12 @@ char	*collect_id_string(t_lexer *lexer, char *value)
 
 char *collect_id_env(t_lexer *lexer, char *value)
 {
-	int	i;
+	int		i;
+	char	*itoa;
+	char	*env;
 
 	i = 0;
+	env = NULL;
 	lexer_next_char(lexer);
 	if (lexer->c == ' ' || !lexer->c)
 	{
@@ -86,7 +89,9 @@ char *collect_id_env(t_lexer *lexer, char *value)
 	}
 	else if (lexer->c == '?')
 	{
-		value = ft_realloc(value, ft_itoa(global));
+		itoa = ft_itoa(global);
+		value = ft_realloc(value, itoa);
+		free(itoa);
 		lexer_next_char(lexer);
 		return (value);
 	}
@@ -95,7 +100,10 @@ char *collect_id_env(t_lexer *lexer, char *value)
 		i = lexer->index;
 		while (ft_isalpha(lexer->c) || ft_isnum(lexer->c) || lexer->c == '_')
 			lexer_next_char(lexer);
-		value = ft_realloc(value, get_env(lexer->value, i));
+		if (!value)
+			value = ft_realloc(value, ft_strdup(get_env(lexer->value, i)));
+		else
+			value = ft_realloc(value, get_env(lexer->value, i));
 	}
 	return (value);
 }

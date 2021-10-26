@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:05:41 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/25 11:26:48 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/26 11:59:59 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "parsing.h"
 
 char	*prompt_color(void);
+int		error_args(t_tree *tree);
+int		error_redirections(t_tree *tree);
 int		error_handler(t_tree *tree);
 int		check_forbidden_char(char *line);
 char	*display_prompt(void);

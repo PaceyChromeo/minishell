@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 16:35:51 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 12:01:35 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		error_handler(t_tree *tree)
+int	error_args(t_tree *tree)
 {
 	int	i;
 
@@ -39,23 +39,56 @@ int		error_handler(t_tree *tree)
 		//	global = 127;
 			return (printf("minishell: %d+%d: command not found\n", global, global));
 		}
-		else if (tree->size_red)
+	}
+	return (0);
+}
+
+int	error_redirections(t_tree *tree)
+{
+	int	i;
+
+	i = 0;
+	if (tree->size_red)
+	{
+		while (tree->red[i])
 		{
-			while (tree->red[i])
+			if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
+					|| !ft_strcmp(tree->red[i], ">")
+					|| !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
+				i += 2;
+			else
 			{
-				if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
-						|| !ft_strcmp(tree->red[i], ">")
-						|| !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
-					i += 2;
-				else
-				{
-					global = 1;
-					return (printf("Syntax error\n"));
+				global = 1;
+				return (printf("Syntax error near token \"%s\"\n", tree->red[i]));
 				}
+		}
+		i = 1;
+		while (tree->red[i])
+		{
+			if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
+					|| !ft_strcmp(tree->red[i], ">")
+					|| !ft_strcmp(tree->red[i], ">>")))
+					i += 2;
+			else
+			{
+				global = 1;
+					return (printf("Syntax error near token \"%s\"\n", tree->red[i - 1]));
 			}
 		}
 	}
 	return (0);
+}
+
+int	error_handler(t_tree *tree)
+{
+	int	ret;
+
+	ret = 0;
+	if (tree->size_args)
+		ret = error_args(tree);
+	if (tree->size_red && ret == 0)
+		ret = error_redirections(tree);
+	return (ret);
 }
 
 int	check_forbidden_char(char *line)
