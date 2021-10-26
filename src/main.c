@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/26 12:51:14 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 13:46:17 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_tree	**get_root(char **split, char *line, int cmd_nbr)
 			if (!root[i])
 			{
 				free_all(root, split, line);
-				exit(0);
+				return(NULL);
 			}
 			error_handler(root[i]);
 			i++;
@@ -81,14 +81,17 @@ int main(int argc, char **argv, char **envp)
 		split = ft_split_pipe(line, '|');
 		if (!split)
 			split = NULL;
-		root = get_root(split, line, cmd_nbr);	
-		if (!ft_strcmp(root[0]->cmd_value, "exit"))
+		root = get_root(split, line, cmd_nbr);
+		if (root)
 		{
-			builtins_cmd(root[0]);
-			ft_putstr_fd("exit\n", 1);
-			return(global);
+			start_minishell(root, line, cmd_nbr, envp);
+			if (!ft_strcmp(root[0]->cmd_value, "exit"))
+			{
+				builtins_cmd(root[0]);
+				ft_putstr_fd("exit\n", 1);
+				return(global);
+			}
 		}
-		start_minishell(root, line, cmd_nbr, envp);
 		free_all(root, split, line);
 	}
 	return (0);
