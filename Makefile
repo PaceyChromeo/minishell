@@ -15,6 +15,7 @@ SRC_DISPLAY =	errors.c \
 				signals.c 
 SRC_EXEC =	binaries.c \
 			builtins_cmd.c \
+			builtins_cmd1.c \
 			builtins.c \
 			export_utils.c \
 			export_utils1.c \
@@ -22,6 +23,7 @@ SRC_EXEC =	binaries.c \
 			export_utils3.c \
 			export_utils4.c \
 			export_utils5.c \
+			export_utils6.c \
 			left_redir.c \
 			path.c	\
 			pipes.c \
@@ -36,6 +38,7 @@ SRC_PARSING =	ft_split_pipe.c \
 				trees.c
 SRC_UTILS =	debug_funcs.c \
 			free_stuffs.c \
+			ft_itoa.c \
 			ft_split.c \
 			get_next_line_utils.c \
 			get_next_line.c \
@@ -64,6 +67,14 @@ OBJS = ${OBJ} ${OBJ_DISPLAY} ${OBJ_LEXING} ${OBJ_EXEC} ${OBJ_PARSING} ${OBJ_UTIL
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
+UNAME = $(shell uname -s)
+ifeq (${UNAME}, Linux)
+	LIB_RDL = -lreadline
+endif
+ifeq (${UNAME}, Darwin)
+	LIB_RDL = libreadline.a
+endif
+
 TEXT = "My job is done. Now it's up to you.\n"
 TEXT2 = " Created!\n"
 TEXT3 = " deleted!\n"
@@ -76,7 +87,7 @@ TEXT4 = "Obj"
 
 $(NAME): $(OBJS)
 		cp ./readline/libreadline.a ./
-		@${CC} $(CFLAGS) $(OBJS) libreadline.a -lncurses -o $(NAME)
+		@${CC} $(CFLAGS) $(OBJS) ${LIB_RDL} -lncurses -o $(NAME)
 		@printf "\n"
 		@printf "\033[0m"$(NAME)$(TEXT2)
 
@@ -90,6 +101,7 @@ clean:
 
 fclean:	clean
 	@rm -rf $(NAME)
+	@rm libreadline.a
 	@printf "\033[0m"$(NAME)$(TEXT3)
 
 re: fclean all

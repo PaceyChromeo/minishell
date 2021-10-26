@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/26 12:10:36 by hkrifa           ###   ########.fr       */
+=======
+/*   Updated: 2021/10/25 17:36:19 by misaev           ###   ########.fr       */
+>>>>>>> 28008801aeba89d404d4f968d91cd583479ac18e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +22,13 @@ void	start_minishell(t_tree **root, char *line, int cmd_nbr, char **envp)
 {
 	if (line)
 	{
-		if (cmd_nbr == 0 && root[0]->cmd_type == tree_cd && root)
-			bultins_cmd(root[0]);
+		if (!ft_strcmp(line, "exit"))
+		{
+			ft_putstr_fd("exit\n", 1);
+			exit(0);
+		}
+		else if (cmd_nbr == 0 && root[0]->cmd_type == tree_cd && root)
+			builtins_cmd(root[0], envp);
 		else	
 		{
 			if (root[0]->cmd_value 

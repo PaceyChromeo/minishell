@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils_5.c                                   :+:      :+:    :+:   */
+/*   export_utils5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:01:54 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/21 11:21:03 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/25 17:32:54 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@ int	count_equals(char *str)
 	return (j);
 }
 
-int	check_export_args_str(char *str, int arg_pos)
+int	check_export_args_str(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (arg_pos == 0 && ft_strstr(str, "export") != 0)
-		return (0);
 	while (str[i] != '=' || str[i] != '\0')
 	{
+		if (str[i] == '+' && str[i + 1] == '=')
+		{
+			return (2);
+		}
 		if (str[i] == '=' || str[i] == '\0')
 			break ;
 		if (ft_isalpha(str[i]) == 1 || str[i] == '_'
@@ -60,6 +62,21 @@ int	check_export_args_str(char *str, int arg_pos)
 			i++;
 		else
 			return (1);
+	}
+	return (0);
+}
+
+int	check_if_arg_in_env(char *var_name, lst_env *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst != NULL)
+{
+		if (ft_strstr_int(lst->var_env, var_name) != 0)
+			return (i);
+		lst = lst->next;
+		i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/26 12:11:29 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 12:14:36 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,34 @@ char	*get_path(char *cmd);
 void	echo(t_tree *tree);
 void	cd(char *path);
 void	pwd(void);
-void	export(char **args,char **env);
+void	export (char **args,char **env);
 int		echo_option(char **args, int i);
 
 /*FONCTION POUR LISTE CHAINER EXPORT */
-
-int		len_list(lst_env *lst);
-lst_env	*free_list(lst_env *lst);
+int	len_list(lst_env *lst);
+void free_list(lst_env *lst);
 lst_env	*empty_list(void);
-int		is_empty_list(lst_env *lst);
+int	is_empty_list(lst_env *lst);
 lst_env	*add_at(lst_env *lst, char *str, int pos);
-
+void	set_at(lst_env *lst, char *str, int pos);
 /***********************************/
 /*FONCTIONS NECESSAIRE POUR LE BUILTIN EXPORT*/
-
-size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
-char	*ft_strstr_equalizer(char *str, char *to_find);
-char	*ft_strstr(char *str, char *to_find);
-//char	*ft_strstr(char *str, char *to_find); 
-void	print_list(lst_env *lst); /*AFFICHE LA LISTE CHAINER DONNER */
-char	*add_quote(char *arg); /*AJOUTE LES DOUBLES QUOTES DANS LES VARIABLE ENV*/
-lst_env	*push_env_to_list(char **env); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
-void	add_var_last(lst_env **lst, char *str); /* AJOUTE UNE STR A LA DERNIER POSITION DE LA LISTE*/
-int		check_if_done(lst_env *lst); /*VERIFIE SI LA LISTE CHAINER ET TRIER*/
-lst_env	*sort_env_var(lst_env **lst); /* TRIER ENV PAR ORDRE ALPHABETIQUE */
-lst_env	*push_env_to_list_declare_x(lst_env *d_env); /* ENVOYER LE CONTENU DE ENV AVEC "declare -x" DANS UNE LISTE CHAINER*/
-char	*add_new(char *update, char *dest); /* AJOUTER UNE NOUVELLE VARIABLE AVEC SONT CONTENU */
-lst_env	*update_var(lst_env **lst, char *var_name, char *update); /* METTRE A JOUR LE CONTENU D UNE VARIABLE DONNER */ 
-int		check_export_args_tab(char **arg); /* VERIFIER SI LES ARGUMENT ENVOYER SONT VALIDE */
-int		count_quotes(char *str);
-int		count_equals(char *str);
-int		check_export_args_str(char *str, int arg_pos);
-int		count_tab_nbr(char **args);
-
+char *ft_strstr(char *str, char *to_find); 
+void print_list(lst_env *lst); /*AFFICHE LA LISTE CHAINER DONNER */
+char *add_quote(char *arg); /*AJOUTE LES DOUBLES QUOTES DANS LES VARIABLE ENV*/
+lst_env *push_env_to_list(char **env); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
+lst_env	*add_at_push_to_env(lst_env *lst, char *str, int pos); /* MEME FONCTION QUE ADD_AT MAIS POUR PUSH_ENV_TO_LIST */
+void add_var_last(lst_env **lst, char *str, int export); /* AJOUTE UNE STR A LA DERNIER POSITION DE LA LISTE*/
+int	check_if_done(lst_env *lst); /*VERIFIE SI LA LISTE CHAINER ET TRIER*/
+void sort_env_var(lst_env **lst); /* TRIER ENV PAR ORDRE ALPHABETIQUE */
+void add_new(lst_env **lst, char *new_content, char *var_dest); /* AJOUTER UNE NOUVELLE VARIABLE AVEC SONT CONTENU */
+char *add_content_to_var(char *dest, char *content_to_add);
+int check_export_args_tab(char **arg); /* VERIFIER SI LES ARGUMENT ENVOYER SONT VALIDE */
+int count_quotes(char *str); /*COMPTE LES QUOTES */
+int count_equals(char *str); /* COMPTE LES EGALES */
+int check_export_args_str(char *str); /* VERIFIE L ARGUMENT  */
+int count_tab_nbr(char **args); /* donne la taille de d un tableau de 2 dimension */ 
+int check_if_arg_in_env(char *var_name, lst_env *d_env);
+int strlen_var_arg(char *str);
+int ft_strstr_int(char *str, char *to_find);
 #endif

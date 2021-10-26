@@ -1,43 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils4.c                                    :+:      :+:    :+:   */
+/*   export_utils6.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 10:01:07 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 17:33:21 by misaev           ###   ########.fr       */
+/*   Created: 2021/10/19 11:55:08 by misaev            #+#    #+#             */
+/*   Updated: 2021/10/25 17:33:00 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-/* dois retourner un le nombre de d argument incorrect */
-int	check_export_args_tab(char **arg)
+int	strlen_var_arg(char *str)
 {
 	int	i;
-	int	f;
+	int	j;
 
-	f = 0;
+	j = 0;
 	i = 0;
-	while (arg[i])
-	{
-		if (check_export_args_str(arg[i]) == 1)
-		{
-			printf("export: `%s': not a valid identifier\n", arg[i]);
-			f++;
-		}
+	while (str[i] != '=')
 		i++;
+	if (str[i] == '\0')
+		return (0);
+	i++;
+	while (str[i] != '\0')
+	{
+		i++;
+		j++;
 	}
-	return (f);
+	return (j - 2);
 }
 
-int	count_tab_nbr(char **args)
+void	set_at(lst_env *lst, char *str, int pos)
 {
 	int	i;
 
 	i = 0;
-	while (args[i])
+	if (is_empty_list(lst))
+		return ;
+	while (i < pos)
+	{
 		i++;
-	return (i);
+		lst = lst->next;
+	}
+	lst->var_env = ft_strdup(str);
+	free(str);
 }
