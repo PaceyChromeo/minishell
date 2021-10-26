@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/26 12:13:55 by hkrifa           ###   ########.fr       */
-=======
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 17:34:57 by misaev           ###   ########.fr       */
->>>>>>> 28008801aeba89d404d4f968d91cd583479ac18e
+/*   Updated: 2021/10/26 12:45:41 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +73,19 @@ void	pwd(void)
 	}
 }
 
-int	exit_cmd(t_tree *cmd)
+void	exit_cmd(t_tree *cmd)
 {
-	print_tree(cmd);
+	//print_tree(cmd);
 	int ret;
 
-	ret = 
-	return (0);
+	if (cmd->args[1])
+		ret = ft_atoi(cmd->args[1]);
+	else
+		ret = 0;
+	global = ret;
 }
 
-int	bultins_cmd(t_tree *cmd)
+int	builtins_cmd(t_tree *cmd)
 {
 	if (cmd->cmd_type == tree_echo)
 		echo(cmd);

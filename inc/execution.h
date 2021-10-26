@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/26 12:14:36 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 12:48:40 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		double_left_redir(t_tree **cmds, int i, int j);
 /* ---------------------------------- */
 
 int		cmp_builtins(char *value);
-int		bultins_cmd(t_tree *cmd);
+int		builtins_cmd(t_tree *cmd);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
 void	echo(t_tree *tree);

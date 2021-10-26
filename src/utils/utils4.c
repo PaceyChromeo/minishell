@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:26:41 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 16:41:51 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/26 12:27:41 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,41 @@ void	ft_putnbr_fd(int n, int fd)
 	if (nb > 9)
 		ft_putnbr_fd(nb / 10, fd);
 	ft_putchar_fd((char)(nb % 10 + 48), fd);
+}
+
+static int	ft_isspace(char str)
+{
+	if (str == '\t' || str == '\n' || str == '\r'
+		|| str == '\v' || str == '\f' || str == ' ')
+		return (1);
+	return (0);
+}
+
+int	ft_atoi(const char *str)
+{
+	size_t	i;
+	size_t	nbr;
+	size_t	n;
+
+	n = 0;
+	i = 0;
+	nbr = 0;
+	while (ft_isspace(str[i]) == 1)
+		i++;
+	while (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i + 1] == '-' || str[i + 1] == '+')
+			return (0);
+		else if (str[i] == '-')
+			n++;
+		i++;
+	}
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+	{
+		nbr = (nbr * 10) + str[i] - '0';
+		i++;
+	}
+	if (n % 2 == 0)
+		return (nbr * 1);
+	return (nbr * -1);
 }
