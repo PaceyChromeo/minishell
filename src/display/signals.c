@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:26:16 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 11:23:35 by ochichep         ###   ########.fr       */
+/*   Updated: 2021/10/25 17:05:59 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	handler_child(int sig)
 {
 	int		exec;
 	char	**path = NULL;
-	int	pid;
+	int		pid;
+	
 	path = (char **)malloc(sizeof(char *) * 2 + 1);
 	path[0] = ft_strdup("/bin/stty");
 	path[1] = ft_strdup("-echoctl");

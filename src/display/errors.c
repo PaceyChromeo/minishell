@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 16:35:51 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/26 11:50:36 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int		error_handler(t_tree *tree)
 			global = 127;
 			return (printf("minishell: command not found\n"));
 		}
-		else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->args[0], "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) && ft_strcmp(tree->f_cmd, "$?+$?") != 0)
+		else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->args[0], "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) 
+			&& ft_strcmp(tree->f_cmd, "$?+$?") != 0)
 		{
 		//	printf("cmd_value: %s\n", tree->cmd_value);
 		//	global = 127;
@@ -39,21 +40,24 @@ int		error_handler(t_tree *tree)
 		//	global = 127;
 			return (printf("minishell: %d+%d: command not found\n", global, global));
 		}
-		else if (tree->size_red)
-		{
-			while (tree->red[i])
-			{
-				if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
-						|| !ft_strcmp(tree->red[i], ">")
-						|| !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
-					i += 2;
-				else
-				{
-					global = 1;
-					return (printf("Syntax error\n"));
-				}
-			}
-		}
+		
+	// 	if (tree->size_red)
+	// 	{
+	// 		while (tree->red[i])
+	// 		{
+	// 			printf("%s\n", tree->red[i]);
+	// 			i++;
+	// 			// if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
+	// 			// 		|| !ft_strcmp(tree->red[i], ">")
+	// 			// 		|| !ft_strcmp(tree->red[i], ">>")) && tree->red[i + 1])
+	// 			// 	i += 2;
+	// 			// else
+	// 			// {
+	// 			// 	global = 1;
+	// 			// 	return (printf("Syntax error\n"));
+	// 			// }
+	// 		}
+	// 	}
 	}
 	return (0);
 }
