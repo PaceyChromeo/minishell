@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/26 12:01:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/26 12:27:19 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	error_args(t_tree *tree)
 	i = 0;
 	if (tree->size_args)
 	{
-		printf("cmd_value: %s\n", tree->f_cmd);
+		//printf("cmd_value: %s\n", tree->f_cmd);
 		if (tree->cmd_type == tree_nocmd && ft_strcmp(tree->args[0], "$?") != 0
 			&& ft_strcmp(tree->f_cmd, "$?+$?") != 0
 			&& ft_strcmp(tree->f_cmd, "$? + $?") != 0 )
@@ -60,19 +60,17 @@ int	error_redirections(t_tree *tree)
 			{
 				global = 1;
 				return (printf("Syntax error near token \"%s\"\n", tree->red[i]));
-				}
+			}
 		}
 		i = 1;
 		while (tree->red[i])
 		{
-			if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
-					|| !ft_strcmp(tree->red[i], ">")
-					|| !ft_strcmp(tree->red[i], ">>")))
+			if ((tree->red[i][0] != '<' && tree->red[i][0] != '>'))
 					i += 2;
 			else
 			{
 				global = 1;
-					return (printf("Syntax error near token \"%s\"\n", tree->red[i - 1]));
+				return (printf("Syntax error unexpected token\n"));
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/26 11:44:46 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/26 12:29:13 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ t_tree	*create_trees(char *cmd)
 	{
 		if (parser->current_tok->type == token_error)
 		{
-			print_token(parser->current_tok);
 			free_parser(parser);
 			ft_putstr_fd("Syntax error : Tree not created\n", STDOUT_FILENO);
 			return (NULL);
