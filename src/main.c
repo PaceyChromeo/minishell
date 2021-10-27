@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 15:58:18 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:02:28 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,7 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 		if (cmd_nbr == 0 && (root[0]->cmd_type == tree_cd) && root)
 			builtins_cmd(root[0], var);
 		else
-		{
-			if (root[0]->cmd_value 
-				&& ft_strcmp(root[0]->cmd_value, "sort") == 0)
-				g_global = 255;
-			else if (root[0]->cmd_value 
-				&& ft_strcmp(root[0]->cmd_value, "cat") == 0)
-				g_global = 130;
 			exec_pipes(root, var);
-		}
 	}
 }
 

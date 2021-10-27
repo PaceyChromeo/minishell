@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/27 13:22:19 by pjacob           ###   ########.fr       */
+=======
+/*   Updated: 2021/10/27 14:39:18 by hkrifa           ###   ########.fr       */
+>>>>>>> df46994104b294df4c732794e16f2ce20aca96b1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +22,7 @@ int	left_redir(t_tree **cmds, int i, int j)
 	filein = open(cmds[i]->red[j + 1], O_RDONLY, 0777);
 	if (filein == -1)
 	{
-		printf("minishell: %s: no such file or directory\n", cmds[i]->red[j + 1]);
+		perror("open");
 		g_global = 1;
 		return (g_global);
 	}
