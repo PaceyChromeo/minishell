@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/27 10:58:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 11:37:03 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_path(char *cmd);
 int		echo(t_tree *tree);
 int		cd(char *path);
 int		pwd(void);
-int		export (char **args,char **env);
+int		export(t_tree *tree,char **env);
 int		echo_option(char **args, int i);
 
 /*FONCTION POUR LISTE CHAINEE EXPORT */

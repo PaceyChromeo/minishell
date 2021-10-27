@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 11:17:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 12:07:56 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	{
 		if (cmds[var->i]->size_red > 0)
 			loop_double_redir(cmds, var->i);
-		is_child(cmds, old_pipefd, new_pipefd, var);
+		g_global = is_child(cmds, old_pipefd, new_pipefd, var);
 	}
 	close(new_pipefd[1]);
 	
@@ -87,16 +87,18 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	
 	var->i = 0;
 	pipe(fd);
-	multipipes(cmds, fd, var);
+	g_global = multipipes(cmds, fd, var);
 	signal(SIGINT, handler_child);
 	signal(SIGQUIT, handler_child);
 	close(fd[1]);
 	close(fd[0]);
 	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
 		;
-	// int x = WIFEXITED(status);
-	// int y = WEXITSTATUS(status);
-	//printf("x : %d y : %d\n", x, y);
+	int x = WIFEXITED(status);
+	int y = WIFSIGNALED(status);
+	int z = WEXITSTATUS(status);
+	int zz = WTERMSIG(status);
+	printf("x : %d y : %d z : %d zz :%d\n", x, y, z, zz);
 	// if (!y)
 	// {
 	// 	if (g_global != 130 || g_global != 131 || g_global != 255 | g_global !=)

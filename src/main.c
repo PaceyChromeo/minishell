@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 11:17:17 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 11:43:04 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int main(int argc, char **argv, char **envp)
 				start_minishell(root, line, cmd_nbr, &var);
 				free_all(root, split, line);
 			}
+			//g_global = 0;
 		}
 	}
 	return (0);

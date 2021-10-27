@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:05:41 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/26 11:59:59 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 11:58:10 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "parsing.h"
 
 char	*prompt_color(void);
-int		error_args(t_tree *tree);
+int		signal_set(t_tree *tree);
 int		error_redirections(t_tree *tree);
 int		error_handler(t_tree *tree);
 int		check_forbidden_char(char *line);

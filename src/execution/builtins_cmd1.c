@@ -6,13 +6,13 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 10:55:10 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 11:36:27 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	export(char **args,char **env)
+int	export(t_tree *tree,char **env)
 {
 	lst_env *lst = empty_list();
 	int i;
@@ -20,7 +20,7 @@ int	export(char **args,char **env)
 	
 	e = 0;
 	i = 0;
-	if (ft_strcmp(args[i], "export") == 0)
+	if (!ft_strcmp(tree->args[i], "export"))
 	{
 		i++;
 		e = 1;
@@ -28,21 +28,23 @@ int	export(char **args,char **env)
 	else
 		i = 0;
 	lst = push_env_to_list(env);
-	if (count_tab_nbr(args) > 1)
+	if (tree->size_args > 1)
 	{
-		while(args[i])
+		while(tree->args[i])
 		{
-			if (check_export_args_str(args[i]) == 1)
+			if (check_export_args_str(tree->args[i]) == 1)
 			{
-				if (count_tab_nbr(args) - i == 1)
+				if (tree->size_args - i == 1)
 				{
-					printf("export: `%s': not a valid identifier\n", args[i]);
+					printf("export: `%s': not a valid identifier\n", tree->args[i]);
 					exit(0);
 				}
 			}
 			else
-				if(count_equals(args[i]) != 0 || (count_equals(args[i]) == 0 && check_if_arg_in_env(args[i], lst) == 0))
-					add_var_last(&lst, args[i], e);	
+				if(count_equals(tree->args[i]) != 0
+					|| (count_equals(tree->args[i]) == 0
+					&& check_if_arg_in_env(tree->args[i], lst) == 0))
+					add_var_last(&lst, tree->args[i], e);	
 			i++;
 		}
 	}		

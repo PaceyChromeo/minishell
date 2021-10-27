@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/27 10:54:32 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 11:34:15 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 	else if (cmd->cmd_type == tree_exit)
 		g_global = exit_cmd(cmd);
 	else if (cmd->cmd_type == tree_export)
-		g_global = export(cmd->args, var->env);
+		g_global = export(cmd, var->env);
 	return (g_global);
 }
