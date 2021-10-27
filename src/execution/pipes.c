@@ -6,11 +6,17 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 12:15:34 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/27 14:36:15 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+void	handler_exit(int sig)
+{
+	if (sig)
+		exit(1);
+}
 
 static int	execute(t_tree **cmds, char **env, int i)
 {
@@ -65,6 +71,7 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	}
 	if (var->pid == 0)
 	{
+		signal(SIGINT, handler_exit);
 		if (cmds[var->i]->size_red > 0)
 			loop_double_redir(cmds, var->i);
 		is_child(cmds, old_pipefd, new_pipefd, var);
@@ -95,6 +102,7 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	multipipes(cmds, fd, var);
 	close(fd[1]);
 	close(fd[0]);
+	unlink("temp.txt");
 	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
 		;
 	// x = WIFEXITED(status);
@@ -121,5 +129,5 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 			g_global = 1;
 		else
 			g_global = res + 128;
-    }   
+    }
 }
