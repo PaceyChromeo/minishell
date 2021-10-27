@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/26 11:38:24 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 11:10:25 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char *collect_id_env(t_lexer *lexer, char *value)
 	}
 	else if (lexer->c == '?')
 	{
-		itoa = ft_itoa(global);
+		itoa = ft_itoa(g_global);
 		value = ft_realloc(value, itoa);
 		free(itoa);
 		lexer_next_char(lexer);

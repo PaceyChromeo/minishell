@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/26 15:23:55 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 10:55:10 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	export(char **args,char **env)
 		print_list(lst);
 	}
 	free_list(lst);
-	global = 0;
-	return (global);	
+	g_global = 0;
+	return (g_global);	
 }

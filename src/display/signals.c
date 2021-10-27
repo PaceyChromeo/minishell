@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:26:16 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/26 17:42:06 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 10:55:20 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	handler_signals(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 		if (sig == SIGINT)
-      		global = 1;
+      		g_global = 1;
 		else
-			global  = 127;	  
+			g_global  = 127;	  
 	}
 }
 
@@ -67,9 +67,9 @@ void	handler_child(int sig)
 		// }
 		//free_tab(path);
 		if(sig == SIGINT)
-			global += 0;
+			g_global += 0;
 		else if (sig == SIGQUIT)
-			global += 1;
+			g_global += 1;
 		wait(NULL);
 		//rl_on_new_line();
 		rl_replace_line("", 0);

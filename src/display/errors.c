@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/26 18:25:28 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 10:55:03 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ int	error_args(t_tree *tree)
 	// 		&& ft_strcmp(tree->f_cmd, "$? + $?"))
 	// 	{
 	// 		printf("minishell: command not found\n");
-	// 		global = 127;
-	// 		return (global);
+	// 		g_global = 127;
+	// 		return (g_global);
 	// 	}
 	// 	else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->f_cmd, "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) 
 	// 		&& ft_strcmp(tree->f_cmd, "$?+$?") != 0)
 	// 	{
 	// 	//	printf("cmd_value: %s\n", tree->cmd_value);
-	// 		printf("minishell: %d: command not found\n", global);
-	// 		global = 127;
-	// 		return (global);
+	// 		printf("minishell: %d: command not found\n", g_global);
+	// 		g_global = 127;
+	// 		return (g_global);
 	// 	}
 	// 	else if (tree->cmd_type == tree_nocmd
 	// 		&& ft_strcmp(tree->f_cmd, "$?+$?") == 0)
 	// 	{
-	// 		printf("minishell: %d+%d: command not found\n", global, global);
-	// 		global = 127;
-	// 		return (global);
+	// 		printf("minishell: %d+%d: command not found\n", g_global, g_global);
+	// 		g_global = 127;
+	// 		return (g_global);
 	// 	}
 	// }
 	return (0);
@@ -63,7 +63,7 @@ int	error_redirections(t_tree *tree)
 				i += 2;
 			else
 			{
-				global = 258;
+				g_global = 258;
 				return (printf("Syntax error near token \"%s\"\n", tree->red[i]));
 			}
 		}
@@ -74,7 +74,7 @@ int	error_redirections(t_tree *tree)
 					i += 2;
 			else
 			{
-				global = 258;
+				g_global = 258;
 				return (printf("Syntax error unexpected token\n"));
 			}
 		}
@@ -104,9 +104,9 @@ int	check_forbidden_char(char *line)
 	{
 		if (ft_sch_forbidden_char(line[i]))
 		{
-			global = 1;
+			g_global = 1;
 			ft_putstr_fd("Invalid character\n", STDOUT_FILENO);
-			return (global);
+			return (g_global);
 		}
 		if (line[i] != ' ')
 			c = line[i];
@@ -114,9 +114,9 @@ int	check_forbidden_char(char *line)
 	}
 	if (c == '|')
 	{
-		global = 258;
+		g_global = 258;
 		ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
-		return (global);
+		return (g_global);
 	}
 	return (0);
 }

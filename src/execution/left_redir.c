@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/26 15:13:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 10:55:55 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	left_redir(t_tree **cmds, int i, int j)
 	if (filein == -1)
 	{
 		perror("o");
-		global = 1;
-		return (global);
+		g_global = 1;
+		return (g_global);
 	}
 	dup2(filein, 0);
 	return (0);
@@ -37,8 +37,8 @@ int	double_left_redir(t_tree **cmds, int i, int j)
 	if (filein == -1)
 	{
 		perror("open");
-		global = 1;
-		return (global);
+		g_global = 1;
+		return (g_global);
 	}
 	dup2(filein, 0);
 	return (0);

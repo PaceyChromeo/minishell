@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/26 14:24:57 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 10:56:51 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_tree	*create_trees(char *cmd)
 	{
 		if (parser->current_tok->type == token_error)
 		{
-			global = 258;
+			g_global = 258;
 			free_parser(parser);
 			return (NULL);
 		}

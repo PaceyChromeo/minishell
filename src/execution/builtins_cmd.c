@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/26 15:48:44 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 10:54:32 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 int	echo(t_tree *tree)
 {
@@ -28,7 +28,7 @@ int	echo(t_tree *tree)
 		while (i < tree->size_args)
 		{
 			if (!ft_strcmp(tree->args[i], "$?"))
-				ft_putnbr_fd(global, STDOUT_FILENO);
+				ft_putnbr_fd(g_global, STDOUT_FILENO);
 			else	
 				ft_putstr_fd(tree->args[i], STDOUT_FILENO);
 			if (i < tree->size_args - 1)
@@ -40,8 +40,8 @@ int	echo(t_tree *tree)
 	}
 	else
 		ft_putchar_fd('\n', STDOUT_FILENO);
-	global = 0;
-	return (global);
+	g_global = 0;
+	return (g_global);
 }
 
 int	cd(char *path)
@@ -58,8 +58,8 @@ int	cd(char *path)
 	}
 	else
 		perror(path);
-	global = 0;
-	return (global);
+	g_global = 0;
+	return (g_global);
 }
 
 int	pwd(void)
@@ -75,8 +75,8 @@ int	pwd(void)
 		ft_putstr_fd(buf, STDOUT_FILENO);
 		write(STDOUT_FILENO, "\n", 1);
 	}
-	global = 0;
-	return (global);
+	g_global = 0;
+	return (g_global);
 }
 
 int	exit_cmd(t_tree *cmd)
@@ -92,8 +92,8 @@ int	exit_cmd(t_tree *cmd)
 			if (!ft_isnum(cmd->args[1][i]))
 			{
 				printf("exit: %s: numeric argument required\n", cmd->args[1]);
-				global = 255;
-				return (global);
+				g_global = 255;
+				return (g_global);
 			}
 			i++;
 		}
@@ -102,24 +102,26 @@ int	exit_cmd(t_tree *cmd)
 	else if (cmd->size_args > 2)
 	{
 		printf("exit: too many arguments\n");
-		global = 255;
-		return (global);	
+		g_global = 255;
+		return (g_global);	
 	}
 	else
 		ret = 0;
-	global = ret;
-	return (global);
+	g_global = ret;
+	return (g_global);
 }
 
-int	builtins_cmd(t_tree *cmd)
+int	builtins_cmd(t_tree *cmd, t_var *var)
 {
 	if (cmd->cmd_type == tree_echo)
-		global = echo(cmd);
+		g_global = echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)
-		global = pwd();
+		g_global = pwd();
 	else if (cmd->cmd_type == tree_cd)
-		global = cd(cmd->args[1]);
+		g_global = cd(cmd->args[1]);
 	else if (cmd->cmd_type == tree_exit)
-		global = exit_cmd(cmd);
-	return (global);
+		g_global = exit_cmd(cmd);
+	else if (cmd->cmd_type == tree_export)
+		g_global = export(cmd->args, var->env);
+	return (g_global);
 }
