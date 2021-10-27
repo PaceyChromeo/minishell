@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/27 11:09:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:28:39 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ typedef struct s_tree
 		tree_cd,
 		tree_pwd,
 		tree_export,
+		tree_exportargs,
 		tree_unset,
 		tree_env,
 		tree_exit,
 		tree_execve,
+		tree_path,
 		tree_nocmd
 	}		cmd_type;
 	char	*cmd_value;
@@ -44,9 +46,6 @@ typedef struct s_tree
 	char	**red;
 	int		size_args;
 	int		size_red;
-	int		exit_status;
-	char	*str_error;
-	int		set;
 }				t_tree;
 
 int			count_pipes(char const *line, char c);

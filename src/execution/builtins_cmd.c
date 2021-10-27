@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/27 11:34:15 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:56:08 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	echo(t_tree *tree)
 
 	opt = 0;
 	i = 1;
-	print_tree(tree);
 	if (tree->size_args > 1)
 	{
 		i = echo_option(tree->args, i);
@@ -121,7 +120,7 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		g_global = cd(cmd->args[1]);
 	else if (cmd->cmd_type == tree_exit)
 		g_global = exit_cmd(cmd);
-	else if (cmd->cmd_type == tree_export)
-		g_global = export(cmd, var->env);
+	else if (cmd->cmd_type == tree_export || cmd->cmd_type == tree_exportargs)
+		g_global = exec_export(cmd, var);
 	return (g_global);
 }

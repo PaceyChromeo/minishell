@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:18:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/26 12:27:56 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/27 14:29:11 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	blue(void);
 void	yellow(void);
 void	white(void);
 int		ft_atoi(const char *str);
+int		ft_is_exportargs(char *str);
 
 
 #endif

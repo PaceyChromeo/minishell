@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/25 17:07:11 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:32:28 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	free_parser(t_parser *parser)
 void	free_tree(t_tree *tree)
 {
 	free(tree->f_cmd);
-	if (tree->cmd_type >= 0 && tree->cmd_type <= 8)
+	if (tree->cmd_type >= 0 && tree->cmd_type <= 9)
 		free(tree->cmd_value);
 	if (tree->size_args)
 		free_tab(tree->args);

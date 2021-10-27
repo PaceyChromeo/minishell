@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 11:43:04 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:58:18 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ int main(int argc, char **argv, char **envp)
 	int		cmd_nbr;
 	char	**split;
 	t_tree	**root;
-	t_var 	var;
+	t_var	var;
 
-	var.env = envp;	
+	var.env = push_env_to_list(envp);
 	while (argc && argv)
 	{
-		//printf("1 - g_global : %d\n", g_global);
 		signal(SIGINT, handler_signals);
 		signal(SIGQUIT, handler_signals);
 		line = display_prompt();
@@ -94,7 +93,6 @@ int main(int argc, char **argv, char **envp)
 				start_minishell(root, line, cmd_nbr, &var);
 				free_all(root, split, line);
 			}
-			//g_global = 0;
 		}
 	}
 	return (0);

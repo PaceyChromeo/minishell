@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 10:56:51 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:39:51 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_tree	*init_tree(int type, char *cmd)
 	new_tree->red = NULL;
 	new_tree->size_args = 0;
 	new_tree->size_red = 0;
-	new_tree->str_error = NULL;
 	return (new_tree);
 }
 
@@ -75,7 +74,8 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 		parser->current_tok = parser->first_tok;
 		while (parser->current_tok)
 		{
-			if (parser->current_tok->type > 3 && parser->current_tok->type < 9)
+			if (parser->current_tok->type > 3 && parser->current_tok->type < 9
+				&& tree->cmd_type != tree_exportargs)
 			{
 				tree->red[i] = ft_strdup(parser->current_tok->value);
 				i++;
@@ -97,12 +97,18 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 				tree->cmd_type = cmp_builtins(parser->current_tok->value);
 			else if (cmp_binaries(parser->current_tok->value))
 				tree->cmd_type = tree_execve;
+			else if (parser->current_tok->value[0] == '.'
+				|| parser->current_tok->value[0] == '/')
+				tree->cmd_type = tree_path;
+			else if (ft_is_exportargs(parser->current_tok->value))
+				tree->cmd_type = tree_exportargs;
 			tree->cmd_value = ft_strdup(parser->current_tok->value);
 		}
 		if ((parser->current_tok->type > 0 && parser->current_tok->type < 4)
 			&& parser->current_tok->value)
 			tree->size_args++;
-		if (parser->current_tok->type > 3 && parser->current_tok->type < 9)
+		if ((parser->current_tok->type > 3 && parser->current_tok->type < 9)
+			&& tree->cmd_type != tree_exportargs)
 			tree->size_red++;
 		parser->current_tok = parser->current_tok->next;
 	}

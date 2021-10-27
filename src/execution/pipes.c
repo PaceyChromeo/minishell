@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/27 12:07:56 by pjacob           ###   ########.fr       */
-=======
-/*   Updated: 2021/10/27 12:15:34 by hkrifa           ###   ########.fr       */
->>>>>>> 86c4be76efe59ccb6b9d4b01e3b1951faf4a5bba
+/*   Updated: 2021/10/27 15:31:30 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +17,13 @@ static int	execute(t_tree **cmds, char **env, int i)
 	int		exec;
 	char	*path;
 
-	path = get_path(cmds[i]->cmd_value);
-	exec = execve(path, cmds[i]->args, env);
+	if (cmds[i]->cmd_type != tree_path)
+	{
+		path = get_path(cmds[i]->cmd_value);
+		exec = execve(path, cmds[i]->args, env);
+	}
+	else
+		exec = execve(cmds[i]->cmd_value, cmds[i]->args, env);
 	if (exec == -1)
 	{
 		perror("execve");
@@ -46,12 +47,12 @@ static int	is_child(t_tree **cmds, int old_pipefd[2],
 	close(old_pipefd[1]);
 	close(new_pipefd[0]);
 	close(new_pipefd[1]);
-	if (cmds[var->i]->cmd_type != tree_execve && cmds[var->i]->cmd_type != tree_nocmd)
+	if (cmds[var->i]->cmd_type < 8)
 	{
 		g_global = builtins_cmd(cmds[var->i], var);
 		exit (g_global);
 	}
-	else if (cmds[var->i]->cmd_type == tree_execve)
+	else if (cmds[var->i]->cmd_type == 8 || cmds[var->i]->cmd_type == 9)
 		execute(cmds, var->env, var->i);
 	return (g_global);
 }

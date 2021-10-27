@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   binaries.c                                         :+:      :+:    :+:   */
+/*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 14:50:45 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 14:06:14 by pjacob           ###   ########.fr       */
+/*   Created: 2021/10/27 14:13:52 by pjacob            #+#    #+#             */
+/*   Updated: 2021/10/27 15:14:21 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int	cmp_binaries(char *cmd_value)
+int	ft_is_exportargs(char *str)
 {
-	char const	*cmd_path;
+	int	i;
+	int	equal;
 
-	cmd_path = get_path(cmd_value);
-	if (cmd_path)
+	equal = 0;
+	i = 0;
+	if (ft_isalpha(str[i]) || str[i] == '_')
 	{
-		if (!access(cmd_path, X_OK))
+		i++;
+		while ((ft_isalpha(str[i]) || ft_isnum(str[i]) || str[i] == '_')
+			&& str[i])
+			i++;
+		if (str[i] == '=')
 		{
-			free((void *)cmd_path);
+			equal++;
 			return (1);
 		}
 	}

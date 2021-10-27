@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 12:17:52 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:22:26 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	error_redirections(t_tree *tree)
 	int	i;
 
 	i = 0;
-	print_tree(tree);
 	if (tree->size_red)
 	{
 		while (i < tree->size_red)
