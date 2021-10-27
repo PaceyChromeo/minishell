@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/27 15:28:39 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:46:53 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ typedef struct s_tree
 		tree_cd,
 		tree_pwd,
 		tree_export,
-		tree_exportargs,
 		tree_unset,
 		tree_env,
 		tree_exit,
+		tree_exportargs,
 		tree_execve,
 		tree_path,
 		tree_nocmd

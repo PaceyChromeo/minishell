@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 15:57:51 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 17:00:24 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	exec_export(t_tree *tree, t_var *var)
 		e = 1;
 	}
 	lst = var->env;
-	print_list(lst);
+	//printf("---------LST BEFORE--------\n");
+	//print_list(lst);
 	if (tree->size_args > 1 && tree->cmd_type == tree_export)
 	{
 		while(tree->args[i])
@@ -52,9 +53,31 @@ int	exec_export(t_tree *tree, t_var *var)
 	else if (tree->cmd_type == tree_export && tree->size_args == 1)
 	{
 		sort_env_var(&lst);
-		print_list(lst);
+		print_list(lst, 1);
 	}
-	free_list(lst);
+	//printf("---------LST AFTER--------\n");
+	//print_list(lst);
+	//var->env = lst;
+	//free_list(lst);
 	g_global = 0;
 	return (g_global);	
+}
+
+int	exec_env(t_tree *tree, t_var *var)
+{
+	lst_env	*lst;
+
+	if (tree->size_args == 1)
+	{
+		lst = push_env_to_list(var->envp, 0);
+		print_list(lst, 0);
+		free_list(lst);
+		g_global = 0;
+		return (g_global);
+	}
+	else
+	{
+		g_global = 127;
+		return (g_global);
+	}
 }

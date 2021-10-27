@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/27 15:56:59 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:59:41 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_var
 	int		i;
 	pid_t	pid;
 	lst_env	*env;
+	char	**envp;
 }				t_var;
 
 /* FONCTIONS DE PIPES ET REDIRECTIONS */
@@ -47,6 +48,7 @@ int		echo(t_tree *tree);
 int		cd(char *path);
 int		pwd(void);
 int		exec_export(t_tree *tree, t_var *var);
+int		exec_env(t_tree *tree, t_var *var);
 int		echo_option(char **args, int i);
 
 /*FONCTION POUR LISTE CHAINEE EXPORT */
@@ -59,10 +61,10 @@ void	set_at(lst_env *lst, char *str, int pos);
 
 /*FONCTIONS NECESSAIRE POUR LE BUILTIN EXPORT*/
 char	*ft_strstr(char *str, char *to_find); 
-void	print_list(lst_env *lst); /*AFFICHE LA LISTE CHAINER DONNER */
+void	print_list(lst_env *lst, int i); /*AFFICHE LA LISTE CHAINER DONNER */
 char	*add_quote(char *arg); /*AJOUTE LES DOUBLES QUOTES DANS LES VARIABLE ENV*/
-lst_env	*push_env_to_list(char **env); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
-lst_env	*add_at_push_to_env(lst_env *lst, char *str, int pos); /* MEME FONCTION QUE ADD_AT MAIS POUR PUSH_ENV_TO_LIST */
+lst_env	*push_env_to_list(char **env, int d); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
+lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos, int d); /* MEME FONCTION QUE ADD_AT MAIS POUR PUSH_ENV_TO_LIST */
 void	add_var_last(lst_env **lst, char *str, int export); /* AJOUTE UNE STR A LA DERNIER POSITION DE LA LISTE*/
 int		check_if_done(lst_env *lst); /*VERIFIE SI LA LISTE CHAINER ET TRIER*/
 void	sort_env_var(lst_env **lst); /* TRIER ENV PAR ORDRE ALPHABETIQUE */

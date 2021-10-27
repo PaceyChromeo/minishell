@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 16:03:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:11:39 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handler_exit(int sig)
 		exit(1);
 }
 
-static int	execute(t_tree **cmds, char **env, int i)
+static int	execute(t_tree **cmds, t_var *var, int i)
 {
 	int		exec;
 	char	*path;
@@ -26,10 +26,10 @@ static int	execute(t_tree **cmds, char **env, int i)
 	if (cmds[i]->cmd_type != tree_path)
 	{
 		path = get_path(cmds[i]->cmd_value);
-		exec = execve(path, cmds[i]->args, env);
+		exec = execve(path, cmds[i]->args, var->envp);
 	}
 	else
-		exec = execve(cmds[i]->cmd_value, cmds[i]->args, env);
+		exec = execve(cmds[i]->cmd_value, cmds[i]->args, var->envp);
 	if (exec == -1)
 	{
 		perror("execve");
@@ -59,7 +59,7 @@ static int	is_child(t_tree **cmds, int old_pipefd[2],
 		exit (g_global);
 	}
 	else if (cmds[var->i]->cmd_type == 8 || cmds[var->i]->cmd_type == 9)
-		execute(cmds, var->env, var->i);
+		execute(cmds, var, var->i);
 	return (g_global);
 }
 

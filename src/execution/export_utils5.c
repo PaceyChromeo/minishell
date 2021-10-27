@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:01:54 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 17:32:54 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:28:03 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_if_arg_in_env(char *var_name, lst_env *lst)
 
 	i = 0;
 	while (lst != NULL)
-{
+	{
 		if (ft_strstr_int(lst->var_env, var_name) != 0)
 			return (i);
 		lst = lst->next;

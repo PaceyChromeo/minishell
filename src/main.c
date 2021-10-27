@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 16:02:28 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:59:52 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 {
 	if (line)
 	{
-		if (cmd_nbr == 0 && (root[0]->cmd_type == tree_cd) && root)
+		if (cmd_nbr == 0 && root && (root[0]->cmd_type == tree_cd
+			|| root[0]->cmd_type == tree_export
+			|| root[0]->cmd_type == tree_env))
 			builtins_cmd(root[0], var);
 		else
 			exec_pipes(root, var);
@@ -59,7 +61,8 @@ int main(int argc, char **argv, char **envp)
 	t_tree	**root;
 	t_var	var;
 
-	var.env = push_env_to_list(envp);
+	var.env = push_env_to_list(envp, 1);
+	var.envp = envp;
 	while (argc && argv)
 	{
 		signal(SIGINT, handler_signals);

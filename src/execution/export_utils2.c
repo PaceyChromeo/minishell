@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 17:32:38 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:59:26 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*add_quote(char *arg)
 	return (str);
 }
 
-lst_env	*push_env_to_list(char **env)
+lst_env	*push_env_to_list(char **env, int d)
 {
 	int		i;
 	lst_env	*lst;
@@ -57,7 +57,7 @@ lst_env	*push_env_to_list(char **env)
 		i++;
 	while (env[i])
 	{
-		lst = add_at_push_to_env(lst, env[i], 0);
+		lst = add_and_push_to_env(lst, env[i], 0, d);
 		i--;
 	}
 	return (lst);
