@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 10:55:03 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 11:39:59 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,32 @@ int	error_args(t_tree *tree)
 	int	i;
 
 	i = 0;
-	(void)tree;
-	// if (tree->size_args)
-	// {
-	// 	if (tree->cmd_type == tree_nocmd && ft_strcmp(tree->f_cmd, "$?")
-	// 		&& ft_strcmp(tree->f_cmd, "$?+$?")
-	// 		&& ft_strcmp(tree->f_cmd, "$? + $?"))
-	// 	{
-	// 		printf("minishell: command not found\n");
-	// 		g_global = 127;
-	// 		return (g_global);
-	// 	}
-	// 	else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->f_cmd, "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) 
-	// 		&& ft_strcmp(tree->f_cmd, "$?+$?") != 0)
-	// 	{
-	// 	//	printf("cmd_value: %s\n", tree->cmd_value);
-	// 		printf("minishell: %d: command not found\n", g_global);
-	// 		g_global = 127;
-	// 		return (g_global);
-	// 	}
-	// 	else if (tree->cmd_type == tree_nocmd
-	// 		&& ft_strcmp(tree->f_cmd, "$?+$?") == 0)
-	// 	{
-	// 		printf("minishell: %d+%d: command not found\n", g_global, g_global);
-	// 		g_global = 127;
-	// 		return (g_global);
-	// 	}
-	// }
+	if (tree->size_args)
+	{
+		if (tree->cmd_type == tree_nocmd && ft_strcmp(tree->f_cmd, "$?")
+			&& ft_strcmp(tree->f_cmd, "$?+$?")
+			&& ft_strcmp(tree->f_cmd, "$? + $?"))
+		{
+			printf("minishell: command not found\n");
+			g_global = 127;
+			return (g_global);
+		}
+		else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->f_cmd, "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) 
+			&& ft_strcmp(tree->f_cmd, "$?+$?") != 0)
+		{
+		//	printf("cmd_value: %s\n", tree->cmd_value);
+			printf("minishell: %d: command not found\n", g_global);
+			g_global = 127;
+			return (g_global);
+		}
+		else if (tree->cmd_type == tree_nocmd
+			&& ft_strcmp(tree->f_cmd, "$?+$?") == 0)
+		{
+			printf("minishell: %d+%d: command not found\n", g_global, g_global);
+			g_global = 127;
+			return (g_global);
+		}
+	}
 	return (0);
 }
 

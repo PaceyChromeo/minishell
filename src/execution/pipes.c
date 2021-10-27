@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 11:17:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/27 12:15:34 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 		is_child(cmds, old_pipefd, new_pipefd, var);
 	}
 	close(new_pipefd[1]);
-	
 	if (cmds[var->i + 1] != NULL)
 	{
 		var->i++;
@@ -84,31 +83,43 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 {
 	int	fd[2];
 	int status;
-	
+	int res;
+	// int x;
+	// int y;
+	// int z;
+	// int a;
 	var->i = 0;
 	pipe(fd);
-	multipipes(cmds, fd, var);
 	signal(SIGINT, handler_child);
 	signal(SIGQUIT, handler_child);
+	multipipes(cmds, fd, var);
 	close(fd[1]);
 	close(fd[0]);
 	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
 		;
-	// int x = WIFEXITED(status);
-	// int y = WEXITSTATUS(status);
-	//printf("x : %d y : %d\n", x, y);
-	// if (!y)
-	// {
-	// 	if (g_global != 130 || g_global != 131 || g_global != 255 | g_global !=)
-	// 		g_global = 0;
-			
-	// }
-	// if (WIFEXITED(status))
-	// {
-	// 	//g_global = WEXITSTATUS(status);
-	// 	if (g_global == 2)
-	// 		g_global += 125;
-	// }
-	// else
-	// 	g_global = 0;
+	// x = WIFEXITED(status);
+	// y = WIFSIGNALED(status);
+	// z = WEXITSTATUS(status);
+	// a = WTERMSIG(status);
+	// printf("WIFEXITED = %d WIFSIGNALED = %d , WEXITSTATUS = %d, WTERMSIG = %d\n", x, y, z, a);
+	if (WIFEXITED(status) && !WIFSIGNALED(status))
+    {
+        g_global = WEXITSTATUS(status); // bonne cmd
+		if (g_global == 255)
+			g_global = 255;
+        else if (WEXITSTATUS(status) != 0 && g_global != 1) // mauvaise cmd
+            g_global += 125;
+        else if (WEXITSTATUS(status) != 0 && g_global == 1) // mauvais file
+            g_global = 1;
+    }
+    else if (!WIFEXITED(status) && WIFSIGNALED(status))
+    {
+    	res = WTERMSIG(status);
+		if (g_global == 130 && res == 1) //cat + ctrl c
+			g_global = 130;
+		else if (res == 100)
+			g_global = 1;
+		else
+			g_global = res + 128;
+    }   
 }
