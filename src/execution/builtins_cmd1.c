@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/28 17:26:56 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 17:37:02 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int exec_unset(t_tree *tree, t_var *var)
 	lst_env *temp_lst;
 
 	i = 1;
-	printf("SALUT LESKHEYS\n");
 	if (tree->size_args > 1)
 	{
 		while(tree->args[i])
@@ -99,7 +98,6 @@ int exec_unset(t_tree *tree, t_var *var)
 			}
 			i++;			
 		}
-		print_list(var->env, 0);
 	}
 	return (0);
 }
