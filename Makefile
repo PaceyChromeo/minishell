@@ -66,7 +66,7 @@ OBJ_UTILS = ${SRCS_UTILS:.c=.o}
 OBJS = ${OBJ} ${OBJ_DISPLAY} ${OBJ_LEXING} ${OBJ_EXEC} ${OBJ_PARSING} ${OBJ_UTILS}
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 UNAME = $(shell uname -s)
 ifeq (${UNAME}, Linux)
