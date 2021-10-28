@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:01:54 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/27 16:28:03 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:58:42 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ int	check_export_args_str(char *str)
 		{
 			return (2);
 		}
-		if (str[i] == '=' || str[i] == '\0')
+		if (str[i] == '\0')
 			break ;
+		if (str[0] == '=')
+			return (1);
 		if (ft_isalpha(str[i]) == 1 || str[i] == '_'
 			|| (ft_isnum(str[i]) == 1 && i > 0))
 			i++;

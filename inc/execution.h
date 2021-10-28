@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/27 16:59:41 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 11:48:57 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	set_at(lst_env *lst, char *str, int pos);
 char	*ft_strstr(char *str, char *to_find); 
 void	print_list(lst_env *lst, int i); /*AFFICHE LA LISTE CHAINER DONNER */
 char	*add_quote(char *arg); /*AJOUTE LES DOUBLES QUOTES DANS LES VARIABLE ENV*/
-lst_env	*push_env_to_list(char **env, int d); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
-lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos, int d); /* MEME FONCTION QUE ADD_AT MAIS POUR PUSH_ENV_TO_LIST */
+lst_env	*push_env_to_list(char **env); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
+lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos); /* MEME FONCTION QUE ADD_AT MAIS POUR PUSH_ENV_TO_LIST */
 void	add_var_last(lst_env **lst, char *str, int export); /* AJOUTE UNE STR A LA DERNIER POSITION DE LA LISTE*/
 int		check_if_done(lst_env *lst); /*VERIFIE SI LA LISTE CHAINER ET TRIER*/
 void	sort_env_var(lst_env **lst); /* TRIER ENV PAR ORDRE ALPHABETIQUE */
@@ -78,5 +78,6 @@ int		count_tab_nbr(char **args); /* donne la taille de d un tableau de 2 dimensi
 int		check_if_arg_in_env(char *var_name, lst_env *d_env);
 int		strlen_var_arg(char *str);
 int		ft_strstr_int(char *str, char *to_find);
+lst_env	*ft_lstdup(lst_env *lst);
 
 #endif

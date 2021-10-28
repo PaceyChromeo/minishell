@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:28:34 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/27 16:53:18 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:26:02 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,27 @@ void	print_list(lst_env *lst, int d)
 	int	i;
 
 	i = 0;
-	while (lst)
+	if (d)
 	{
-		if (d)
+		while (lst)
+		{
+			if (ft_strstr_int(lst->var_env, "_=") == 1)
+					lst = lst->next;
+			if (lst == NULL)
+				break ;
 			ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(lst->var_env, 1);
-		write(1, "\n", 2);
-		lst = lst->next;
+			ft_putstr_fd(lst->var_env, 1);
+			write(1, "\n", 2);
+			lst = lst->next;	
+		}
+	}
+	else
+	{
+		while (lst)
+		{
+			ft_putstr_fd(lst->var_env, 1);
+			write(1, "\n", 2);
+			lst = lst->next;
+		}
 	}
 }

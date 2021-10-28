@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:43:38 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 17:32:45 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 11:54:04 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,7 @@ void	sort_env_var(lst_env **lst)
 	}
 }
 
-lst_env	*push_env_to_list_declare_x(lst_env *d_env)
-{
-	int		i;
-	char	*declare;
-	char	*x;
-	lst_env	*lst;
 
-	lst = empty_list();
-	i = 0;
-	x = "declare -x ";
-	while (d_env)
-	{
-		declare = ft_strjoin(x, d_env->var_env);
-		lst = add_at(lst, declare, i);
-		i++;
-		d_env = d_env->next;
-	}
-	free_list (d_env);
-	return (lst);
-}
 
 void	add_new(lst_env **lst, char *new_content, char *var_dest)
 {
@@ -101,7 +82,7 @@ char	*add_content_to_var(char *dest, char *content_to_add)
 	while (dest[i] != '=')
 		i++;
 	i++;
-	new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 3));
+	new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 1));
 	i = 0;
 	while (dest[i] != '=')
 	{
@@ -110,9 +91,14 @@ char	*add_content_to_var(char *dest, char *content_to_add)
 	}
 	new_dest_content[i] = dest[i];
 	i++;
-	while (content_to_add[j] != '\0')
-		new_dest_content[i++] = content_to_add[j++];
-	new_dest_content[i] = '\0';
+	if (content_to_add == NULL)
+		new_dest_content[i] = '\0';
+	else
+	{
+		while (content_to_add[j] != '\0')
+			new_dest_content[i++] = content_to_add[j++];
+		new_dest_content[i] = '\0';
+	}
 	free (dest);
 	return (new_dest_content);
 }

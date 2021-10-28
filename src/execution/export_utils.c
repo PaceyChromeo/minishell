@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/27 16:58:14 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 11:33:16 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ lst_env	*add_at(lst_env *lst, char *str, int pos)
 	return (lst);
 }
 
-lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos, int d)
+lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos)
 {
 	lst_env	*prec;
 	lst_env	*cur;
@@ -87,10 +87,8 @@ lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos, int d)
 	int		i;
 	char *quotes;
 
-	if (d)
-		quotes = add_quote(str);
-	else
-		quotes = ft_strdup(str);
+
+	quotes = ft_strdup(str);
 	prec = lst;
 	cur = lst;
 	i = 0;

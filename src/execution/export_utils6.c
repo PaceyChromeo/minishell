@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:55:08 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 17:33:00 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 13:46:46 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,27 @@ void	set_at(lst_env *lst, char *str, int pos)
 	}
 	lst->var_env = ft_strdup(str);
 	free(str);
+}
+
+lst_env	*ft_lstdup(lst_env *lst)
+{
+	lst_env	*tmp;
+	char *quotes;
+	int i;
+	
+	i = 0; 
+	quotes = NULL;
+	tmp = empty_list();
+	while(lst)
+	{
+		if (count_equals(lst->var_env) == 0)
+			quotes = ft_strdup(lst->var_env);
+		else
+			quotes = add_quote(lst->var_env);	
+		tmp = add_at(tmp, quotes, i);
+		lst = lst->next; 
+		free(quotes);
+		i++;
+	}
+	return (tmp);
 }

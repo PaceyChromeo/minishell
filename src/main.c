@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 16:59:52 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:00:53 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv, char **envp)
 	t_tree	**root;
 	t_var	var;
 
-	var.env = push_env_to_list(envp, 1);
+	var.env = push_env_to_list(envp);
 	var.envp = envp;
 	while (argc && argv)
 	{

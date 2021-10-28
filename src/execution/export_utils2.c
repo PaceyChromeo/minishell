@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/27 16:59:26 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:02:45 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ char	*add_quote(char *arg)
 	return (str);
 }
 
-lst_env	*push_env_to_list(char **env, int d)
+lst_env	*push_env_to_list(char **env)
 {
 	int		i;
 	lst_env	*lst;
 
 	lst = empty_list();
 	i = 0;
-	while (env[i + 2] != '\0')
+	while (env[i + 1] != '\0')
 		i++;
 	while (env[i])
 	{
-		lst = add_and_push_to_env(lst, env[i], 0, d);
+		lst = add_and_push_to_env(lst, env[i], 0);
 		i--;
 	}
 	return (lst);
@@ -70,7 +70,7 @@ void	add_var_last(lst_env **lst, char *str, int export)
 	char	**var;
 
 	i = 0;
-	rstr = add_quote(str);
+	rstr = ft_strdup(str);
 	var = ft_split(rstr, '=');
 	if (check_if_arg_in_env(var[0], *lst) == 0 && export == 0)
 	{
@@ -78,9 +78,9 @@ void	add_var_last(lst_env **lst, char *str, int export)
 		free_tab(var);
 		return ;
 	}
-	if (check_if_arg_in_env(rstr, *lst) != 0)
+	if (check_if_arg_in_env(rstr, *lst) != 0 && count_equals(rstr) > 0)
 		add_new(lst, var[1], var[0]);
-	else
+	else if (check_if_arg_in_env(rstr, *lst) == 0)
 		add_at(*lst, rstr, len_list(*lst));
 	free(rstr);
 	free_tab(var);
