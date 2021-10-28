@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:55:08 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 14:19:01 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 16:38:11 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,6 @@ int	strlen_var_arg(char *str)
 		j++;
 	}
 	return (j - 2);
-}
-
-void	set_at(lst_env *lst, char *str, int pos)
-{
-	int	i;
-
-	i = 0;
-	if (is_empty_list(lst))
-		return ;
-	while (i < pos)
-	{
-		i++;
-		lst = lst->next;
-	}
-	lst->var_env = ft_strdup(str);
-	free(str);
 }
 
 lst_env	*ft_lstdup(lst_env *lst)
@@ -72,23 +56,23 @@ lst_env	*ft_lstdup(lst_env *lst)
 }
 /* Free une cellule de la liste */
 
-lst_env	*free_at(lst_env *lst, int pos)
+lst_env	*free_at(lst_env **lst, int pos)
 {
 	lst_env	*prec;
 	lst_env	*cur;
 	int		i;
 
-	cur = lst;
-	prec = lst;
+	cur = *lst;
+	prec = *lst;
 	i = 0;
-	if (is_empty_list(lst))
+	if (is_empty_list(*lst))
 		return (NULL);
 	if (pos == 0)
 	{
-		lst = lst->next;
+		lst = &(*lst)->next;
 		free(cur->var_env);
 		free(cur);
-		return (lst);
+		return *(lst);
 	}
 	while (i < pos)
 	{
@@ -99,5 +83,5 @@ lst_env	*free_at(lst_env *lst, int pos)
 	prec->next = cur->next;
 	free(cur->var_env);
 	free(cur);
-	return (lst);
+	return *(lst);
 }

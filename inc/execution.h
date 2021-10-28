@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/28 14:20:38 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 17:26:40 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	free_list(lst_env *lst);
 lst_env	*empty_list(void);
 int		is_empty_list(lst_env *lst);
 lst_env	*add_at(lst_env *lst, char *str, int pos);
-void	set_at(lst_env *lst, char *str, int pos);
 
 /*FONCTIONS NECESSAIRE POUR LE BUILTIN EXPORT*/
 char	*ft_strstr(char *str, char *to_find); 
@@ -80,6 +79,6 @@ int		strlen_var_arg(char *str);
 int		ft_strstr_int(char *str, char *to_find);
 lst_env	*ft_lstdup(lst_env *lst);
 /* FONCTION POUR UNSET */
-int exec_unset(t_tree *tree, t_var *var);
-lst_env	*free_at(lst_env *lst, int pos);
+int		exec_unset(t_tree *tree, t_var *var);
+lst_env	*free_at(lst_env **lst, int pos);
 #endif

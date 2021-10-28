@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/28 14:22:53 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 17:26:56 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,31 @@ int	exec_env(t_tree *tree, t_var *var)
 int exec_unset(t_tree *tree, t_var *var)
 {
 	int i;
+	int j;
+	lst_env *temp_lst;
 
 	i = 1;
+	printf("SALUT LESKHEYS\n");
 	if (tree->size_args > 1)
 	{
-		while(tree->args[i] > 0)
+		while(tree->args[i])
 		{
-			if (check_if_arg_in_env(tree->args[i], var->env) == 0)
-				free_at(var->env, i);			
-			i++;
+			j = 0;
+			temp_lst = var->env;
+			while(temp_lst)
+			{
+				if (ft_strstr_int(temp_lst->var_env, tree->args[i]) == 1)
+				{
+					var->env = free_at(&var->env, j);
+					break ;		
+				}
+				j++;
+				temp_lst = temp_lst->next;
+			}
+			i++;			
 		}
+		print_list(var->env, 0);
 	}
-	return 0;
+	return (0);
 }
 

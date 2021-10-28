@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/28 12:00:53 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 16:56:19 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 	{
 		if (cmd_nbr == 0 && root && (root[0]->cmd_type == tree_cd
 			|| root[0]->cmd_type == tree_export
-			|| root[0]->cmd_type == tree_env))
+			|| root[0]->cmd_type == tree_env || root[0]->cmd_type == tree_unset))
 			builtins_cmd(root[0], var);
 		else
 			exec_pipes(root, var);
