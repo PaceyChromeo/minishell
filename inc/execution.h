@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/28 11:48:57 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 14:20:38 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ int		check_if_arg_in_env(char *var_name, lst_env *d_env);
 int		strlen_var_arg(char *str);
 int		ft_strstr_int(char *str, char *to_find);
 lst_env	*ft_lstdup(lst_env *lst);
-
+/* FONCTION POUR UNSET */
+int exec_unset(t_tree *tree, t_var *var);
+lst_env	*free_at(lst_env *lst, int pos);
 #endif

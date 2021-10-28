@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:01:54 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 12:58:42 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/28 14:52:01 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,12 @@ int	check_export_args_str(char *str)
 	i = 0;
 	while (str[i] != '=' || str[i] != '\0')
 	{
-		if (str[i] == '+' && str[i + 1] == '=')
-		{
-			return (2);
-		}
-		if (str[i] == '\0')
-			break ;
-		if (str[0] == '=')
-			return (1);
 		if (ft_isalpha(str[i]) == 1 || str[i] == '_'
 			|| (ft_isnum(str[i]) == 1 && i > 0))
 			i++;
+		else if ((str[i] == '=' && i > 0)
+			|| (str[i] == '\0' && i > 0))
+			return (0);
 		else
 			return (1);
 	}
