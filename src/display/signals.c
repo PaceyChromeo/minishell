@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:26:16 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 16:03:15 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 17:03:30 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,21 @@ void	handler_signals(int sig)
 
 void	handler_child(int sig)
 {
-	if (sig == SIGINT || sig == SIGQUIT)
+	if (sig == SIGINT)
 	{
-		printf("\n");
-		printf("\e[2K");
-		//rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		if (g_global != -888)
+			printf("\e[2K");
+		if (g_global == -888)
+			printf("\n");
+
+	}
+	else if (sig == SIGQUIT)
+	{
+		if (g_global == -888)
+		{
+			printf("Quit:3");
+			printf("\n");
+		}
 	}
 }
 

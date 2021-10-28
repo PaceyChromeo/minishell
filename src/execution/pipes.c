@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 16:11:39 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/28 16:29:43 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
-void	handler_exit(int sig)
-{
-	if (sig)
-		exit(1);
-}
 
 static int	execute(t_tree **cmds, t_var *var, int i)
 {
@@ -41,7 +35,7 @@ static int	execute(t_tree **cmds, t_var *var, int i)
 
 static int	is_child(t_tree **cmds, int old_pipefd[2],
 	int new_pipefd[2], t_var *var)
-{
+{	
 	if (cmds[var->i + 1] != NULL)
 		dup2(new_pipefd[1], 1);
 	if (var->i != 0)
@@ -66,7 +60,11 @@ static int	is_child(t_tree **cmds, int old_pipefd[2],
 static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int		new_pipefd[2];
-
+	
+	if (cmds[var->i]->cmd_value && (!ft_strcmp(cmds[var->i]->cmd_value, "cat") || !ft_strcmp(cmds[var->i]->cmd_value, "sort")))
+		g_global = -888;
+	if (cmds[var->i]->size_red > 0)
+		loop_double_redir(cmds, var->i);
 	pipe(new_pipefd);
 	var->pid = fork();
 	if (var->pid == -1)
@@ -76,9 +74,7 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	}
 	if (var->pid == 0)
 	{
-		signal(SIGINT, handler_exit);
-		if (cmds[var->i]->size_red > 0)
-			loop_double_redir(cmds, var->i);
+		//signal(SIGINT, handler_exit);
 		g_global = is_child(cmds, old_pipefd, new_pipefd, var);
 	}
 	close(new_pipefd[1]);
@@ -96,10 +92,7 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	int	fd[2];
 	int status;
 	int res;
-	// int x;
-	// int y;
-	// int z;
-	// int a;
+
 	var->i = 0;
 	pipe(fd);
 	signal(SIGINT, handler_child);
@@ -107,14 +100,8 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	multipipes(cmds, fd, var);
 	close(fd[1]);
 	close(fd[0]);
-	unlink("temp.txt");
 	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
 		;
-	// x = WIFEXITED(status);
-	// y = WIFSIGNALED(status);
-	// z = WEXITSTATUS(status);
-	// a = WTERMSIG(status);
-	// printf("WIFEXITED = %d WIFSIGNALED = %d , WEXITSTATUS = %d, WTERMSIG = %d\n", x, y, z, a);
 	if (WIFEXITED(status) && !WIFSIGNALED(status))
     {
         g_global = WEXITSTATUS(status); // bonne cmd
