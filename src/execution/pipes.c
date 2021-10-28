@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/28 16:29:43 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/28 17:40:02 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int		new_pipefd[2];
 	
-	if (cmds[var->i]->cmd_value && (!ft_strcmp(cmds[var->i]->cmd_value, "cat") || !ft_strcmp(cmds[var->i]->cmd_value, "sort")))
+	if (cmds[var->i]->cmd_value 
+		&& (!ft_strcmp(cmds[var->i]->cmd_value, "cat") 
+		|| !ft_strcmp(cmds[var->i]->cmd_value, "sort")))
 		g_global = -888;
 	if (cmds[var->i]->size_red > 0)
 		loop_double_redir(cmds, var->i);
@@ -72,11 +74,8 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 		perror("fork");
 		return (-1);
 	}
-	if (var->pid == 0)
-	{
-		//signal(SIGINT, handler_exit);
+	if (!var->pid)
 		g_global = is_child(cmds, old_pipefd, new_pipefd, var);
-	}
 	close(new_pipefd[1]);
 	if (cmds[var->i + 1] != NULL)
 	{
@@ -102,6 +101,7 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	close(fd[0]);
 	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
 		;
+	unlink("temp.txt");
 	if (WIFEXITED(status) && !WIFSIGNALED(status))
     {
         g_global = WEXITSTATUS(status); // bonne cmd
