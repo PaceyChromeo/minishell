@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:42:34 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 15:48:48 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:14:02 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	handler_exit_builtins(int sig)
 	}
 	if ((sig == SIGINT) && g_global > 258)
 	{
-		kill(g_global, SIGTERM);
+		if (kill(g_global, SIGTERM))
+			g_global = 1;
 		printf("\e[2K");
 		printf("\n");  	
 	}
@@ -87,7 +88,7 @@ int	open_heredoc_builtins(t_tree *cmd, int j)
 	g_global = pid;
 	signal(SIGINT, handler_exit_builtins);
 	signal(SIGQUIT, handler_exit_builtins);
-	while (waitpid(pid, &status, 0) > 0)
+	while (waitpid(pid, &status, WUNTRACED) > 0)
 		;
 	return (1);
 }

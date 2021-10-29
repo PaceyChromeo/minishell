@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 14:34:08 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:08:41 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,10 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	unlink("temp.txt");
 	if (WIFEXITED(status) && !WIFSIGNALED(status))
     {
-        g_global = WEXITSTATUS(status); // bonne cmd
+		if (g_global > 258)
+			g_global = 1;
+		else
+        	g_global = WEXITSTATUS(status); // bonne cmd
 		if (g_global == 255)
 			g_global = 255;
         else if (WEXITSTATUS(status) != 0 && g_global != 1) // mauvaise cmd

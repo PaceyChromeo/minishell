@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/29 15:06:36 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:42:01 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_tree
 	int		size_red;
 	int		z;
 	int		save;
+	int		status;
 }				t_tree;
 
 int			count_pipes(char const *line, char c);

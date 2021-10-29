@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:32:08 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 15:52:36 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:07:46 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ static int	lefts_redirections(t_tree *cmd, int j)
 	}
 	else if (!ft_strcmp(cmd->red[j], "<<"))
 	{
-		if (double_left_redirs(cmd, j))
-			return (g_global);
+		loop_double_redirs(cmd);
+		return (g_global);
 	}
 	g_global = 0;
 	return (g_global);

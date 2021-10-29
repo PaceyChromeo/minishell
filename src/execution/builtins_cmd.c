@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 15:47:30 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:19:22 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,23 +151,28 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 {
 	if (cmd->z == 1 && cmd->size_red > 0)
 		builtins_redir(cmd);
-	if (cmd->cmd_type == tree_echo)
-		g_global = echo(cmd);
-	else if (cmd->cmd_type == tree_pwd)
-		g_global = pwd();
-	else if (cmd->cmd_type == tree_cd)
-		g_global = cd(var, cmd->args[1]);
-	else if (cmd->cmd_type == tree_exit)
-		g_global = exit_cmd(cmd);
-	else if (cmd->cmd_type == tree_export 
-		|| cmd->cmd_type == tree_exportargs)
-		g_global = exec_export(cmd, var);
-	else if (cmd->cmd_type == tree_exit)
-		g_global = exit_cmd(cmd);
-	else if (cmd->cmd_type == tree_env)
-		g_global = exec_env(cmd, var);
-	else if (cmd->cmd_type == tree_unset)
-		g_global = exec_unset(cmd, var);
-	dup2(cmd->save, 1);
+	if (g_global < 258)
+	{
+		if (cmd->cmd_type == tree_echo)
+			g_global = echo(cmd);
+		else if (cmd->cmd_type == tree_pwd)
+			g_global = pwd();
+		else if (cmd->cmd_type == tree_cd)
+			g_global = cd(var, cmd->args[1]);
+		else if (cmd->cmd_type == tree_exit)
+			g_global = exit_cmd(cmd);
+		else if (cmd->cmd_type == tree_export 
+			|| cmd->cmd_type == tree_exportargs)
+			g_global = exec_export(cmd, var);
+		else if (cmd->cmd_type == tree_exit)
+			g_global = exit_cmd(cmd);
+		else if (cmd->cmd_type == tree_env)
+			g_global = exec_env(cmd, var);
+		else if (cmd->cmd_type == tree_unset)
+			g_global = exec_unset(cmd, var);
+		dup2(cmd->save, 1);
+	}
+	if (g_global > 258)
+		g_global = 1;
 	return (g_global);
 }

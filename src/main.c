@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 15:58:31 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:16:24 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 				builtins_cmd(root[0], var);
 			}
 		else
-		{
 			exec_pipes(root, var);
-		}
 	}
 }
 
