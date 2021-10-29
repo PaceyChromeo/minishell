@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 16:02:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 12:23:45 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	error_handler(t_tree *tree)
 	if (tree->size_args)
 		ret = signal_set(tree);
 	if (tree->size_red && ret == 0)
+	printf("OK\n");
 		ret = error_redirections(tree);
 	return (ret);
 }
