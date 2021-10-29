@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:18:26 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/27 14:29:11 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 14:45:39 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 void	print_token(t_token *token);
+void	print_strs(char **strs);
 void	print_tree(t_tree *tree);
 void	print_trees(t_tree **root);
 void	free_tab(char **tab);

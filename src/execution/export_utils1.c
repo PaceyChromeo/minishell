@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:28:34 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 10:50:45 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 13:59:02 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_strstr_int(char *str, char *to_find)
 	int	i;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i] != '=' && str[i] != '\0')
 	{
 		if (str[i] == to_find[i])
 			i++;

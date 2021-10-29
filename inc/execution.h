@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/28 17:26:40 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 11:44:29 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		builtins_cmd(t_tree *cmd, t_var *var);
 int		cmp_binaries(char *value);
 char	*get_path(char *cmd);
 int		echo(t_tree *tree);
-int		cd(char *path);
+int		cd(t_var *var, char *path);
 int		pwd(void);
 int		exec_export(t_tree *tree, t_var *var);
 int		exec_env(t_tree *tree, t_var *var);

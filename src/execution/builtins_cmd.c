@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 13:01:56 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 14:23:31 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,25 @@ int	echo(t_tree *tree)
 	return (g_global);
 }
 
-int	cd(char *path)
+int	cd(t_var *var, char *path)
 {
 	char *home;
 
 	if (access(path, F_OK) == 0)
+	{
+		add_new(&var->env, getcwd(NULL, 0), "OLDPWD");
 		chdir(path);
+		add_new(&var->env, getcwd(NULL, 0), "PWD");
+	}
 	else if (!path)
 	{
 		home = getenv("HOME");
 		if (access(home, F_OK) == 0)
+		{
+			add_new(&var->env, getcwd(NULL, 0), "OLDPWD");		
 			chdir(home);
+			add_new(&var->env, getcwd(NULL, 0), "PWD");
+		}
 	}
 	else
 		perror(path);
@@ -140,22 +148,23 @@ int	right_redir_builtins(t_tree *cmd)
 
 int	builtins_cmd(t_tree *cmd, t_var *var)
 {
-	//pid_t pid;
-	
 	if (cmd->z == 1 && cmd->size_red > 0)
 	{
-			right_redir_builtins(cmd);
+				
+		right_redir_builtins(cmd);
+			
 	}
 	if (cmd->cmd_type == tree_echo)
 		g_global = echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)
 		g_global = pwd();
 	else if (cmd->cmd_type == tree_cd)
-		g_global = cd(cmd->args[1]);
-	else if (cmd->cmd_type == tree_export || cmd->cmd_type == tree_exportargs)
-	{
+		g_global = cd(var, cmd->args[1]);
+	else if (cmd->cmd_type == tree_exit)
+		g_global = exit_cmd(cmd);
+	else if (cmd->cmd_type == tree_export 
+		|| cmd->cmd_type == tree_exportargs)
 		g_global = exec_export(cmd, var);
-	}
 	else if (cmd->cmd_type == tree_exit)
 		g_global = exit_cmd(cmd);
 	else if (cmd->cmd_type == tree_env)

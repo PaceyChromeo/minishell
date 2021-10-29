@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:08:31 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/22 18:57:12 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/29 12:13:57 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static	t_token	*lexer_collect_redir(t_lexer *lexer)
 	{
 		lexer_next_char(lexer);
 		if (lexer->c == redir)
-			return (init_token(token_eof, NULL));
+			return (init_token(token_error, NULL));
 		else if (redir == 60)
 			return (init_token(token_dred_l, ft_strdup("<<")));
 		else
