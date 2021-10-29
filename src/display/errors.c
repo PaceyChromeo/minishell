@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 16:00:10 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:24:27 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,16 @@ int	signal_set(t_tree *tree)
 	i = 0;
 	if (tree->size_args)
 	{
-		if (tree->cmd_type == tree_nocmd && ft_strcmp(tree->f_cmd, "$?")
-			&& ft_strcmp(tree->f_cmd, "$?+$?")
-			&& ft_strcmp(tree->f_cmd, "$? + $?"))
+		if (tree->cmd_type == tree_nocmd)
 		{
-			printf("minishell: command not found\n");
-			g_global = 127;
-			return (g_global);
-		}
-		else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->f_cmd, "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) 
-			&& ft_strcmp(tree->f_cmd, "$?+$?") != 0)
-		{
-			printf("minishell: %d: command not found\n", g_global);
-			g_global = 127;
-			return (g_global);
-		}
-		else if (tree->cmd_type == tree_nocmd
-			&& ft_strcmp(tree->f_cmd, "$?+$?") == 0)
-		{
-			printf("minishell: %d+%d: command not found\n", g_global, g_global);
+			if (!ft_strcmp(tree->f_cmd, "$?")
+				|| !ft_strcmp(tree->f_cmd, "$? + $?"))
+				printf("minishell: %d: command not found\n", g_global);
+			else if (!ft_strcmp(tree->f_cmd, "$?+$?"))
+				printf("minishell: %d+%d: command not found\n",
+					g_global, g_global);
+			else
+				printf("minishell: command not found\n");
 			g_global = 127;
 			return (g_global);
 		}
@@ -56,23 +47,13 @@ int	error_redirections(t_tree *tree)
 		{
 			if ((!ft_strcmp(tree->red[i], "<") || !ft_strcmp(tree->red[i], "<<")
 					|| !ft_strcmp(tree->red[i], ">")
-					|| !ft_strcmp(tree->red[i], ">>")) && i + 1 < tree->size_red)
+					|| !ft_strcmp(tree->red[i], ">>"))
+				&& i + 1 < tree->size_red)
 				i += 2;
 			else
 			{
 				g_global = 258;
 				return (printf("Syntax error near token \"%s\"\n", tree->red[i]));
-			}
-		}
-		i = 1;
-		while (i < tree->size_red)
-		{
-			if (tree->red[i][0] != '<' && tree->red[i][0] != '>')
-					i += 2;
-			else
-			{
-				g_global = 258;
-				return (printf("Syntax error unexpected token\n"));
 			}
 		}
 	}
@@ -82,12 +63,24 @@ int	error_redirections(t_tree *tree)
 int	error_handler(t_tree *tree)
 {
 	int	ret;
+	int	i;
 
+	i = 1;
 	ret = 0;
 	if (tree->size_args)
 		ret = signal_set(tree);
 	if (tree->size_red && ret == 0)
 		ret = error_redirections(tree);
+	while (i < tree->size_red)
+	{
+		if (tree->red[i][0] != '<' && tree->red[i][0] != '>')
+			i += 2;
+		else
+		{
+			g_global = 258;
+			ret = printf("Syntax error unexpected token\n");
+		}
+	}	
 	return (ret);
 }
 

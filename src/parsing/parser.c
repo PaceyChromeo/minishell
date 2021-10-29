@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 14:06:48 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:44:55 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	parser_get_token_with_env(t_parser *parser)
 	{
 		if (parser->current_tok->type == token_env
 			&& (ft_strcmp(parser->current_tok->value, "$?")
-			&& ft_strcmp(parser->current_tok->value, "$")))
+				&& ft_strcmp(parser->current_tok->value, "$")))
 		{
 			tmp = parser->current_tok->value;
 			parser->current_tok->value

@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 16:16:24 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:15:07 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 	if (line)
 	{
 		if (cmd_nbr == 0 && root && (root[0]->cmd_type == tree_cd
-			|| root[0]->cmd_type == tree_export
-			|| root[0]->cmd_type == tree_env || root[0]->cmd_type == tree_unset))
-			{
-				root[0]->z = 1;
-				builtins_cmd(root[0], var);
-			}
+				|| root[0]->cmd_type == tree_export
+				|| root[0]->cmd_type == tree_env
+				|| root[0]->cmd_type == tree_unset))
+		{
+			root[0]->z = 1;
+			builtins_cmd(root[0], var);
+		}
 		else
 			exec_pipes(root, var);
 	}
@@ -33,9 +34,9 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 
 static t_tree	**get_root(char **split, char *line, int cmd_nbr)
 {
-	int i;
-	t_tree **root;
-	
+	int		i;
+	t_tree	**root;
+
 	root = ft_calloc(cmd_nbr + 2, sizeof(t_tree));
 	if (!root)
 		root = NULL;
@@ -54,10 +55,10 @@ static t_tree	**get_root(char **split, char *line, int cmd_nbr)
 		}
 		root[i] = NULL;
 	}
-	return(root);
+	return (root);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	int		cmd_nbr;
@@ -73,7 +74,7 @@ int main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, handler_signals);
 		line = display_prompt();
 		if (!line)
-			return(g_global);
+			return (g_global);
 		if (!check_forbidden_char(line))
 		{
 			cmd_nbr = count_pipes(line, '|');
@@ -83,11 +84,12 @@ int main(int argc, char **argv, char **envp)
 			root = get_root(split, line, cmd_nbr);
 			if (root)
 			{
-				if (root[0]->size_args && !ft_strcmp(root[0]->cmd_value, "exit"))
+				if (root[0]->size_args
+					&& !ft_strcmp(root[0]->cmd_value, "exit"))
 				{
 					builtins_cmd(root[0], &var);
 					ft_putstr_fd("exit\n", 1);
-					return(g_global);
+					return (g_global);
 				}
 				start_minishell(root, line, cmd_nbr, &var);
 				free_all(root, split, line);

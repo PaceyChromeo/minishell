@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:42:34 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 17:14:02 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:15:37 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ void	handler_exit_builtins(int sig)
 	{
 		ft_putstr_fd("\e[2K", 1);
 		ft_putstr_fd("\r> ", 1);
-		
 	}
 	if ((sig == SIGINT) && g_global > 258)
 	{
 		if (kill(g_global, SIGTERM))
 			g_global = 1;
 		printf("\e[2K");
-		printf("\n");  	
+		printf("\n");
 	}
 }
 
@@ -65,9 +64,9 @@ int	open_heredoc_builtins(t_tree *cmd, int j)
 {
 	int		temp;
 	char	*line;
-	pid_t 	pid;
+	pid_t	pid;
 	int		status;
-	
+
 	pid = fork();
 	if (!pid)
 	{
@@ -75,13 +74,14 @@ int	open_heredoc_builtins(t_tree *cmd, int j)
 		{
 			temp = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 			while (write(1, "> ", ft_strlen("> "))
-				&& get_next_line(0, &line) > 0 && (ft_strcmp(line, cmd->red[j + 1]) != 0))
+				&& get_next_line(0, &line) > 0
+				&& (ft_strcmp(line, cmd->red[j + 1]) != 0))
 			{
 				write(temp, line, ft_strlen(line));
 				write(temp, "\n", 1);
 				free(line);
 			}
-			j+=2;
+			j += 2;
 		}
 		exit(0);
 	}

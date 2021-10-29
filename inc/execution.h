@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/29 15:45:56 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:08:56 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 # include "minishell.h"
 # include "parsing.h"
 
-typedef struct	t_env
+typedef struct s_env
 {
 	char			*var_env;
-	struct t_env	*next;
-}				lst_env;
+	struct s_env	*next;
+}				t_lenv;
 
-typedef struct	s_var
+typedef struct s_var
 {
-	int		i;
-	pid_t	pid;
-	lst_env	*env;
-	char	**envp;
+	int			i;
+	pid_t		pid;
+	t_lenv		*env;
+	char		**envp;
 }				t_var;
 
 /* FONCTIONS DE PIPES ET REDIRECTIONS */
@@ -57,33 +57,35 @@ int		double_left_redirs(t_tree *cmd, int j);
 int		left_redirs(t_tree *cmd, int j);
 
 /*FONCTION POUR LISTE CHAINEE EXPORT */
-int		len_list(lst_env *lst);
-void	free_list(lst_env *lst);
-lst_env	*empty_list(void);
-int		is_empty_list(lst_env *lst);
-lst_env	*add_at(lst_env *lst, char *str, int pos);
+int		len_list(t_lenv *lst);
+void	free_list(t_lenv *lst);
+t_lenv	*empty_list(void);
+int		is_empty_list(t_lenv *lst);
+t_lenv	*add_at(t_lenv *lst, char *str, int pos);
 
 /*FONCTIONS NECESSAIRE POUR LE BUILTIN EXPORT*/
-char	*ft_strstr(char *str, char *to_find); 
-void	print_list(lst_env *lst, int i); /*AFFICHE LA LISTE CHAINER DONNER */
-char	*add_quote(char *arg); /*AJOUTE LES DOUBLES QUOTES DANS LES VARIABLE ENV*/
-lst_env	*push_env_to_list(char **env); /* ENVOYER LE CONTENU DE ENV DANS UNE LISTE CHAINER*/
-lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos); /* MEME FONCTION QUE ADD_AT MAIS POUR PUSH_ENV_TO_LIST */
-void	add_var_last(lst_env **lst, char *str, int export); /* AJOUTE UNE STR A LA DERNIER POSITION DE LA LISTE*/
-int		check_if_done(lst_env *lst); /*VERIFIE SI LA LISTE CHAINER ET TRIER*/
-void	sort_env_var(lst_env **lst); /* TRIER ENV PAR ORDRE ALPHABETIQUE */
-void	add_new(lst_env **lst, char *new_content, char *var_dest); /* AJOUTER UNE NOUVELLE VARIABLE AVEC SONT CONTENU */
+char	*ft_strstr(char *str, char *to_find);
+void	print_list(t_lenv *lst, int i);
+char	*add_quote(char *arg);
+t_lenv	*push_env_to_list(char **env);
+t_lenv	*add_and_push_to_env(t_lenv *lst, char *str, int pos);
+void	add_var_last(t_lenv **lst, char *str, int export);
+int		check_if_done(t_lenv *lst);
+void	sort_env_var(t_lenv **lst);
+void	add_new(t_lenv **lst, char *new_content, char *var_dest);
 char	*add_content_to_var(char *dest, char *content_to_add);
-int		check_export_args_tab(char **arg); /* VERIFIER SI LES ARGUMENT ENVOYER SONT VALIDE */
-int		count_quotes(char *str); /*COMPTE LES QUOTES */
-int		count_equals(char *str); /* COMPTE LES EGALES */
-int		check_export_args_str(char *str); /* VERIFIE L ARGUMENT  */
-int		count_tab_nbr(char **args); /* donne la taille de d un tableau de 2 dimension */ 
-int		check_if_arg_in_env(char *var_name, lst_env *d_env);
+int		check_export_args_tab(char **arg);
+int		count_quotes(char *str);
+int		count_equals(char *str);
+int		check_export_args_str(char *str);
+int		count_tab_nbr(char **args);
+int		check_if_arg_in_env(char *var_name, t_lenv *d_env);
 int		strlen_var_arg(char *str);
 int		ft_strstr_int(char *str, char *to_find);
-lst_env	*ft_lstdup(lst_env *lst);
+t_lenv	*ft_lstdup(t_lenv *lst);
+
 /* FONCTION POUR UNSET */
 int		exec_unset(t_tree *tree, t_var *var);
-lst_env	*free_at(lst_env **lst, int pos);
+t_lenv	*free_at(t_lenv **lst, int pos);
+
 #endif

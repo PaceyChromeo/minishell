@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 11:33:16 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:56:53 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
 /* Cree une cellule pour l ajouter a la liste */
-static	lst_env	*creat_cell(char *str);
-
-static	lst_env	*creat_cell(char *str)
+static	t_lenv	*creat_cell(char *str)
 {
-	lst_env	*cell;
+	t_lenv	*cell;
 
-	cell = malloc(sizeof(lst_env));
+	cell = malloc(sizeof(t_lenv));
 	if (!cell)
 		return (NULL);
 	cell->var_env = str;
@@ -28,15 +26,13 @@ static	lst_env	*creat_cell(char *str)
 }
 
 /* initialiser une liste vide */
-
-lst_env	*empty_list(void)
+t_lenv	*empty_list(void)
 {
 	return (NULL);
 }
 
 /*Verifier si la liste est vide */
-
-int	is_empty_list(lst_env *lst)
+int	is_empty_list(t_lenv *lst)
 {
 	if (lst == NULL)
 		return (1);
@@ -45,12 +41,11 @@ int	is_empty_list(lst_env *lst)
 }
 
 /* Ajouter un element dans la liste a une position specifique */
-
-lst_env	*add_at(lst_env *lst, char *str, int pos)
+t_lenv	*add_at(t_lenv *lst, char *str, int pos)
 {
-	lst_env	*prec;
-	lst_env	*cur;
-	lst_env	*cell;
+	t_lenv	*prec;
+	t_lenv	*cur;
+	t_lenv	*cell;
 	int		i;
 	char	*temp_str;
 
@@ -79,14 +74,13 @@ lst_env	*add_at(lst_env *lst, char *str, int pos)
 	return (lst);
 }
 
-lst_env	*add_and_push_to_env(lst_env *lst, char *str, int pos)
+t_lenv	*add_and_push_to_env(t_lenv *lst, char *str, int pos)
 {
-	lst_env	*prec;
-	lst_env	*cur;
-	lst_env	*cell;
+	t_lenv	*prec;
+	t_lenv	*cur;
+	t_lenv	*cell;
 	int		i;
-	char *quotes;
-
+	char	*quotes;
 
 	quotes = ft_strdup(str);
 	prec = lst;

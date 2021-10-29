@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/28 17:33:16 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:51:56 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	handler_exit(int sig)
 	{
 		ft_putstr_fd("\e[2K", 1);
 		ft_putstr_fd("\r> ", 1);
-		
 	}
 	if ((sig == SIGINT) && g_global > 258)
 	{
 		kill(g_global, SIGTERM);
 		printf("\e[2K");
-		printf("\n");  	
+		printf("\n");
 	}
 }
 
 int	left_redir(t_tree **cmds, int i, int j)
 {
 	int	filein;
+
 	filein = open(cmds[i]->red[j + 1], O_RDONLY, 0777);
 	if (filein == -1)
 	{
@@ -66,9 +66,9 @@ int	open_heredoc(t_tree **cmds, int i, int j)
 {
 	int		temp;
 	char	*line;
-	pid_t 	pid;
+	pid_t	pid;
 	int		status;
-	
+
 	pid = fork();
 	if (!pid)
 	{
@@ -76,13 +76,14 @@ int	open_heredoc(t_tree **cmds, int i, int j)
 		{
 			temp = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 			while (write(1, "> ", ft_strlen("> "))
-				&& get_next_line(0, &line) > 0 && (ft_strcmp(line, cmds[i]->red[j + 1]) != 0))
+				&& get_next_line(0, &line) > 0
+				&& (ft_strcmp(line, cmds[i]->red[j + 1]) != 0))
 			{
 				write(temp, line, ft_strlen(line));
 				write(temp, "\n", 1);
 				free(line);
 			}
-			j+=2;
+			j += 2;
 		}
 		exit(0);
 	}

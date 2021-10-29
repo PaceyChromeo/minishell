@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 14:13:52 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 15:14:21 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:45:53 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,45 @@ int	ft_is_exportargs(char *str)
 		}
 	}
 	return (0);
+}
+
+int	count_total_string(t_token *token)
+{
+	int		i;
+	int		size;
+	char	*tok_value;
+	char	*env;
+
+	size = 0;
+	i = 0;
+	tok_value = ft_strdup(token->value);
+	while (tok_value[i])
+	{
+		if (tok_value[i] == '$')
+		{
+			i++;
+			env = get_env(tok_value, i);
+			size += ft_strlen(env);
+			while ((ft_isalpha(tok_value[i]) || tok_value[i] == '_'
+					|| ft_isnum(tok_value[i])))
+				i++;
+			if (!tok_value[i])
+			{
+				free(tok_value);
+				return (size);
+			}
+			if (tok_value[i] == '$' && !tok_value[i + 1])
+			{
+				free(tok_value);
+				return (size + 1);
+			}
+		}
+		if (tok_value[i] != '$')
+		{
+			i++;
+			size++;
+		}
+	}
+	free(tok_value);
+	return (size);
 }

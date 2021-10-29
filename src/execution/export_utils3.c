@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:43:38 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 11:54:50 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:55:03 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	sort_env_var(lst_env **lst)
+void	sort_env_var(t_lenv **lst)
 {
-	lst_env	*prec;
-	lst_env	*cur;
+	t_lenv	*prec;
+	t_lenv	*cur;
 	char	*temp_str;
 	int		i;
 
@@ -51,12 +51,10 @@ void	sort_env_var(lst_env **lst)
 	}
 }
 
-
-
-void	add_new(lst_env **lst, char *new_content, char *var_dest)
+void	add_new(t_lenv **lst, char *new_content, char *var_dest)
 {
 	int		i;
-	lst_env	*temp;
+	t_lenv	*temp;
 
 	i = 0;
 	temp = *lst;
@@ -89,10 +87,12 @@ char	*add_content_to_var(char *dest, char *content_to_add)
 	if (dest[i])
 	{
 		i++;
-		new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 1));
+		new_dest_content = ft_calloc(sizeof(char),
+				(ft_strlen(content_to_add) + i + 1));
 	}
 	else
-		new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 2));
+		new_dest_content = ft_calloc(sizeof(char),
+				(ft_strlen(content_to_add) + i + 2));
 	i = 0;
 	while (dest[i] != '=' && dest[i])
 	{

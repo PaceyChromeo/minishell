@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 16:19:22 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:16:02 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	echo(t_tree *tree)
 		{
 			if (!ft_strcmp(tree->args[i], "$?"))
 				ft_putnbr_fd(g_global, STDOUT_FILENO);
-			else	
+			else
 				ft_putstr_fd(tree->args[i], STDOUT_FILENO);
 			if (i < tree->size_args - 1)
 				ft_putchar_fd(' ', STDOUT_FILENO);
@@ -45,7 +45,7 @@ int	echo(t_tree *tree)
 
 int	cd(t_var *var, char *path)
 {
-	char *home;
+	char	*home;
 
 	if (access(path, F_OK) == 0)
 	{
@@ -58,7 +58,7 @@ int	cd(t_var *var, char *path)
 		home = getenv("HOME");
 		if (access(home, F_OK) == 0)
 		{
-			add_new(&var->env, getcwd(NULL, 0), "OLDPWD");		
+			add_new(&var->env, getcwd(NULL, 0), "OLDPWD");
 			chdir(home);
 			add_new(&var->env, getcwd(NULL, 0), "PWD");
 		}
@@ -88,7 +88,7 @@ int	pwd(void)
 
 int	exit_cmd(t_tree *cmd)
 {
-	int ret;
+	int	ret;
 	int	i;
 
 	i = 0;
@@ -116,35 +116,6 @@ int	exit_cmd(t_tree *cmd)
 		ret = 0;
 	g_global = ret;
 	return (g_global);
-}
-
-
-int	right_redir_builtins(t_tree *cmd)
-{	
-	int	fileout;
-	int j;
-
-	j = 0;
-	while (cmd->red[j] != NULL)
-	{
-		if (!ft_strcmp(cmd->red[j], ">") || !ft_strcmp(cmd->red[j], ">>"))
-		{
-			fileout = open(cmd->red[j + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-			if (fileout == -1)
-			{
-				perror("open");
-				return (0);
-			}
-			if (cmd->red[j + 2] == NULL)
-			{
-				cmd->save = dup(1);
-				dup2(fileout, 1);
-				close(fileout);
-			}
-			j+= 2;
-		}
-	}
-	return (1);
 }
 
 int	builtins_cmd(t_tree *cmd, t_var *var)

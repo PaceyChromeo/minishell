@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 17:08:41 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:16:42 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static int	is_child(t_tree **cmds, int old_pipefd[2],
 
 static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
-	int		new_pipefd[2];
-	
-	if (cmds[var->i]->cmd_value 
-		&& (!ft_strcmp(cmds[var->i]->cmd_value, "cat") 
-		|| !ft_strcmp(cmds[var->i]->cmd_value, "sort")))
+	int	new_pipefd[2];
+
+	if (cmds[var->i]->cmd_value
+		&& (!ft_strcmp(cmds[var->i]->cmd_value, "cat")
+			|| !ft_strcmp(cmds[var->i]->cmd_value, "sort")))
 		g_global = -888;
 	if (cmds[var->i]->size_red > 0)
 		loop_double_redir(cmds, var->i);
@@ -89,8 +89,8 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 void	exec_pipes(t_tree **cmds, t_var *var)
 {
 	int	fd[2];
-	int status;
-	int res;
+	int	status;
+	int	res;
 
 	var->i = 0;
 	pipe(fd);
@@ -103,26 +103,23 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 		;
 	unlink("temp.txt");
 	if (WIFEXITED(status) && !WIFSIGNALED(status))
-    {
-		if (g_global > 258)
-			g_global = 1;
-		else
-        	g_global = WEXITSTATUS(status); // bonne cmd
+	{
+		g_global = WEXITSTATUS(status);
 		if (g_global == 255)
 			g_global = 255;
-        else if (WEXITSTATUS(status) != 0 && g_global != 1) // mauvaise cmd
-            g_global += 125;
-        else if (WEXITSTATUS(status) != 0 && g_global == 1) // mauvais file
-            g_global = 1;
-    }
-    else if (!WIFEXITED(status) && WIFSIGNALED(status))
-    {
-    	res = WTERMSIG(status);
-		if (g_global == 130 && res == 1) //cat + ctrl c
+		else if (WEXITSTATUS(status) && g_global != 1)
+			g_global += 125;
+		else if (WEXITSTATUS(status) && g_global == 1)
+			g_global = 1;
+	}
+	else if (!WIFEXITED(status) && WIFSIGNALED(status))
+	{
+		res = WTERMSIG(status);
+		if (g_global == 130 && res == 1)
 			g_global = 130;
 		else if (res == 100)
 			g_global = 1;
 		else
 			g_global = res + 128;
-    }
+	}
 }
