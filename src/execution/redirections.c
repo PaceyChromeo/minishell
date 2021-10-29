@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 14:23:28 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/27 10:56:21 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 14:50:23 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	redirections(t_tree **cmds, int i)
 	int	j;
 
 	j = 0;
-	while (cmds[i]->red[j] != NULL)
+	while (cmds[i]->red[j])
 	{
 		if (!ft_strcmp(cmds[i]->red[j], ">")
 			|| !ft_strcmp(cmds[i]->red[j], ">>"))

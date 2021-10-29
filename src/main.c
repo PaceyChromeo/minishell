@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 12:31:12 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:01:26 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,20 @@ int	g_global;
 
 static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 {
+	root[0]->z = 0;
 	if (line)
 	{
 		if (cmd_nbr == 0 && root && (root[0]->cmd_type == tree_cd
 			|| root[0]->cmd_type == tree_export
 			|| root[0]->cmd_type == tree_env || root[0]->cmd_type == tree_unset))
-			builtins_cmd(root[0], var);
+			{
+				root[0]->z = 1;
+				builtins_cmd(root[0], var);
+			}
 		else
+		{
 			exec_pipes(root, var);
+		}
 	}
 }
 
@@ -43,7 +49,6 @@ static t_tree	**get_root(char **split, char *line, int cmd_nbr)
 			root[i] = create_trees(split[i]);
 			if (!root[i] || error_handler(root[i]))
 			{
-				printf("Syntax error near token '<' or '>'\n");
 				free_all(root, split, line);
 				return (NULL);
 			}

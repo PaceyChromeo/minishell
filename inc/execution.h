@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/29 11:44:29 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 15:45:56 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int		pwd(void);
 int		exec_export(t_tree *tree, t_var *var);
 int		exec_env(t_tree *tree, t_var *var);
 int		echo_option(char **args, int i);
+int		builtins_redir(t_tree *cmd);
+void	loop_double_redirs(t_tree *cmds);
+int		open_heredoc_builtins(t_tree *cmd, int j);
+int		double_left_redirs(t_tree *cmd, int j);
+int		left_redirs(t_tree *cmd, int j);
 
 /*FONCTION POUR LISTE CHAINEE EXPORT */
 int		len_list(lst_env *lst);
