@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 14:31:49 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 13:01:56 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	exit_cmd(t_tree *cmd)
 	{
 		printf("exit: too many arguments\n");
 		g_global = 255;
-		return (g_global);	
+		return (g_global);
 	}
 	else
 		ret = 0;
@@ -110,18 +110,54 @@ int	exit_cmd(t_tree *cmd)
 	return (g_global);
 }
 
+
+int	right_redir_builtins(t_tree *cmd)
+{	
+	int	fileout;
+	int j;
+
+	j = 0;
+	while (cmd->red[j] != NULL)
+	{
+		if (!ft_strcmp(cmd->red[j], ">") || !ft_strcmp(cmd->red[j], ">>"))
+		{
+			fileout = open(cmd->red[j + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			if (fileout == -1)
+			{
+				perror("open");
+				return (0);
+			}
+			if (cmd->red[j + 2] == NULL)
+			{
+				dup2(fileout, 1);
+				close(fileout);
+			}
+			j+= 2;
+		}
+	}
+	return (1);
+}
+
 int	builtins_cmd(t_tree *cmd, t_var *var)
 {
+	//pid_t pid;
+	
+	if (cmd->z == 1 && cmd->size_red > 0)
+	{
+			right_redir_builtins(cmd);
+	}
 	if (cmd->cmd_type == tree_echo)
 		g_global = echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)
 		g_global = pwd();
 	else if (cmd->cmd_type == tree_cd)
 		g_global = cd(cmd->args[1]);
+	else if (cmd->cmd_type == tree_export || cmd->cmd_type == tree_exportargs)
+	{
+		g_global = exec_export(cmd, var);
+	}
 	else if (cmd->cmd_type == tree_exit)
 		g_global = exit_cmd(cmd);
-	else if (cmd->cmd_type == tree_export || cmd->cmd_type == tree_exportargs)
-		g_global = exec_export(cmd, var);
 	else if (cmd->cmd_type == tree_env)
 		g_global = exec_env(cmd, var);
 	else if (cmd->cmd_type == tree_unset)

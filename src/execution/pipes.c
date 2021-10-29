@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/28 17:40:02 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 10:41:15 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	is_child(t_tree **cmds, int old_pipefd[2],
 	close(new_pipefd[1]);
 	if (cmds[var->i]->cmd_type < 8)
 	{
+		printf("hey\n");
 		g_global = builtins_cmd(cmds[var->i], var);
 		exit (g_global);
 	}

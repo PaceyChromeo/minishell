@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/28 17:37:02 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 13:57:50 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	exec_export(t_tree *tree, t_var *var)
 	}		
 	else if (tree->cmd_type == tree_export && tree->size_args == 1)
 	{
+		printf("zeubi\n");
 		lst_env *lst;
 		lst = ft_lstdup(var->env);
 		sort_env_var(&lst);
