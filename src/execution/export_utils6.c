@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils6.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:55:08 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 16:38:11 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:53:51 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ int	strlen_var_arg(char *str)
 	return (j - 2);
 }
 
-lst_env	*ft_lstdup(lst_env *lst)
+t_lenv	*ft_lstdup(t_lenv *lst)
 {
-	lst_env	*tmp;
-	char *quotes;
-	int i;
-	
-	i = 0; 
+	t_lenv	*tmp;
+	char	*quotes;
+	int		i;
+
+	i = 0;
 	quotes = NULL;
 	tmp = empty_list();
-	while(lst)
+	while (lst)
 	{
 		if (count_equals(lst->var_env) == 0)
 			quotes = ft_strdup(lst->var_env);
 		else
-			quotes = add_quote(lst->var_env);	
+			quotes = add_quote(lst->var_env);
 		tmp = add_at(tmp, quotes, i);
-		lst = lst->next; 
+		lst = lst->next;
 		free(quotes);
 		i++;
 	}
@@ -56,10 +56,10 @@ lst_env	*ft_lstdup(lst_env *lst)
 }
 /* Free une cellule de la liste */
 
-lst_env	*free_at(lst_env **lst, int pos)
+t_lenv	*free_at(t_lenv **lst, int pos)
 {
-	lst_env	*prec;
-	lst_env	*cur;
+	t_lenv	*prec;
+	t_lenv	*cur;
 	int		i;
 
 	cur = *lst;
@@ -72,7 +72,7 @@ lst_env	*free_at(lst_env **lst, int pos)
 		lst = &(*lst)->next;
 		free(cur->var_env);
 		free(cur);
-		return *(lst);
+		return (*(lst));
 	}
 	while (i < pos)
 	{
@@ -83,5 +83,5 @@ lst_env	*free_at(lst_env **lst, int pos)
 	prec->next = cur->next;
 	free(cur->var_env);
 	free(cur);
-	return *(lst);
+	return (*(lst));
 }

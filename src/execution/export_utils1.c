@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:28:34 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 13:59:02 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:09:20 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	ft_strstr_int(char *str, char *to_find)
 }
 
 /* Liberer la liste */
-void	free_list(lst_env *lst)
+void	free_list(t_lenv *lst)
 {
-	lst_env	*tmp;
+	t_lenv	*tmp;
 
 	tmp = NULL;
 	while (lst)
@@ -69,7 +69,7 @@ void	free_list(lst_env *lst)
 
 /* Calculer la longueur de la liste */
 
-int	len_list(lst_env *lst)
+int	len_list(t_lenv *lst)
 {
 	int	len;
 
@@ -82,7 +82,7 @@ int	len_list(lst_env *lst)
 	return (len);
 }
 
-void	print_list(lst_env *lst, int d)
+void	print_list(t_lenv *lst, int d)
 {
 	int	i;
 
@@ -92,13 +92,13 @@ void	print_list(lst_env *lst, int d)
 		while (lst)
 		{
 			if (ft_strstr_int(lst->var_env, "_=") == 1)
-					lst = lst->next;
+				lst = lst->next;
 			if (lst == NULL)
 				break ;
 			ft_putstr_fd("declare -x ", 1);
 			ft_putstr_fd(lst->var_env, 1);
 			write(1, "\n", 2);
-			lst = lst->next;	
+			lst = lst->next;
 		}
 	}
 	else

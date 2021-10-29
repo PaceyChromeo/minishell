@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 11:47:26 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:09:35 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ char	*add_quote(char *arg)
 	return (str);
 }
 
-lst_env	*push_env_to_list(char **env)
+t_lenv	*push_env_to_list(char **env)
 {
 	int		i;
-	lst_env	*lst;
+	t_lenv	*lst;
 
 	lst = empty_list();
 	i = 0;
@@ -63,7 +63,7 @@ lst_env	*push_env_to_list(char **env)
 	return (lst);
 }
 
-void	add_var_last(lst_env **lst, char *str, int export)
+void	add_var_last(t_lenv **lst, char *str, int export)
 {
 	int		i;
 	char	*rstr;
@@ -86,9 +86,9 @@ void	add_var_last(lst_env **lst, char *str, int export)
 	free_tab(var);
 }
 
-int	check_if_done(lst_env *lst)
+int	check_if_done(t_lenv *lst)
 {
-	lst_env	*prec;
+	t_lenv	*prec;
 
 	while (lst)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 14:25:45 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:03:46 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	exec_export(t_tree *tree, t_var *var)
 {
-	int i;
-	int e;
-	
+	int		i;
+	int		e;
+	t_lenv	*lst;
+
 	e = 0;
 	i = 0;
 	if (tree->cmd_type == tree_export)
@@ -26,7 +27,7 @@ int	exec_export(t_tree *tree, t_var *var)
 	}
 	if (tree->size_args > 1 && tree->cmd_type == tree_export)
 	{
-		while(tree->args[i])
+		while (tree->args[i])
 		{
 			if (check_export_args_str(tree->args[i]) == 1)
 			{
@@ -40,7 +41,7 @@ int	exec_export(t_tree *tree, t_var *var)
 			else
 			{
 				if (count_equals(tree->args[i]) || !(count_equals(tree->args[i])
-					&& !(check_if_arg_in_env(tree->args[i], var->env))))
+						&& !(check_if_arg_in_env(tree->args[i], var->env))))
 					add_var_last(&var->env, tree->args[i], e);
 			}
 			i++;
@@ -48,14 +49,13 @@ int	exec_export(t_tree *tree, t_var *var)
 	}		
 	else if (tree->cmd_type == tree_export && tree->size_args == 1)
 	{
-		lst_env *lst;
 		lst = ft_lstdup(var->env);
 		sort_env_var(&lst);
 		print_list(lst, 1);
 		free_list(lst);
 	}
 	g_global = 0;
-	return (g_global);	
+	return (g_global);
 }
 
 int	exec_env(t_tree *tree, t_var *var)
@@ -73,32 +73,59 @@ int	exec_env(t_tree *tree, t_var *var)
 	}
 }
 
-int exec_unset(t_tree *tree, t_var *var)
+int	exec_unset(t_tree *tree, t_var *var)
 {
-	int i;
-	int j;
-	lst_env *temp_lst;
+	int		i;
+	int		j;
+	t_lenv	*temp_lst;
 
 	i = 1;
 	if (tree->size_args > 1)
 	{
-		while(tree->args[i])
+		while (tree->args[i])
 		{
 			j = 0;
 			temp_lst = var->env;
-			while(temp_lst)
+			while (temp_lst)
 			{
 				if (ft_strstr_int(temp_lst->var_env, tree->args[i]) == 1)
 				{
 					var->env = free_at(&var->env, j);
-					break ;		
+					break ;
 				}
 				j++;
 				temp_lst = temp_lst->next;
 			}
-			i++;			
+			i++;
 		}
 	}
 	return (0);
 }
 
+int	right_redir_builtins(t_tree *cmd)
+{	
+	int	fileout;
+	int	j;
+
+	j = 0;
+	while (cmd->red[j] != NULL)
+	{
+		if (!ft_strcmp(cmd->red[j], ">") || !ft_strcmp(cmd->red[j], ">>"))
+		{
+			fileout = open(cmd->red[j + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			if (fileout == -1)
+			{
+				perror("open");
+				return (0);
+			}
+			if (cmd->red[j + 2] == NULL)
+			{
+				cmd->save = dup(1);
+				dup2(fileout, 1);
+				close(fileout);
+			}
+			j += 2;
+		}
+	}
+	return (1);
+}

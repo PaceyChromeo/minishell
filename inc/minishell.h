@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 11:07:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:10:14 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include "utils.h"
 # include "get_next_line.h"
 
-extern int g_global;
+extern int	g_global;
 void	rl_replace_line(const char *text, int clear_undo);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:01:54 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 14:52:01 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 17:09:47 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_export_args_str(char *str)
 	return (0);
 }
 
-int	check_if_arg_in_env(char *var_name, lst_env *lst)
+int	check_if_arg_in_env(char *var_name, t_lenv *lst)
 {
 	int	i;
 

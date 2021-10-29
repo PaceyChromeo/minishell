@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 11:10:25 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 16:44:03 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*collect_id_double_quote(t_lexer *lexer, char *value)
 {
-	char *env;
+	char	*env;
 
 	env = NULL;
 	lexer_next_char(lexer);
@@ -61,7 +61,7 @@ char	*collect_id_string(t_lexer *lexer, char *value)
 	}
 	if (lexer->c == 39)
 	{
-		value = collect_id_single_quote(lexer,value);
+		value = collect_id_single_quote(lexer, value);
 		if (!value && lexer->c != 39)
 		{
 			free(value);
@@ -73,7 +73,7 @@ char	*collect_id_string(t_lexer *lexer, char *value)
 	return (value);
 }
 
-char *collect_id_env(t_lexer *lexer, char *value)
+char	*collect_id_env(t_lexer *lexer, char *value)
 {
 	int		i;
 	char	*itoa;
