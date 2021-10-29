@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 14:25:57 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 15:58:31 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static t_tree	**get_root(char **split, char *line, int cmd_nbr)
 			root[i] = create_trees(split[i]);
 			if (!root[i] || error_handler(root[i]))
 			{
-				printf("Syntax error near token '<' or '>'\n");
 				free_all(root, split, line);
 				return (NULL);
 			}

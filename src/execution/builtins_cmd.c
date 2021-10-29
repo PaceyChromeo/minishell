@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 14:23:31 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/29 15:47:30 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int	right_redir_builtins(t_tree *cmd)
 			}
 			if (cmd->red[j + 2] == NULL)
 			{
+				cmd->save = dup(1);
 				dup2(fileout, 1);
 				close(fileout);
 			}
@@ -149,11 +150,7 @@ int	right_redir_builtins(t_tree *cmd)
 int	builtins_cmd(t_tree *cmd, t_var *var)
 {
 	if (cmd->z == 1 && cmd->size_red > 0)
-	{
-				
-		right_redir_builtins(cmd);
-			
-	}
+		builtins_redir(cmd);
 	if (cmd->cmd_type == tree_echo)
 		g_global = echo(cmd);
 	else if (cmd->cmd_type == tree_pwd)
@@ -171,5 +168,6 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		g_global = exec_env(cmd, var);
 	else if (cmd->cmd_type == tree_unset)
 		g_global = exec_unset(cmd, var);
+	dup2(cmd->save, 1);
 	return (g_global);
 }
