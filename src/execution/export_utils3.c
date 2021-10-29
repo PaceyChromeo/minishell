@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:43:38 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 11:54:04 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 11:54:50 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void	add_new(lst_env **lst, char *new_content, char *var_dest)
 		}
 		temp = temp->next;
 	}
+	if (temp == NULL)
+	{
+		*lst = add_at(*lst, var_dest, 0);
+		add_new(lst, getcwd(NULL, 0), var_dest);
+	}
 }
 
 char	*add_content_to_var(char *dest, char *content_to_add)
@@ -79,17 +84,25 @@ char	*add_content_to_var(char *dest, char *content_to_add)
 
 	j = 0;
 	i = 0;
-	while (dest[i] != '=')
+	while (dest[i] != '=' && dest[i])
 		i++;
-	i++;
-	new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 1));
+	if (dest[i])
+	{
+		i++;
+		new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 1));
+	}
+	else
+		new_dest_content = ft_calloc(sizeof(char), (ft_strlen(content_to_add) + i + 2));
 	i = 0;
-	while (dest[i] != '=')
+	while (dest[i] != '=' && dest[i])
 	{
 		new_dest_content[i] = dest[i];
 		i++;
 	}
-	new_dest_content[i] = dest[i];
+	if (dest[i])
+		new_dest_content[i] = dest[i];
+	else
+		new_dest_content[i] = '=';
 	i++;
 	if (content_to_add == NULL)
 		new_dest_content[i] = '\0';

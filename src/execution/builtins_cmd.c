@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 14:31:49 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 11:53:48 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,25 @@ int	echo(t_tree *tree)
 	return (g_global);
 }
 
-int	cd(char *path)
+int	cd(t_var *var, char *path)
 {
 	char *home;
 
 	if (access(path, F_OK) == 0)
+	{
+		add_new(&var->env, getcwd(NULL, 0), "OLDPWD");
 		chdir(path);
+		add_new(&var->env, getcwd(NULL, 0), "PWD");
+	}
 	else if (!path)
 	{
 		home = getenv("HOME");
 		if (access(home, F_OK) == 0)
+		{
+			add_new(&var->env, getcwd(NULL, 0), "OLDPWD");		
 			chdir(home);
+			add_new(&var->env, getcwd(NULL, 0), "PWD");
+		}
 	}
 	else
 		perror(path);
@@ -117,7 +125,7 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 	else if (cmd->cmd_type == tree_pwd)
 		g_global = pwd();
 	else if (cmd->cmd_type == tree_cd)
-		g_global = cd(cmd->args[1]);
+		g_global = cd(var, cmd->args[1]);
 	else if (cmd->cmd_type == tree_exit)
 		g_global = exit_cmd(cmd);
 	else if (cmd->cmd_type == tree_export || cmd->cmd_type == tree_exportargs)

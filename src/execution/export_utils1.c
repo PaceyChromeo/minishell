@@ -6,7 +6,7 @@
 /*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:28:34 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/28 12:26:02 by misaev           ###   ########.fr       */
+/*   Updated: 2021/10/29 10:47:43 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_strstr_int(char *str, char *to_find)
 	int	i;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i] != '=' && str[i] != '\0')
 	{
 		if (str[i] == to_find[i])
 			i++;
