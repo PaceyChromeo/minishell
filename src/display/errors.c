@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 12:23:45 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 12:32:13 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	signal_set(t_tree *tree)
 		else if (tree->cmd_type == tree_nocmd && (ft_strcmp(tree->f_cmd, "$?") == 0 || ft_strcmp(tree->f_cmd, "$? + $?") == 0) 
 			&& ft_strcmp(tree->f_cmd, "$?+$?") != 0)
 		{
-		//	printf("cmd_value: %s\n", tree->cmd_value);
 			printf("minishell: %d: command not found\n", g_global);
 			g_global = 127;
 			return (g_global);

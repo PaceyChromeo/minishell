@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:11:48 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/27 10:52:30 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 12:27:50 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_token
 		token_sred_r,
 		token_dred_l,
 		token_dred_r,
-		token_eof,
+		token_EOL,
 		token_error
 	}	type;
 	char			*value;

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 12:20:51 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 12:29:57 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,12 @@ void	free_all(t_tree **root, char **split, char *line)
 	int	i;
 
 	i = 0;
-	if (root)
+	while (root[i])
 	{
-		while (root[i])
-		{
-			free_tree(root[i]);
-			i++;
-		}
-		free(root);
+		free_tree(root[i]);
+		i++;
 	}
+	free(root);
 	free_tab(split);
 	free(line);
 }

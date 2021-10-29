@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:08:31 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 12:13:57 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/29 12:27:40 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ t_token	*get_next_token(t_lexer	*lexer)
 		if (lexer->c == '>' || lexer->c == '<')
 			return (lexer_collect_redir(lexer));
 	}
-	return (init_token(token_eof, NULL));
+	return (init_token(token_EOL, NULL));
 }
