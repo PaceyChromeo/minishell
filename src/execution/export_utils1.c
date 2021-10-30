@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:28:34 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 17:09:20 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 12:52:15 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,6 @@ int	len_list(t_lenv *lst)
 
 void	print_list(t_lenv *lst, int d)
 {
-	int	i;
-
-	i = 0;
 	if (d)
 	{
 		while (lst)

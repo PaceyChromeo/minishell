@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 17:15:07 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/30 13:43:32 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ int	main(int argc, char **argv, char **envp)
 	char	**split;
 	t_tree	**root;
 	t_var	var;
+	int		freed;
 
 	var.env = push_env_to_list(envp);
 	var.envp = envp;
+	freed = 1;
 	while (argc && argv)
 	{
 		signal(SIGINT, handler_signals);
@@ -75,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 		line = display_prompt();
 		if (!line)
 			return (g_global);
-		if (!check_forbidden_char(line))
+		if (*line != '\0' && !check_forbidden_char(line))
 		{
 			cmd_nbr = count_pipes(line, '|');
 			split = ft_split_pipe(line, '|');
@@ -93,6 +95,14 @@ int	main(int argc, char **argv, char **envp)
 				}
 				start_minishell(root, line, cmd_nbr, &var);
 				free_all(root, split, line);
+			}
+		}
+		else
+		{
+			if (freed)
+			{
+				free_list(var.env);
+				freed = 0;
 			}
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 17:09:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 12:53:47 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_lenv	*push_env_to_list(char **env)
 
 	lst = empty_list();
 	i = 0;
-	while (env[i + 1] != '\0')
+	while (env[i + 1])
 		i++;
 	while (env[i])
 	{
@@ -65,11 +65,9 @@ t_lenv	*push_env_to_list(char **env)
 
 void	add_var_last(t_lenv **lst, char *str, int export)
 {
-	int		i;
 	char	*rstr;
 	char	**var;
 
-	i = 0;
 	rstr = ft_strdup(str);
 	var = ft_split(rstr, '=');
 	if (check_if_arg_in_env(var[0], *lst) == 0 && export == 0)

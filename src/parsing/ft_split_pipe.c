@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:11 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/19 15:20:53 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 13:27:13 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@ int	count_pipes(char const *line, char c)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == 34 && line[i + 1] != '\0')
+		if (line[i] == 34 && line[i + 1])
 		{
 			i++;
-			while (line[i] != 34 && line[i])
+			while (line[i] != 34 && line[i + 1])
+			{
 				i++;
+			}
 		}
-		if (line[i] == 39 && line[i + 1] != '\0')
+		if (line[i] == 39 && line[i + 1])
 		{
 			i++;
-			while (line[i] != 39 && line[i])
+			while (line[i] != 39 && line[i + 1])
 				i++;
 		}
-		if (line[i] == c && line[i + 1] != '\0')
+		if (line[i] == c && line[i + 1])
 			count++;
 		i++;
 	}
@@ -44,19 +46,19 @@ static int	index_pipes(char const *line, char c, int i)
 {
 	while (line[i])
 	{
-		if (line[i] == 34 && line[i + 1] != '\0')
+		if (line[i] == 34 && line[i + 1])
 		{
 			i++;
-			while (line[i] != 34 && line[i])
+			while (line[i] != 34 && line[i + 1])
 				i++;
 		}
-		if (line[i] == 39 && line[i + 1] != '\0')
+		if (line[i] == 39 && line[i + 1])
 		{
 			i++;
-			while (line[i] != 39 && line[i])
+			while (line[i] != 39 && line[i + 1])
 				i++;
 		}
-		if (line[i] == c && line[i + 1] != '\0')
+		if (line[i] == c && line[i + 1])
 			return (i);
 		i++;
 	}

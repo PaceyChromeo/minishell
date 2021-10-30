@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:43:38 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 16:55:03 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 12:54:06 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ void	sort_env_var(t_lenv **lst)
 
 void	add_new(t_lenv **lst, char *new_content, char *var_dest)
 {
-	int		i;
 	t_lenv	*temp;
 
-	i = 0;
 	temp = *lst;
 	while (temp != NULL)
 	{

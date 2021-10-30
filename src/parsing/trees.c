@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 12:28:12 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 13:07:38 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ t_tree	*create_trees(char *cmd)
 		{
 			g_global = 258;
 			free_parser(parser);
+			free_tree(tree);
 			return (NULL);
 		}
 		parser_next_token(parser);

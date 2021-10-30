@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 16:44:03 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 12:59:32 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static char	*collect_id_double_quote(t_lexer *lexer, char *value)
 {
-	char	*env;
-
-	env = NULL;
 	lexer_next_char(lexer);
 	while (lexer->c != 34 && lexer->c)
 	{
@@ -28,7 +25,10 @@ static char	*collect_id_double_quote(t_lexer *lexer, char *value)
 			lexer_next_char(lexer);
 		}
 		if (!lexer->c)
+		{
+			free(value);
 			return (NULL);
+		}
 	}
 	return (value);
 }
@@ -41,7 +41,10 @@ static char	*collect_id_single_quote(t_lexer *lexer, char *value)
 		value = ft_realloc_char(value, lexer->c);
 		lexer_next_char(lexer);
 		if (!lexer->c)
+		{
+			free(value);
 			return (NULL);
+		}
 	}
 	return (value);
 }
@@ -53,7 +56,6 @@ char	*collect_id_string(t_lexer *lexer, char *value)
 		value = collect_id_double_quote(lexer, value);
 		if (!value && lexer->c != 34)
 		{
-			free(value);
 			ft_putstr_fd("Unclosed double quotes\n", STDOUT_FILENO);
 			return ("error_quote");
 		}
@@ -64,7 +66,6 @@ char	*collect_id_string(t_lexer *lexer, char *value)
 		value = collect_id_single_quote(lexer, value);
 		if (!value && lexer->c != 39)
 		{
-			free(value);
 			ft_putstr_fd("Unclosed single quotes\n", STDOUT_FILENO);
 			return ("error_quote");
 		}
@@ -77,10 +78,8 @@ char	*collect_id_env(t_lexer *lexer, char *value)
 {
 	int		i;
 	char	*itoa;
-	char	*env;
 
 	i = 0;
-	env = NULL;
 	lexer_next_char(lexer);
 	if (lexer->c == ' ' || !lexer->c)
 	{

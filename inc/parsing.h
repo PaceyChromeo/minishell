@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:17:23 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/29 17:14:36 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/30 13:06:14 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_tree
 		tree_exportargs,
 		tree_execve,
 		tree_path,
-		tree_nocmd
+		tree_nocmd,
 	}		cmd_type;
 	char	*cmd_value;
 	char	*f_cmd;
