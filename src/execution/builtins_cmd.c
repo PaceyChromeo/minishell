@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 17:26:59 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 11:02:27 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ int	cd(t_var *var, char *path)
 
 	if (access(path, F_OK) == 0)
 	{
-		add_new(&var->env, getcwd(NULL, 0), "OLDPWD");
+		haroun_la_pute(var, "OLDPWD");
 		chdir(path);
-		add_new(&var->env, getcwd(NULL, 0), "PWD");
+		haroun_la_pute(var, "PWD");
 	}
 	else if (!path)
 	{
 		home = getenv("HOME");
 		if (access(home, F_OK) == 0)
 		{
-			add_new(&var->env, getcwd(NULL, 0), "OLDPWD");
+			haroun_la_pute(var, "OLDPWD");
 			chdir(home);
-			add_new(&var->env, getcwd(NULL, 0), "PWD");
+			haroun_la_pute(var, "PWD");
 		}
 	}
 	else
@@ -132,7 +132,7 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 			g_global = cd(var, cmd->args[1]);
 		else if (cmd->cmd_type == tree_exit)
 			g_global = exit_cmd(cmd);
-		else if (cmd->cmd_type == tree_export 
+		else if (cmd->cmd_type == tree_export
 			|| cmd->cmd_type == tree_exportargs)
 			g_global = exec_export(cmd, var);
 		else if (cmd->cmd_type == tree_exit)

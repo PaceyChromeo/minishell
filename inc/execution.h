@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/29 17:08:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/30 10:52:19 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ t_lenv	*ft_lstdup(t_lenv *lst);
 /* FONCTION POUR UNSET */
 int		exec_unset(t_tree *tree, t_var *var);
 t_lenv	*free_at(t_lenv **lst, int pos);
+/* EXTENSION FUNCTIONS */
+void	haroun_la_pute(t_var *var, char *prix);
 
 #endif
