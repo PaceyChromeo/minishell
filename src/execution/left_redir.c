@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/31 20:37:43 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/31 20:45:56 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	loop_double_redir(t_tree **cmds, int i)
 	while (cmds[i]->red[j] != NULL)
 	{
 		if (!ft_strcmp(cmds[i]->red[j], "<<"))
-			open_heredoc(cmds, i, j);
+				break ;
 		j++;
 	}
+	open_heredoc(cmds, i, j);
 }
