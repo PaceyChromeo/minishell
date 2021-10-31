@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 18:04:08 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/10/31 19:33:05 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	handler_exit(int sig)
 	}
 	if ((sig == SIGINT) && g_global > 258)
 	{
-		kill(g_global, SIGTERM);
+		if (!kill(g_global, SIGTERM))
+			g_global = 1;
 		printf("\e[2K");
 		printf("\n");
 	}
@@ -38,7 +39,8 @@ int	left_redir(t_tree **cmds, int i, int j)
 		g_global = 1;
 		return (g_global);
 	}
-	dup2(filein, 0);
+	if (j == 0)
+		dup2(filein, 0);
 	return (0);
 }
 
@@ -92,6 +94,7 @@ int	open_heredoc(t_tree **cmds, int i, int j)
 	signal(SIGQUIT, handler_exit);
 	while (waitpid(pid, &status, 0) > 0)
 		;
+	cmds[i]->sig = WTERMSIG(status);
 	return (1);
 }
 
@@ -100,6 +103,13 @@ void	loop_double_redir(t_tree **cmds, int i)
 	int	j;
 
 	j = 0;
-	if (!ft_strcmp(cmds[i]->red[j], "<<"))
-		open_heredoc(cmds, i, j);
+	while (cmds[i]->red[j] != NULL)
+	{
+		if (!ft_strcmp(cmds[i]->red[j], "<<"))
+		{
+			if (open_heredoc(cmds, i, j))
+				break ;
+		}
+		j++;
+	}
 }

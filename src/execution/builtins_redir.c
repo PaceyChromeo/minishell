@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:32:08 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 17:15:42 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/31 18:00:08 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,17 @@ static	int	right_redirs(t_tree *cmd, int j)
 {	
 	int	fileout;
 
-	while (cmd->red[j] != NULL)
+	fileout = open(cmd->red[j + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fileout == -1)
 	{
-		if (!ft_strcmp(cmd->red[j], ">") || !ft_strcmp(cmd->red[j], ">>"))
-		{
-			fileout = open(cmd->red[j + 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-			if (fileout == -1)
-			{
-				perror("open");
-				return (0);
-			}
-			if (cmd->red[j + 2] == NULL)
-			{
-				cmd->save = dup(1);
-				dup2(fileout, 1);
-				close(fileout);
-			}
-			j += 2;
-		}
+		perror("open");
+		return (0);
+	}
+	if (cmd->red[j + 2] == NULL)
+	{
+		cmd->save = dup(1);
+		dup2(fileout, 1);
+		close(fileout);
 	}
 	return (1);
 }
@@ -49,7 +42,11 @@ static int	double_right_redirs(t_tree *cmd, int j)
 		return (0);
 	}
 	if (cmd->red[j + 2] == NULL)
+	{
+		cmd->save = dup(1);
 		dup2(fileout, 1);
+		close(fileout);
+	}
 	return (1);
 }
 

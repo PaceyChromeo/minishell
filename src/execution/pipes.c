@@ -6,11 +6,40 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 17:16:42 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/31 19:36:11 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+void	exit_status(t_tree **cmds, t_var *var, int status)
+{
+	int res;
+	
+	if (WIFEXITED(status) && !WIFSIGNALED(status))
+	{
+		if (cmds[var->i]->sig == 15)
+			g_global = 1;
+		else
+			g_global = WEXITSTATUS(status);
+		if (g_global == 255)
+			g_global = 255;
+		else if (WEXITSTATUS(status) && g_global != 1)
+			g_global += 125;
+		else if (WEXITSTATUS(status) && g_global == 1)
+			g_global = 1;
+	}
+	else if (!WIFEXITED(status) && WIFSIGNALED(status))
+	{
+		res = WTERMSIG(status);
+		if (g_global == 130 && res == 1)
+			g_global = 130;
+		else if (res == 100)
+			g_global = 1;
+		else
+			g_global = res + 128;
+	}
+}
 
 static int	execute(t_tree **cmds, t_var *var, int i)
 {
@@ -90,7 +119,6 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 {
 	int	fd[2];
 	int	status;
-	int	res;
 
 	var->i = 0;
 	pipe(fd);
@@ -101,25 +129,5 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	close(fd[0]);
 	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
 		;
-	unlink("temp.txt");
-	if (WIFEXITED(status) && !WIFSIGNALED(status))
-	{
-		g_global = WEXITSTATUS(status);
-		if (g_global == 255)
-			g_global = 255;
-		else if (WEXITSTATUS(status) && g_global != 1)
-			g_global += 125;
-		else if (WEXITSTATUS(status) && g_global == 1)
-			g_global = 1;
-	}
-	else if (!WIFEXITED(status) && WIFSIGNALED(status))
-	{
-		res = WTERMSIG(status);
-		if (g_global == 130 && res == 1)
-			g_global = 130;
-		else if (res == 100)
-			g_global = 1;
-		else
-			g_global = res + 128;
-	}
+	exit_status(cmds, var, status);
 }

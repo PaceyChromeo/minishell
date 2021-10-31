@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/30 13:43:32 by pacey            ###   ########.fr       */
+/*   Updated: 2021/10/31 19:59:56 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,14 @@ int	main(int argc, char **argv, char **envp)
 	freed = 1;
 	while (argc && argv)
 	{
+		//system("leaks minishell");
 		signal(SIGINT, handler_signals);
 		signal(SIGQUIT, handler_signals);
 		line = display_prompt();
 		if (!line)
 			return (g_global);
+		else if (*line == '\0')
+			free(line);
 		if (*line != '\0' && !check_forbidden_char(line))
 		{
 			cmd_nbr = count_pipes(line, '|');
