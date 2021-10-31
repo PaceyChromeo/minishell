@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/31 19:33:05 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/10/31 20:37:43 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	double_left_redir(t_tree **cmds, int i, int j)
 		return (g_global);
 	}
 	dup2(filein, 0);
-	if (!cmds[i]->cmd_value)
+	if (!cmds[i]->cmd_value && cmds[i]->red[j + 2] == NULL)
 		exit (0);
 	return (0);
 }
@@ -103,13 +103,11 @@ void	loop_double_redir(t_tree **cmds, int i)
 	int	j;
 
 	j = 0;
+	
 	while (cmds[i]->red[j] != NULL)
 	{
 		if (!ft_strcmp(cmds[i]->red[j], "<<"))
-		{
-			if (open_heredoc(cmds, i, j))
-				break ;
-		}
+			open_heredoc(cmds, i, j);
 		j++;
 	}
 }
