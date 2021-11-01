@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:59 by pacey             #+#    #+#             */
-/*   Updated: 2021/11/01 12:13:59 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/01 13:29:12 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ typedef struct s_env
 typedef struct s_var
 {
 	int			i;
+	int			temp;
+	int			status;
 	pid_t		pid;
+	pid_t		pid2;
 	t_lenv		*env;
+	char		*line;
 	char		**envp;
 }				t_var;
 
@@ -51,8 +55,8 @@ int		exec_export(t_tree *tree, t_var *var);
 int		exec_env(t_tree *tree, t_var *var);
 int		echo_option(char **args, int i);
 int		builtins_redir(t_tree *cmd);
-void	loop_double_redirs(t_tree *cmds);
-int		open_heredoc_builtins(t_tree *cmd, int j);
+void	loop_double_redirs(t_tree *cmds, t_var *var);
+int		open_heredoc_builtins(char **heredoc, int j, t_var *var);
 int		double_left_redirs(t_tree *cmd, int j);
 int		left_redirs(t_tree *cmd, int j);
 

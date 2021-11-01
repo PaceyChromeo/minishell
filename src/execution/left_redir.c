@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/01 12:15:39 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/01 13:54:20 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,51 @@ int	double_left_redir(t_tree **cmds, int i, int j)
 	return (0);
 }
 
+
+static int	count_strs(char **tab)
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		if (!ft_strcmp(tab[i], "<<"))
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+static char	**get_tab(t_tree *cmd)
+{
+	int k;
+	int l;
+	int count;
+	char **heredoc;
+	
+	k = 0;
+	l = 0;
+	count = count_strs(cmd->red);
+	heredoc = malloc(sizeof(heredoc) * (count + count) + 1);
+	k = 0;
+	while (cmd->red[k] != NULL)
+	{
+		if (!ft_strcmp(cmd->red[k], "<<"))
+		{
+			heredoc[l] = cmd->red[k];
+			k++;
+			l++;
+			heredoc[l] = cmd->red[k];
+			l++;
+		}
+		k++;
+	}
+	heredoc[l] = NULL;
+	return (heredoc);
+}
+
 int	open_heredoc(t_tree **cmds, int i, int j)
 {
 	int		temp;
@@ -74,12 +119,12 @@ int	open_heredoc(t_tree **cmds, int i, int j)
 	pid = fork();
 	if (!pid)
 	{
-		while (!ft_strcmp(cmds[i]->red[j], "<<") && cmds[i]->red[j] != NULL)
+		while (cmds[i]->heredoc[j] != NULL)
 		{
 			temp = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 			while (write(1, "> ", ft_strlen("> "))
 				&& get_next_line(0, &line) > 0
-				&& (ft_strcmp(line, cmds[i]->red[j + 1]) != 0))
+				&& (ft_strcmp(line, cmds[i]->heredoc[j + 1]) != 0))
 			{
 				write(temp, line, ft_strlen(line));
 				write(temp, "\n", 1);
@@ -103,11 +148,7 @@ void	loop_double_redir(t_tree **cmds, int i)
 	int	j;
 
 	j = 0;
-	while (cmds[i]->red[j] != NULL)
-	{
-		if (!ft_strcmp(cmds[i]->red[j], "<<"))
-				break ;
-		j++;
-	}
+	cmds[i]->heredoc = get_tab(cmds[i]);
 	open_heredoc(cmds, i, j);
+	free(cmds[i]->heredoc);
 }

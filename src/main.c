@@ -6,13 +6,27 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/01 11:59:17 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/01 14:59:00 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_global;
+
+int	ft_isdigit(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!(str[i] >= 48 && str[i] <= 57))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static int	ft_isspace(char *str)
 {
@@ -41,8 +55,11 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 			root[0]->z = 1;
 			builtins_cmd(root[0], var);
 		}
-		else
+		else if (root[0]->e != 1)
+		{
+			printf("fefefe\n");
 			exec_pipes(root, var);
+		}
 	}
 }
 
@@ -102,12 +119,15 @@ int	main(int argc, char **argv, char **envp)
 			root = get_root(split, line, cmd_nbr);
 			if (root)
 			{
+				root[0]->e = 0;
 				if (root[0]->size_args
 					&& !ft_strcmp(root[0]->cmd_value, "exit"))
 				{
+					print_trees(root);
+					root[0]->e = 1;
 					builtins_cmd(root[0], &var);
-					ft_putstr_fd("exit\n", 1);
-					return (g_global);
+					if (g_global != 255 || root[0]->size_args == 2)
+						return (g_global);
 				}
 				start_minishell(root, line, cmd_nbr, &var);
 				free_all(root, split, line);

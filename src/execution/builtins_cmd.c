@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/01 12:11:40 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/01 14:58:32 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	exit_cmd(t_tree *cmd)
 {
 	int	ret;
 	int	i;
-
+	
 	i = 0;
 	if (cmd->size_args == 2)
 	{
@@ -122,11 +122,12 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 {
 	if (cmd->z == 1 && cmd->size_red > 0)
 	{
-		loop_double_redirs(cmd);
+		loop_double_redirs(cmd, var);
 		builtins_redir(cmd);
 	}
 	if (g_global < 258 && g_global != 1)
 	{
+		
 		if (cmd->cmd_type == tree_echo)
 			g_global = echo(cmd);
 		else if (cmd->cmd_type == tree_pwd)
@@ -138,8 +139,6 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		else if (cmd->cmd_type == tree_export
 			|| cmd->cmd_type == tree_exportargs)
 			g_global = exec_export(cmd, var);
-		else if (cmd->cmd_type == tree_exit)
-			g_global = exit_cmd(cmd);
 		else if (cmd->cmd_type == tree_env)
 			g_global = exec_env(cmd, var);
 		else if (cmd->cmd_type == tree_unset)
