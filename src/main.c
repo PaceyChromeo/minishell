@@ -6,13 +6,27 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/31 19:59:56 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/01 11:59:17 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_global;
+
+static int	ft_isspace(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i] != '\0')
+	{
+		if (str[i] != ' ' && str[i] != '\t')
+			return (1);
+		i++;
+	}
+	return (0); 
+}
 
 static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 {
@@ -78,9 +92,8 @@ int	main(int argc, char **argv, char **envp)
 		line = display_prompt();
 		if (!line)
 			return (g_global);
-		else if (*line == '\0')
-			free(line);
-		if (*line != '\0' && !check_forbidden_char(line))
+		if (*line != '\0' && !check_forbidden_char(line) 
+			&& ft_isspace(line))
 		{
 			cmd_nbr = count_pipes(line, '|');
 			split = ft_split_pipe(line, '|');
@@ -102,11 +115,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 		{
-			if (freed)
-			{
-				free_list(var.env);
-				freed = 0;
-			}
+			free(line);
+			// if (freed)
+			// {
+			// 	free_list(var.env);
+			// 	freed = 0;
+			// }
 		}
 	}
 	return (0);

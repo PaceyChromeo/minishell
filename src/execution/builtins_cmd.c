@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/30 11:02:27 by misaev           ###   ########.fr       */
+/*   Updated: 2021/11/01 12:11:40 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,11 @@ int	exit_cmd(t_tree *cmd)
 int	builtins_cmd(t_tree *cmd, t_var *var)
 {
 	if (cmd->z == 1 && cmd->size_red > 0)
+	{
+		loop_double_redirs(cmd);
 		builtins_redir(cmd);
-	if (g_global < 258)
+	}
+	if (g_global < 258 && g_global != 1)
 	{
 		if (cmd->cmd_type == tree_echo)
 			g_global = echo(cmd);

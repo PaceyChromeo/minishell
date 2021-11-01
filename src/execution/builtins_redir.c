@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:32:08 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/31 18:00:08 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/01 12:14:28 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static	int	right_redirs(t_tree *cmd, int j)
 	if (fileout == -1)
 	{
 		perror("open");
-		return (0);
+		g_global = 1;
+		return (g_global);
 	}
 	if (cmd->red[j + 2] == NULL)
 	{
@@ -39,7 +40,8 @@ static int	double_right_redirs(t_tree *cmd, int j)
 	if (fileout == -1)
 	{
 		perror("open");
-		return (0);
+		g_global = 1;
+		return (g_global);
 	}
 	if (cmd->red[j + 2] == NULL)
 	{
@@ -74,7 +76,7 @@ static int	lefts_redirections(t_tree *cmd, int j)
 	}
 	else if (!ft_strcmp(cmd->red[j], "<<"))
 	{
-		loop_double_redirs(cmd);
+		double_left_redirs(cmd, j);
 		return (g_global);
 	}
 	g_global = 0;

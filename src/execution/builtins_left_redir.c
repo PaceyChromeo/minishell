@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:42:34 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 17:15:37 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/01 12:34:43 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	handler_exit_builtins(int sig)
 	}
 	if ((sig == SIGINT) && g_global > 258)
 	{
-		if (kill(g_global, SIGTERM))
-			g_global = 1;
+		kill(g_global, SIGTERM);
 		printf("\e[2K");
 		printf("\n");
 	}
@@ -70,7 +69,7 @@ int	open_heredoc_builtins(t_tree *cmd, int j)
 	pid = fork();
 	if (!pid)
 	{
-		while (!ft_strcmp(cmd->red[j], "<<") && cmd->red[j] != NULL)
+		while (cmd->red[j] != NULL)
 		{
 			temp = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 			while (write(1, "> ", ft_strlen("> "))
@@ -96,8 +95,24 @@ int	open_heredoc_builtins(t_tree *cmd, int j)
 void	loop_double_redirs(t_tree *cmd)
 {
 	int	j;
-
+	int count;
+	int k;
+	//char **herdoc;
+	
 	j = 0;
-	if (!ft_strcmp(cmd->red[j], "<<"))
-		open_heredoc_builtins(cmd, j);
+	k = 0;
+	count = 0;
+	while (cmd->red[k] != NULL)
+	{
+		if (!ft_strcmp(cmd->red[k], "<<"))
+			count++;
+		k++;	
+	}
+	while (cmd->red[j] != NULL)
+	{
+		if (!ft_strcmp(cmd->red[j], "<<"))
+			break ;
+		j++;
+	}
+	open_heredoc_builtins(cmd, j);
 }
