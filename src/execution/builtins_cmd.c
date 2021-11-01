@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ochichep <ochichep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/30 11:02:27 by misaev           ###   ########.fr       */
+/*   Updated: 2021/11/01 13:33:21 by ochichep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,26 @@ int	pwd(void)
 	return (g_global);
 }
 
+static int	exit_cmd_norm(t_tree *cmd, int ret)
+{
+	if (cmd->size_args > 2)
+	{
+		printf("exit: too many arguments\n");
+		g_global = 255;
+		return (g_global);
+	}
+	else
+		ret = 0;
+	return (ret);
+}
+
 int	exit_cmd(t_tree *cmd)
 {
 	int	ret;
 	int	i;
 
 	i = 0;
+	ret = 0;
 	if (cmd->size_args == 2)
 	{
 		while (cmd->args[1][i])
@@ -106,15 +120,38 @@ int	exit_cmd(t_tree *cmd)
 		}
 		ret = ft_atoi(cmd->args[1]);
 	}
-	else if (cmd->size_args > 2)
-	{
-		printf("exit: too many arguments\n");
-		g_global = 255;
-		return (g_global);
-	}
-	else
-		ret = 0;
+	ret = exit_cmd_norm(cmd, ret);
+	//else if (cmd->size_args > 2)
+	// {
+	// 	printf("exit: too many arguments\n");
+	// 	g_global = 255;
+	// 	return (g_global);
+	// }
+	// else
+	// 	ret = 0;
 	g_global = ret;
+	return (g_global);
+}
+
+static int	builtins_cmd_norm(t_tree *cmd, t_var *var)
+{
+	if (cmd->cmd_type == tree_echo)
+		g_global = echo(cmd);
+	else if (cmd->cmd_type == tree_pwd)
+		g_global = pwd();
+	else if (cmd->cmd_type == tree_cd)
+		g_global = cd(var, cmd->args[1]);
+	else if (cmd->cmd_type == tree_exit)
+		g_global = exit_cmd(cmd);
+	else if (cmd->cmd_type == tree_export
+		|| cmd->cmd_type == tree_exportargs)
+		g_global = exec_export(cmd, var);
+	else if (cmd->cmd_type == tree_exit)
+		g_global = exit_cmd(cmd);
+	else if (cmd->cmd_type == tree_env)
+		g_global = exec_env(cmd, var);
+	else if (cmd->cmd_type == tree_unset)
+		g_global = exec_unset(cmd, var);
 	return (g_global);
 }
 
@@ -124,23 +161,7 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		builtins_redir(cmd);
 	if (g_global < 258)
 	{
-		if (cmd->cmd_type == tree_echo)
-			g_global = echo(cmd);
-		else if (cmd->cmd_type == tree_pwd)
-			g_global = pwd();
-		else if (cmd->cmd_type == tree_cd)
-			g_global = cd(var, cmd->args[1]);
-		else if (cmd->cmd_type == tree_exit)
-			g_global = exit_cmd(cmd);
-		else if (cmd->cmd_type == tree_export
-			|| cmd->cmd_type == tree_exportargs)
-			g_global = exec_export(cmd, var);
-		else if (cmd->cmd_type == tree_exit)
-			g_global = exit_cmd(cmd);
-		else if (cmd->cmd_type == tree_env)
-			g_global = exec_env(cmd, var);
-		else if (cmd->cmd_type == tree_unset)
-			g_global = exec_unset(cmd, var);
+		g_global = builtins_cmd_norm(cmd, var);
 		dup2(cmd->save, 1);
 	}
 	if (g_global > 258)
