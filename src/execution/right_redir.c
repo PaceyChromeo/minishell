@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:18 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 14:02:48 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:10:17 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	right_redir(t_tree **cmds, int i, int j)
 		return (0);
 	}
 	if (cmds[i]->red[j + 2] == NULL)
+	{
 		dup2(fileout, 1);
+		close(fileout);
+	}
 	if (!cmds[i]->cmd_value)
 		exit(0);
 	return (1);
@@ -40,7 +43,10 @@ int	double_right_redir(t_tree **cmds, int i, int j)
 		return (0);
 	}
 	if (cmds[i]->red[j + 2] == NULL)
+	{
 		dup2(fileout, 1);
+		close(fileout);
+	}
 	if (!cmds[i]->cmd_value)
 		exit(0);
 	return (1);

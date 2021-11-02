@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 14:01:55 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:07:28 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	left_redir(t_tree **cmds, int i, int j)
 		return (g_global);
 	}
 	if (j == 0)
+	{
 		dup2(filein, 0);
+		close(filein);
+	}
 	return (0);
 }
 
@@ -59,6 +62,7 @@ int	double_left_redir(t_tree **cmds, int i, int j)
 		return (g_global);
 	}
 	dup2(filein, 0);
+	close(filein);
 	if (!cmds[i]->cmd_value && cmds[i]->red[j + 2] == NULL)
 		exit (0);
 	return (0);
@@ -132,6 +136,7 @@ int	open_heredoc(t_tree **cmds, int i, int j)
 			}
 			j += 2;
 		}
+		close(temp);
 		exit(0);
 	}
 	g_global = pid;

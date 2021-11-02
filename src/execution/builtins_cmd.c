@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 10:39:31 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:11:13 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int	exit_cmd(t_tree *cmd)
 
 int	builtins_cmd(t_tree *cmd, t_var *var)
 {
+	int fdt;
+	
 	if (cmd->z == 1 && cmd->size_red > 0)
 	{
 		loop_double_redirs(cmd, var);
@@ -131,8 +133,6 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 			g_global = pwd();
 		else if (cmd->cmd_type == tree_cd)
 			g_global = cd(var, cmd->args[1]);
-		else if (cmd->cmd_type == tree_exit)
-			exit_cmd(cmd);
 		else if (cmd->cmd_type == tree_export
 			|| cmd->cmd_type == tree_exportargs)
 			g_global = exec_export(cmd, var);
@@ -144,5 +144,8 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 	}
 	if (g_global > 258)
 		g_global = 1;
+	fdt = open("temp.txt", O_RDONLY, 0777);
+	if (fdt != -1)
+		unlink("temp.txt");
 	return (g_global);
 }

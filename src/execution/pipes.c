@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 14:02:29 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:05:30 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 {
 	int	fd[2];
 	int	status;
+	int fdt;
 
 	var->i = 0;
 	pipe(fd);
@@ -129,5 +130,8 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	close(fd[0]);
 	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
 		;
+	fdt = open("temp.txt", O_RDONLY, 0777);
+	if (fdt != -1)
+		unlink("temp.txt");
 	exit_status(cmds, var, status);
 }
