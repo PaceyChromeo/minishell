@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/01 14:58:32 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 10:39:31 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,10 @@ int	pwd(void)
 
 int	exit_cmd(t_tree *cmd)
 {
-	int	ret;
 	int	i;
 	
 	i = 0;
-	if (cmd->size_args == 2)
+	if (cmd->size_args > 1)
 	{
 		while (cmd->args[1][i])
 		{
@@ -100,22 +99,21 @@ int	exit_cmd(t_tree *cmd)
 			{
 				printf("exit: %s: numeric argument required\n", cmd->args[1]);
 				g_global = 255;
-				return (g_global);
+				return (0);
 			}
 			i++;
 		}
-		ret = ft_atoi(cmd->args[1]);
-	}
-	else if (cmd->size_args > 2)
-	{
-		printf("exit: too many arguments\n");
-		g_global = 255;
-		return (g_global);
+		g_global = ft_atoi(cmd->args[1]);
 	}
 	else
-		ret = 0;
-	g_global = ret;
-	return (g_global);
+		g_global = 0;
+	if (cmd->size_args > 2)
+	{
+		printf("exit: too many arguments\n");
+		g_global = 1;
+		return (1);
+	}
+	return (0);
 }
 
 int	builtins_cmd(t_tree *cmd, t_var *var)
@@ -125,9 +123,8 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		loop_double_redirs(cmd, var);
 		builtins_redir(cmd);
 	}
-	if (g_global < 258 && g_global != 1)
+	if (g_global <= 258 && g_global != 1)
 	{
-		
 		if (cmd->cmd_type == tree_echo)
 			g_global = echo(cmd);
 		else if (cmd->cmd_type == tree_pwd)
@@ -135,7 +132,7 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		else if (cmd->cmd_type == tree_cd)
 			g_global = cd(var, cmd->args[1]);
 		else if (cmd->cmd_type == tree_exit)
-			g_global = exit_cmd(cmd);
+			exit_cmd(cmd);
 		else if (cmd->cmd_type == tree_export
 			|| cmd->cmd_type == tree_exportargs)
 			g_global = exec_export(cmd, var);

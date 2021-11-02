@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:08:31 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 16:44:22 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 13:50:01 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ static	t_token	*lexer_collect_redir(t_lexer *lexer)
 	{
 		lexer_next_char(lexer);
 		if (lexer->c == redir)
+		{
+			printf("minishell : syntax error near unexpected token `%c'\n"
+				, lexer->c);
 			return (init_token(token_error, NULL));
+		}
 		else if (redir == 60)
 			return (init_token(token_dred_l, ft_strdup("<<")));
 		else
@@ -51,7 +55,7 @@ static	t_token	*lexer_collect_redir(t_lexer *lexer)
 	}
 }
 
-t_token	*get_next_token(t_lexer	*lexer)
+t_token	*get_next_token(t_lexer	*lexer, t_var *var)
 {
 	while (lexer->c != '\0' && lexer->index < ft_strlen(lexer->value))
 	{
@@ -59,7 +63,7 @@ t_token	*get_next_token(t_lexer	*lexer)
 			lexer_next_char(lexer);
 		if (ft_is_ascii(lexer->c) && (lexer->c != '$' && lexer->c != '>'
 				&& lexer->c != '<'))
-			return (lexer_collect_id(lexer));
+			return (lexer_collect_id(lexer, var));
 		if (lexer->c == '$')
 			return (lexer_collect_env(lexer));
 		if (lexer->c == '>' || lexer->c == '<')

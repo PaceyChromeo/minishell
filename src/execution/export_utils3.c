@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:43:38 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/30 12:54:06 by pacey            ###   ########.fr       */
+/*   Updated: 2021/11/02 11:14:37 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 void	sort_env_var(t_lenv **lst)
 {

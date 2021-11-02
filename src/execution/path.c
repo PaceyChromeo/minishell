@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/21 11:26:48 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 12:55:19 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,60 @@ static char	**get_tab_path(char **tab, char *cmd)
 	return (tab);
 }
 
-char	*get_path(char *cmd)
+static char	*ft_str_chr(const char *str, int c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == (char)c)
+			return ((char *)str + i + 1);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)str + i);
+	return (NULL);
+}
+
+char *ft_getenv(char *env, t_var *var)
+{
+	t_lenv	*tmp_lst;
+	
+	tmp_lst = var->env;
+	while (tmp_lst)
+	{
+		if (ft_strstr_int(tmp_lst->var_env, env))
+			return (ft_str_chr(tmp_lst->var_env, '='));
+		tmp_lst = tmp_lst->next;
+	}
+	return (NULL);	
+}
+
+char	*get_path(char *cmd, t_var *var)
 {
 	char	*path;
 	char	*good_path;
 	char	**tab;
 	int		i;
 
-	path = getenv("PATH");
-	tab = ft_split(path, ':');
-	tab = get_tab_path(tab, cmd);
-	i = -1;
-	while (tab[++i])
+	path = ft_getenv("PATH", var);
+	if (path)
 	{
-		good_path = ft_strdup(tab[i]);
-		if (access(tab[i], F_OK) == 0)
+		tab = ft_split(path, ':');
+		tab = get_tab_path(tab, cmd);
+		i = -1;
+		while (tab[++i])
 		{
-			free_tab(tab);
-			return (good_path);
+			good_path = ft_strdup(tab[i]);
+			if (access(tab[i], F_OK) == 0)
+			{
+				free_tab(tab);
+				return (good_path);
+			}
+			free(good_path);
 		}
-		free(good_path);
+		free_tab(tab);
 	}
-	free_tab(tab);
 	return (NULL);
 }

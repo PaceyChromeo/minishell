@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:48:04 by haroun            #+#    #+#             */
-/*   Updated: 2021/10/21 11:57:12 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:52:40 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "minishell.h"
 
 char	*ft_substr(char *s, unsigned int start, unsigned int len)
 {

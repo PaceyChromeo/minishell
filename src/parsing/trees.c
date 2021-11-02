@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/30 13:07:38 by pacey            ###   ########.fr       */
+/*   Updated: 2021/11/02 12:45:50 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser)
 	}
 }
 
-static void	get_type_and_size(t_tree *tree, t_parser *parser)
+static void	get_type_and_size(t_tree *tree, t_parser *parser, t_var *var)
 {
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_EOL)
@@ -95,7 +95,7 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 		{
 			if (cmp_builtins(parser->current_tok->value) < 7)
 				tree->cmd_type = cmp_builtins(parser->current_tok->value);
-			else if (cmp_binaries(parser->current_tok->value))
+			else if (cmp_binaries(parser->current_tok->value, var))
 				tree->cmd_type = tree_execve;
 			else if (parser->current_tok->value[0] == '.'
 				|| parser->current_tok->value[0] == '/')
@@ -114,7 +114,7 @@ static void	get_type_and_size(t_tree *tree, t_parser *parser)
 	}
 }
 
-t_tree	*create_trees(char *cmd)
+t_tree	*create_trees(char *cmd, t_var *var)
 {
 	t_tree		*tree;
 	t_lexer		*lexer;
@@ -122,7 +122,7 @@ t_tree	*create_trees(char *cmd)
 
 	tree = init_tree(tree_nocmd, cmd);
 	lexer = init_lexer(cmd);
-	parser = init_parser(lexer);
+	parser = init_parser(lexer, var);
 	while (parser->current_tok->type != token_EOL)
 	{
 		if (parser->current_tok->type == token_error)
@@ -132,11 +132,11 @@ t_tree	*create_trees(char *cmd)
 			free_tree(tree);
 			return (NULL);
 		}
-		parser_next_token(parser);
+		parser_next_token(parser, var);
 	}
 	parser_define_more_token(parser);
-	parser_get_token_with_env(parser);
-	get_type_and_size(tree, parser);
+	parser_get_token_with_env(parser, var);
+	get_type_and_size(tree, parser, var);
 	get_args_and_red(tree, parser);
 	free_parser(parser);
 	return (tree);

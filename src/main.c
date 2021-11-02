@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/01 14:59:00 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:37:30 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,11 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 			builtins_cmd(root[0], var);
 		}
 		else if (root[0]->e != 1)
-		{
-			printf("fefefe\n");
 			exec_pipes(root, var);
-		}
 	}
 }
 
-static t_tree	**get_root(char **split, char *line, int cmd_nbr)
+static t_tree	**get_root(char **split, char *line, int cmd_nbr, t_var *var)
 {
 	int		i;
 	t_tree	**root;
@@ -76,7 +73,7 @@ static t_tree	**get_root(char **split, char *line, int cmd_nbr)
 		i = 0;
 		while (split[i])
 		{
-			root[i] = create_trees(split[i]);
+			root[i] = create_trees(split[i], var);
 			if (!root[i] || error_handler(root[i]))
 			{
 				free_all(root, split, line);
@@ -96,14 +93,11 @@ int	main(int argc, char **argv, char **envp)
 	char	**split;
 	t_tree	**root;
 	t_var	var;
-	int		freed;
 
 	var.env = push_env_to_list(envp);
 	var.envp = envp;
-	freed = 1;
 	while (argc && argv)
 	{
-		//system("leaks minishell");
 		signal(SIGINT, handler_signals);
 		signal(SIGQUIT, handler_signals);
 		line = display_prompt();
@@ -116,17 +110,15 @@ int	main(int argc, char **argv, char **envp)
 			split = ft_split_pipe(line, '|');
 			if (!split)
 				split = NULL;
-			root = get_root(split, line, cmd_nbr);
+			root = get_root(split, line, cmd_nbr, &var);
 			if (root)
 			{
 				root[0]->e = 0;
 				if (root[0]->size_args
 					&& !ft_strcmp(root[0]->cmd_value, "exit"))
 				{
-					print_trees(root);
 					root[0]->e = 1;
-					builtins_cmd(root[0], &var);
-					if (g_global != 255 || root[0]->size_args == 2)
+					if (!exit_cmd(root[0]))
 						return (g_global);
 				}
 				start_minishell(root, line, cmd_nbr, &var);
@@ -134,14 +126,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 		}
 		else
-		{
 			free(line);
-			// if (freed)
-			// {
-			// 	free_list(var.env);
-			// 	freed = 0;
-			// }
-		}
 	}
 	return (0);
 }

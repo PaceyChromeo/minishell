@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 10:01:07 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/25 17:33:21 by misaev           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:14:43 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 /* dois retourner un le nombre de d argument incorrect */
 int	check_export_args_tab(char **arg)

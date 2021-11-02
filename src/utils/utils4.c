@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:26:41 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 16:45:43 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:41:35 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
 int	ft_sch_forbidden_char(char c)
 {

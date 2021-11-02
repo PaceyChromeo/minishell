@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:15:22 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/27 15:11:49 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:41:25 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

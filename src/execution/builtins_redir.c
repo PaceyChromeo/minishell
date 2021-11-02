@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:32:08 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/01 12:14:28 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:13:35 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 static	int	right_redirs(t_tree *cmd, int j)
 {	

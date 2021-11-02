@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 16:56:53 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:14:18 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 /* Cree une cellule pour l ajouter a la liste */
 static	t_lenv	*creat_cell(char *str)

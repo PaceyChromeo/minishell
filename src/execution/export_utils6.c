@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils6.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:55:08 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/30 11:00:28 by misaev           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:14:57 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 int	strlen_var_arg(char *str)
 {

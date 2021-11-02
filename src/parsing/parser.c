@@ -6,13 +6,13 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 16:44:55 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:24:11 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_parser	*init_parser(t_lexer *lexer)
+t_parser	*init_parser(t_lexer *lexer, t_var *var)
 {
 	t_parser	*parser;
 
@@ -20,16 +20,16 @@ t_parser	*init_parser(t_lexer *lexer)
 	if (!parser)
 		return (NULL);
 	parser->lexer = lexer;
-	parser->current_tok = get_next_token(parser->lexer);
+	parser->current_tok = get_next_token(parser->lexer, var);
 	parser->prev_tok = NULL;
 	parser->first_tok = parser->current_tok;
 	return (parser);
 }
 
-void	parser_next_token(t_parser *parser)
+void	parser_next_token(t_parser *parser, t_var *var)
 {
 	parser->prev_tok = parser->current_tok;
-	parser->current_tok = get_next_token(parser->lexer);
+	parser->current_tok = get_next_token(parser->lexer, var);
 	parser->prev_tok->next = parser->current_tok;
 	parser->current_tok->prev = parser->prev_tok;
 }
@@ -59,7 +59,7 @@ void	parser_define_more_token(t_parser *parser)
 	}
 }
 
-void	parser_get_token_with_env(t_parser *parser)
+void	parser_get_token_with_env(t_parser *parser, t_var *var)
 {
 	char	*tmp;
 
@@ -72,7 +72,7 @@ void	parser_get_token_with_env(t_parser *parser)
 		{
 			tmp = parser->current_tok->value;
 			parser->current_tok->value
-				= get_str_with_env(parser->current_tok);
+				= get_str_with_env(parser->current_tok, var);
 			free(tmp);
 		}
 		parser->current_tok = parser->current_tok->next;

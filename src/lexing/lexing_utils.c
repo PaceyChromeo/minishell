@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/30 12:59:32 by pacey            ###   ########.fr       */
+/*   Updated: 2021/11/02 12:36:21 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*collect_id_double_quote(t_lexer *lexer, char *value)
+static char	*collect_id_double_quote(t_lexer *lexer, char *value, t_var *var)
 {
 	lexer_next_char(lexer);
 	while (lexer->c != 34 && lexer->c)
 	{
 		if (lexer->c == '$')
-			value = collect_id_env(lexer, value);
+			value = collect_id_env(lexer, value, var);
 		else
 		{
 			value = ft_realloc_char(value, lexer->c);
@@ -49,11 +49,11 @@ static char	*collect_id_single_quote(t_lexer *lexer, char *value)
 	return (value);
 }
 
-char	*collect_id_string(t_lexer *lexer, char *value)
+char	*collect_id_string(t_lexer *lexer, char *value, t_var *var)
 {
 	if (lexer->c == 34)
 	{
-		value = collect_id_double_quote(lexer, value);
+		value = collect_id_double_quote(lexer, value, var);
 		if (!value && lexer->c != 34)
 		{
 			ft_putstr_fd("Unclosed double quotes\n", STDOUT_FILENO);
@@ -74,7 +74,7 @@ char	*collect_id_string(t_lexer *lexer, char *value)
 	return (value);
 }
 
-char	*collect_id_env(t_lexer *lexer, char *value)
+char	*collect_id_env(t_lexer *lexer, char *value, t_var *var)
 {
 	int		i;
 	char	*itoa;
@@ -100,9 +100,9 @@ char	*collect_id_env(t_lexer *lexer, char *value)
 		while (ft_isalpha(lexer->c) || ft_isnum(lexer->c) || lexer->c == '_')
 			lexer_next_char(lexer);
 		if (!value)
-			value = ft_realloc(value, ft_strdup(get_env(lexer->value, i)));
+			value = ft_realloc(value, ft_strdup(get_env(lexer->value, i, var)));
 		else
-			value = ft_realloc(value, get_env(lexer->value, i));
+			value = ft_realloc(value, get_env(lexer->value, i, var));
 	}
 	return (value);
 }

@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 14:13:52 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 16:45:53 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 12:40:58 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
 int	ft_is_exportargs(char *str)
 {
@@ -34,7 +34,7 @@ int	ft_is_exportargs(char *str)
 	return (0);
 }
 
-int	count_total_string(t_token *token)
+int	count_total_string(t_token *token, t_var *var)
 {
 	int		i;
 	int		size;
@@ -49,8 +49,9 @@ int	count_total_string(t_token *token)
 		if (tok_value[i] == '$')
 		{
 			i++;
-			env = get_env(tok_value, i);
-			size += ft_strlen(env);
+			env = get_env(tok_value, i, var);
+			if (env)
+				size += ft_strlen(env);
 			while ((ft_isalpha(tok_value[i]) || tok_value[i] == '_'
 					|| ft_isnum(tok_value[i])))
 				i++;

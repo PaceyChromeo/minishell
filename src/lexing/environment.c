@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/10/29 16:43:04 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 12:57:35 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	count_env_in_string(t_token *token)
 	return (env);
 }
 
-char	*get_env(char *token_value, int i)
+char	*get_env(char *token_value, int i, t_var *var)
 {
 	char	*env;
 	int		size;
@@ -50,12 +50,12 @@ char	*get_env(char *token_value, int i)
 		x++;
 	}
 	env[x] = '\0';
-	token_value = getenv(env);
-	free(env);
+	env = ft_getenv(env, var);
+	token_value = env;
 	return (token_value);
 }
 
-static char	*str_with_env(t_token *token, char *str_with_env, int size)
+static char	*str_with_env(t_token *token, char *str_with_env, int size, t_var *var)
 {
 	int	i;
 
@@ -65,7 +65,7 @@ static char	*str_with_env(t_token *token, char *str_with_env, int size)
 		while (token->value[i] == '$')
 		{
 			i++;
-			str_with_env = ft_realloc(str_with_env, get_env(token->value, i));
+			str_with_env = ft_realloc(str_with_env, get_env(token->value, i, var));
 			while (ft_isalpha(token->value[i]) || token->value[i] == '_'
 				|| ft_isnum(token->value[i]))
 				i++;
@@ -88,15 +88,15 @@ static char	*str_with_env(t_token *token, char *str_with_env, int size)
 	return (str_with_env);
 }
 
-char	*get_str_with_env(t_token *token)
+char	*get_str_with_env(t_token *token, t_var *var)
 {
 	char	*string_with_env;
 	int		size;
 
-	size = count_total_string(token);
+	size = count_total_string(token, var);
 	string_with_env = ft_calloc(size + 1, sizeof(char *));
 	if (!string_with_env)
 		return (NULL);
-	string_with_env = str_with_env(token, string_with_env, size);
+	string_with_env = str_with_env(token, string_with_env, size, var);
 	return (string_with_env);
 }

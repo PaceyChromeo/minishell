@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_left_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:42:34 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/01 14:05:58 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:13:28 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 void	handler_exit_builtins(int sig)
 {

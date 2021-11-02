@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:01:54 by misaev            #+#    #+#             */
-/*   Updated: 2021/10/29 17:09:47 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 11:14:49 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 int	count_quotes(char *str)
 {

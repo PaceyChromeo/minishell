@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/29 16:43:24 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 13:48:29 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	lexer_next_char(t_lexer *lexer)
 	}
 }
 
-t_token	*lexer_collect_id(t_lexer *lexer)
+t_token	*lexer_collect_id(t_lexer *lexer, t_var *var)
 {
 	char	*value;
 
@@ -44,12 +44,12 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 	{
 		if (lexer->c == 34 || lexer->c == 39)
 		{
-			value = collect_id_string(lexer, value);
+			value = collect_id_string(lexer, value, var);
 			if (value && !ft_strcmp(value, "error_quote"))
 				return (init_token(token_error, NULL));
 		}
 		else if (lexer->c == '$')
-			value = collect_id_env(lexer, value);
+			value = collect_id_env(lexer, value, var);
 		else
 		{
 			value = ft_realloc_char(value, lexer->c);
