@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:08:31 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 13:50:01 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:58:45 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static	t_token	*lexer_collect_redir(t_lexer *lexer)
 		lexer_next_char(lexer);
 		if (lexer->c == redir)
 		{
-			printf("minishell : syntax error near unexpected token `%c'\n"
-				, lexer->c);
+			printf("minishell : syntax error near unexpected token `%c'\n",
+				lexer->c);
 			return (init_token(token_error, NULL));
 		}
 		else if (redir == 60)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 12:45:50 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 18:01:00 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ static void	get_args(t_tree *tree, t_parser *parser)
 	tree->args[i] = NULL;
 }
 
-static void	get_args_and_red(t_tree *tree, t_parser *parser)
+static void	get_args_and_red(t_tree *tree, t_parser *parser, int i)
 {
-	int	i;
-
 	if (tree->size_args > 0)
 		get_args(tree, parser);
 	if (tree->size_red > 0)
@@ -137,7 +135,7 @@ t_tree	*create_trees(char *cmd, t_var *var)
 	parser_define_more_token(parser);
 	parser_get_token_with_env(parser, var);
 	get_type_and_size(tree, parser, var);
-	get_args_and_red(tree, parser);
+	get_args_and_red(tree, parser, 0);
 	free_parser(parser);
 	return (tree);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_left_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:42:34 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 11:13:28 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:55:45 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	left_redirs(t_tree *cmd, int j)
 int	double_left_redirs(t_tree *cmd, int j)
 {
 	int	filein;
+
 	(void)cmd;
 	(void)j;
 	filein = open("temp.txt", O_RDONLY, 0777);
@@ -84,55 +85,11 @@ int	open_heredoc_builtins(char **heredoc, int j, t_var *var)
 	return (1);
 }
 
-static int	count_strs(char **tab)
-{
-	int i;
-	int count;
-
-	count = 0;
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		if (!ft_strcmp(tab[i], "<<"))
-			count++;
-		i++;
-	}
-	return (count);
-}
-		
-static char	**get_tab(t_tree *cmd)
-{
-	int k;
-	int l;
-	int count;
-	char **heredoc;
-	
-	k = 0;
-	l = 0;
-	count = count_strs(cmd->red);
-	heredoc = malloc(sizeof(heredoc) * (count + count) + 1);
-	k = 0;
-	while (cmd->red[k] != NULL)
-	{
-		if (!ft_strcmp(cmd->red[k], "<<"))
-		{
-			heredoc[l] = cmd->red[k];
-			k++;
-			l++;
-			heredoc[l] = cmd->red[k];
-			l++;
-		}
-		k++;
-	}
-	heredoc[l] = NULL;
-	return (heredoc);
-}
-
 void	loop_double_redirs(t_tree *cmd, t_var *var)
 {
-	int	j;
-	char **heredoc;
-	
+	int		j;
+	char	**heredoc;
+
 	j = 0;
 	heredoc = get_tab(cmd);
 	open_heredoc_builtins(heredoc, j, var);

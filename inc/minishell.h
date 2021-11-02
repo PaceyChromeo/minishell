@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 12:57:20 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 18:05:40 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,10 @@ void	exec_pipes(t_tree **cmds, t_var *var);
 int		redirections(t_tree **cmds, int i);
 int		right_redir(t_tree **cmds, int i, int j);
 int		left_redir(t_tree **cmds, int i, int j);
-void	loop_double_redir(t_tree **cmds, int i);
+void	loop_double_redir(t_tree **cmds, int i, t_var *var);
 int		double_right_redir(t_tree **cmds, int i, int j);
 int		double_left_redir(t_tree **cmds, int i, int j);
+char	**get_tab(t_tree *cmd);
 
 /* ------FONCTIONS BUILTINS--------- */
 int		cmp_builtins(char *value);
@@ -144,10 +145,10 @@ int		builtins_cmd(t_tree *cmd, t_var *var);
 int		cmp_binaries(char *value, t_var *var);
 char	*ft_getenv(char *env, t_var *var);
 char	*get_path(char *cmd, t_var *var);
-int		echo(t_tree *tree);
+int		echo(t_tree *tree, int i);
 int		cd(t_var *var, char *path);
 int		pwd(void);
-int		exit_cmd(t_tree *cmd);
+int		exit_cmd(t_tree *cmd, int i);
 int		exec_export(t_tree *tree, t_var *var);
 int		exec_env(t_tree *tree, t_var *var);
 int		echo_option(char **args, int i);
@@ -189,7 +190,7 @@ t_lenv	*ft_lstdup(t_lenv *lst);
 int		exec_unset(t_tree *tree, t_var *var);
 t_lenv	*free_at(t_lenv **lst, int pos);
 /* EXTENSION FUNCTIONS */
-void	haroun_la_pute(t_var *var, char *prix);
+void	change_path(t_var *var, char *prix);
 char	*ft_strchr(const char *str, int c);
 char	*ft_substr(char *s, unsigned int start, unsigned int len);
 int		get_next_line(int fd, char **line);
@@ -204,11 +205,11 @@ t_lexer		*init_lexer(char *value);
 void		lexer_next_char(t_lexer *lexer);
 t_token		*lexer_collect_id(t_lexer *lexer, t_var *var);
 char		*collect_id_string(t_lexer *lexer, char *value, t_var *var);
-char		*collect_id_env(t_lexer *lexer, char *value, t_var *var);
+char		*collect_id_env(t_lexer *lexer, char *value, t_var *var, int i);
 t_token		*lexer_collect_env(t_lexer *lexer);
 
 /* ***************PARSING FUNCTIONS************** */
-int			count_pipes(char const *line, char c);
+int			count_pipes(char const *line, char c, int i);
 char		**ft_split_pipe(char *s, char c);
 t_parser	*init_parser(t_lexer *lexer, t_var *var);
 void		parser_next_token(t_parser *parser, t_var *var);

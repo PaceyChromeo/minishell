@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:03 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 14:07:28 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:25:58 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,92 +68,41 @@ int	double_left_redir(t_tree **cmds, int i, int j)
 	return (0);
 }
 
-
-static int	count_strs(char **tab)
+static int	open_heredoc(t_tree **cmds, int i, int j, t_var *var)
 {
-	int i;
-	int count;
-
-	count = 0;
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		if (!ft_strcmp(tab[i], "<<"))
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-static char	**get_tab(t_tree *cmd)
-{
-	int k;
-	int l;
-	int count;
-	char **heredoc;
-	
-	k = 0;
-	l = 0;
-	count = count_strs(cmd->red);
-	heredoc = malloc(sizeof(heredoc) * (count + count) + 1);
-	k = 0;
-	while (cmd->red[k] != NULL)
-	{
-		if (!ft_strcmp(cmd->red[k], "<<"))
-		{
-			heredoc[l] = cmd->red[k];
-			k++;
-			l++;
-			heredoc[l] = cmd->red[k];
-			l++;
-		}
-		k++;
-	}
-	heredoc[l] = NULL;
-	return (heredoc);
-}
-
-int	open_heredoc(t_tree **cmds, int i, int j)
-{
-	int		temp;
-	char	*line;
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (!pid)
+	var->pid2 = fork();
+	g_global = var->pid2;
+	if (!var->pid2)
 	{
 		while (cmds[i]->heredoc[j] != NULL)
 		{
-			temp = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+			var->temp = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 			while (write(1, "> ", ft_strlen("> "))
-				&& get_next_line(0, &line) > 0
-				&& (ft_strcmp(line, cmds[i]->heredoc[j + 1]) != 0))
+				&& get_next_line(0, &var->line) > 0
+				&& (ft_strcmp(var->line, cmds[i]->heredoc[j + 1]) != 0))
 			{
-				write(temp, line, ft_strlen(line));
-				write(temp, "\n", 1);
-				free(line);
+				write(var->temp, var->line, ft_strlen(var->line));
+				write(var->temp, "\n", 1);
+				free(var->line);
 			}
 			j += 2;
 		}
-		close(temp);
+		close(var->temp);
 		exit(0);
 	}
-	g_global = pid;
 	signal(SIGINT, handler_exit);
 	signal(SIGQUIT, handler_exit);
-	while (waitpid(pid, &status, 0) > 0)
-		;
-	cmds[i]->sig = WTERMSIG(status);
+	waitpid(var->pid2, &var->status, 0);
+	cmds[i]->sig = WTERMSIG(var->status);
 	return (1);
 }
 
-void	loop_double_redir(t_tree **cmds, int i)
+void	loop_double_redir(t_tree **cmds, int i, t_var *var)
 {
 	int	j;
 
 	j = 0;
 	cmds[i]->heredoc = get_tab(cmds[i]);
-	open_heredoc(cmds, i, j);
+	open_heredoc(cmds, i, j, var);
 	free(cmds[i]->heredoc);
 }
