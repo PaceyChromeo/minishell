@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/11/02 12:57:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:58:08 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	*get_env(char *token_value, int i, t_var *var)
 	return (token_value);
 }
 
-static char	*str_with_env(t_token *token, char *str_with_env, int size, t_var *var)
+static char	*str_with_env(t_token *token, char *str_with_env,
+	int size, t_var *var)
 {
 	int	i;
 
@@ -65,7 +66,8 @@ static char	*str_with_env(t_token *token, char *str_with_env, int size, t_var *v
 		while (token->value[i] == '$')
 		{
 			i++;
-			str_with_env = ft_realloc(str_with_env, get_env(token->value, i, var));
+			str_with_env = ft_realloc(str_with_env,
+					get_env(token->value, i, var));
 			while (ft_isalpha(token->value[i]) || token->value[i] == '_'
 				|| ft_isnum(token->value[i]))
 				i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 12:55:19 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:12:29 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static char	*ft_str_chr(const char *str, int c)
 	return (NULL);
 }
 
-char *ft_getenv(char *env, t_var *var)
+char	*ft_getenv(char *env, t_var *var)
 {
 	t_lenv	*tmp_lst;
-	
+
 	tmp_lst = var->env;
 	while (tmp_lst)
 	{
@@ -52,7 +52,7 @@ char *ft_getenv(char *env, t_var *var)
 			return (ft_str_chr(tmp_lst->var_env, '='));
 		tmp_lst = tmp_lst->next;
 	}
-	return (NULL);	
+	return (NULL);
 }
 
 char	*get_path(char *cmd, t_var *var)

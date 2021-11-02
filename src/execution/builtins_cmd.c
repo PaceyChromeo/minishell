@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 14:29:33 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 18:51:47 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	echo(t_tree *tree)
+int	echo(t_tree *tree, int i)
 {
-	int	i;
 	int	opt;
 
 	opt = 0;
-	i = 1;
 	if (tree->size_args > 1)
 	{
 		i = echo_option(tree->args, i);
@@ -43,10 +41,37 @@ int	echo(t_tree *tree)
 	return (g_global);
 }
 
+int	cd_norm(t_var *var)
+{
+	int		j;
+	char	*temp;
+	char	*home;
+
+	j = 0;
+	temp = ft_strdup("HOME");
+	home = ft_getenv(temp, var);
+	free(temp);
+	if (home)
+	{
+		if (access(home, F_OK) == 0)
+		{
+			change_path(var, "OLDPWD");
+			chdir(home);
+			change_path(var, "PWD");
+		}
+	}
+	else
+	{
+		g_global = 1;
+		j = 1;
+		printf("minishell: cd: HOME not set\n");
+	}
+	return (j);
+}
+
 int	cd(t_var *var, char *path)
 {
-	char	*home;
-	int		j;
+	int	j;
 
 	j = 0;
 	if (access(path, F_OK) == 0)
@@ -56,24 +81,7 @@ int	cd(t_var *var, char *path)
 		change_path(var, "PWD");
 	}
 	else if (!path)
-	{
-		home = ft_getenv("HOME", var);
-		if (home)
-		{
-			if (access(home, F_OK) == 0)
-			{
-				change_path(var, "OLDPWD");
-				chdir(home);
-				change_path(var, "PWD");
-			}
-		}
-		else
-		{
-			j = 1;
-			g_global = 1;
-			printf("cd: HOME not set\n");
-		}
-	}
+		j = cd_norm(var);
 	else
 		perror(path);
 	if (j != 1)
@@ -81,79 +89,35 @@ int	cd(t_var *var, char *path)
 	return (g_global);
 }
 
-int	pwd(void)
+static void	dispatch_builtins(t_tree *cmd, t_var *var)
 {
-	char	*buf;
-
-	buf = NULL;
-	buf = getcwd(NULL, 0);
-	if (buf == NULL)
-		perror(buf);
-	else
-	{
-		ft_putstr_fd(buf, STDOUT_FILENO);
-		write(STDOUT_FILENO, "\n", 1);
-	}
-	g_global = 0;
-	return (g_global);
-}
-
-int	exit_cmd(t_tree *cmd)
-{
-	int	i;
-	
-	i = 0;
-	if (cmd->size_args > 1)
-	{
-		while (cmd->args[1][i])
-		{
-			if (!ft_isnum(cmd->args[1][i]))
-			{
-				printf("exit: %s: numeric argument required\n", cmd->args[1]);
-				g_global = 255;
-				return (0);
-			}
-			i++;
-		}
-		g_global = ft_atoi(cmd->args[1]);
-	}
-	else
-		g_global = 0;
-	if (cmd->size_args > 2)
-	{
-		printf("exit: too many arguments\n");
-		g_global = 1;
-		return (1);
-	}
-	return (0);
+	if (cmd->cmd_type == tree_echo)
+		g_global = echo(cmd, 1);
+	else if (cmd->cmd_type == tree_pwd)
+		g_global = pwd();
+	else if (cmd->cmd_type == tree_cd)
+		g_global = cd(var, cmd->args[1]);
+	else if (cmd->cmd_type == tree_export
+		|| cmd->cmd_type == tree_exportargs)
+		g_global = exec_export(cmd, var);
+	else if (cmd->cmd_type == tree_env)
+		g_global = exec_env(cmd, var);
+	else if (cmd->cmd_type == tree_unset)
+		g_global = exec_unset(cmd, var);
+	dup2(cmd->save, 1);
 }
 
 int	builtins_cmd(t_tree *cmd, t_var *var)
 {
-	int fdt;
-	
+	int	fdt;
+
 	if (cmd->z == 1 && cmd->size_red > 0)
 	{
 		loop_double_redirs(cmd, var);
 		builtins_redir(cmd);
 	}
 	if (g_global <= 258 && g_global != 1)
-	{
-		if (cmd->cmd_type == tree_echo)
-			g_global = echo(cmd);
-		else if (cmd->cmd_type == tree_pwd)
-			g_global = pwd();
-		else if (cmd->cmd_type == tree_cd)
-			g_global = cd(var, cmd->args[1]);
-		else if (cmd->cmd_type == tree_export
-			|| cmd->cmd_type == tree_exportargs)
-			g_global = exec_export(cmd, var);
-		else if (cmd->cmd_type == tree_env)
-			g_global = exec_env(cmd, var);
-		else if (cmd->cmd_type == tree_unset)
-			g_global = exec_unset(cmd, var);
-		dup2(cmd->save, 1);
-	}
+		dispatch_builtins(cmd, var);
 	if (g_global > 258)
 		g_global = 1;
 	fdt = open("temp.txt", O_RDONLY, 0777);

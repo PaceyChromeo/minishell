@@ -26,6 +26,7 @@ SRC_EXEC =	binaries.c \
 			export_utils4.c \
 			export_utils5.c \
 			export_utils6.c \
+			get_tab.c \
 			left_redir.c \
 			path.c	\
 			pipes.c \

@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 14:05:30 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:19:29 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	exit_status(t_tree **cmds, t_var *var, int status)
 {
-	int res;
-	
+	int	res;
+
 	if (WIFEXITED(status) && !WIFSIGNALED(status))
 	{
 		if (cmds[var->i]->sig == 15)
@@ -95,7 +95,7 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 			|| !ft_strcmp(cmds[var->i]->cmd_value, "sort")))
 		g_global = -888;
 	if (cmds[var->i]->size_red > 0)
-		loop_double_redir(cmds, var->i);
+		loop_double_redir(cmds, var->i, var);
 	pipe(new_pipefd);
 	var->pid = fork();
 	if (var->pid == -1)
@@ -119,7 +119,7 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 {
 	int	fd[2];
 	int	status;
-	int fdt;
+	int	fdt;
 
 	var->i = 0;
 	pipe(fd);

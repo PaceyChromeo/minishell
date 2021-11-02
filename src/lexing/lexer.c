@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:12:21 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 13:48:29 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 18:09:44 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_token	*lexer_collect_id(t_lexer *lexer, t_var *var)
 				return (init_token(token_error, NULL));
 		}
 		else if (lexer->c == '$')
-			value = collect_id_env(lexer, value, var);
+			value = collect_id_env(lexer, value, var, 0);
 		else
 		{
 			value = ft_realloc_char(value, lexer->c);

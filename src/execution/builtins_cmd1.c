@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 14:18:26 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 18:50:52 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	exec_export_norm(t_tree *tree, t_var *var, int i, int e)
 			if (tree->size_args - i == 1)
 			{
 				g_global = 1;
-				return(g_global);
+				return (g_global);
 			}
 		}
 		else

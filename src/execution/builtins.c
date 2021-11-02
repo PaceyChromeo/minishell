@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 11:13:46 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:56:11 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,48 @@ int	cmp_builtins(char *value)
 	}
 	free (bltin_lst);
 	return (7);
+}
+
+int	pwd(void)
+{
+	char	*buf;
+
+	buf = NULL;
+	buf = getcwd(NULL, 0);
+	if (buf == NULL)
+		perror(buf);
+	else
+	{
+		ft_putstr_fd(buf, STDOUT_FILENO);
+		write(STDOUT_FILENO, "\n", 1);
+	}
+	g_global = 0;
+	return (g_global);
+}
+
+int	exit_cmd(t_tree *cmd, int i)
+{
+	if (cmd->size_args > 1)
+	{
+		while (cmd->args[1][i])
+		{
+			if (!ft_isnum(cmd->args[1][i]))
+			{
+				printf("exit: %s: numeric argument required\n", cmd->args[1]);
+				g_global = 255;
+				return (0);
+			}
+			i++;
+		}
+		g_global = ft_atoi(cmd->args[1]);
+	}
+	else
+		g_global = 0;
+	if (cmd->size_args > 2)
+	{
+		printf("exit: too many arguments\n");
+		g_global = 1;
+		return (1);
+	}
+	return (0);
 }

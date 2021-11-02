@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 11:37:30 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 18:09:15 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		if (*line != '\0' && !check_forbidden_char(line) 
 			&& ft_isspace(line))
 		{
-			cmd_nbr = count_pipes(line, '|');
+			cmd_nbr = count_pipes(line, '|', 0);
 			split = ft_split_pipe(line, '|');
 			if (!split)
 				split = NULL;
@@ -118,7 +118,7 @@ int	main(int argc, char **argv, char **envp)
 					&& !ft_strcmp(root[0]->cmd_value, "exit"))
 				{
 					root[0]->e = 1;
-					if (!exit_cmd(root[0]))
+					if (!exit_cmd(root[0], 0))
 						return (g_global);
 				}
 				start_minishell(root, line, cmd_nbr, &var);

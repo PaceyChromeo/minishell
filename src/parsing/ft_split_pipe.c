@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:11 by pjacob            #+#    #+#             */
-/*   Updated: 2021/10/30 13:27:13 by pacey            ###   ########.fr       */
+/*   Updated: 2021/11/02 18:00:15 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_pipes(char const *line, char c)
+int	count_pipes(char const *line, char c, int i)
 {
-	int	i;
 	int	count;
 
 	count = 0;
-	i = 0;
 	while (line[i])
 	{
 		if (line[i] == 34 && line[i + 1])
@@ -100,7 +98,7 @@ char	**ft_split_pipe(char *s, char c)
 
 	if (!s)
 		return (NULL);
-	total = count_pipes(s, c) + 1;
+	total = count_pipes(s, c, 0) + 1;
 	dst = (char **)ft_calloc((total + 1), sizeof(char *));
 	if (!dst)
 		return (NULL);
