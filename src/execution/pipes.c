@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 09:50:38 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:02:29 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 void	exit_status(t_tree **cmds, t_var *var, int status)
 {
@@ -48,7 +48,7 @@ static int	execute(t_tree **cmds, t_var *var, int i)
 
 	if (cmds[i]->cmd_type != tree_path)
 	{
-		path = get_path(cmds[i]->cmd_value);
+		path = get_path(cmds[i]->cmd_value, var);
 		exec = execve(path, cmds[i]->args, var->envp);
 	}
 	else

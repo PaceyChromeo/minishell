@@ -6,11 +6,11 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:18:18 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/10/29 16:46:44 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:02:48 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 int	right_redir(t_tree **cmds, int i, int j)
 {	
