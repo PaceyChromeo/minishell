@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils6.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:55:08 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 11:14:57 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:28:31 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_lenv	*free_at(t_lenv **lst, int pos)
 
 /* EXTENSION FUNCTION FOR CD TO REDUCE LINES FOR NORMINETTE */
 
-void	haroun_la_pute(t_var *var, char *prix)
+void	change_path(t_var *var, char *prix)
 {
 	char	*cwd;
 

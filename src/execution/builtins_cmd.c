@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 14:11:13 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:29:33 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,38 @@ int	echo(t_tree *tree)
 int	cd(t_var *var, char *path)
 {
 	char	*home;
+	int		j;
 
+	j = 0;
 	if (access(path, F_OK) == 0)
 	{
-		haroun_la_pute(var, "OLDPWD");
+		change_path(var, "OLDPWD");
 		chdir(path);
-		haroun_la_pute(var, "PWD");
+		change_path(var, "PWD");
 	}
 	else if (!path)
 	{
-		home = getenv("HOME");
-		if (access(home, F_OK) == 0)
+		home = ft_getenv("HOME", var);
+		if (home)
 		{
-			haroun_la_pute(var, "OLDPWD");
-			chdir(home);
-			haroun_la_pute(var, "PWD");
+			if (access(home, F_OK) == 0)
+			{
+				change_path(var, "OLDPWD");
+				chdir(home);
+				change_path(var, "PWD");
+			}
+		}
+		else
+		{
+			j = 1;
+			g_global = 1;
+			printf("cd: HOME not set\n");
 		}
 	}
 	else
 		perror(path);
-	g_global = 0;
+	if (j != 1)
+		g_global = 0;
 	return (g_global);
 }
 

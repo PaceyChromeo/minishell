@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 12:57:20 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:29:25 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ t_lenv	*ft_lstdup(t_lenv *lst);
 int		exec_unset(t_tree *tree, t_var *var);
 t_lenv	*free_at(t_lenv **lst, int pos);
 /* EXTENSION FUNCTIONS */
-void	haroun_la_pute(t_var *var, char *prix);
+void	change_path(t_var *var, char *prix);
 char	*ft_strchr(const char *str, int c);
 char	*ft_substr(char *s, unsigned int start, unsigned int len);
 int		get_next_line(int fd, char **line);

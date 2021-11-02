@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 11:13:19 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/02 14:18:26 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	exec_export_norm(t_tree *tree, t_var *var, int i, int e)
+{
+	while (tree->args[i])
+	{
+		if (check_export_args_str(tree->args[i]) == 1)
+		{
+			printf("export: `%s': not a valid identifier\n", tree->args[i]);
+			if (tree->size_args - i == 1)
+			{
+				g_global = 1;
+				return(g_global);
+			}
+		}
+		else
+		{
+			if (count_equals(tree->args[i]) || !(count_equals(tree->args[i])
+					&& !(check_if_arg_in_env(tree->args[i], var->env))))
+				add_var_last(&var->env, tree->args[i], e);
+		}
+		i++;
+	}
+	return (g_global);
+}
 
 int	exec_export(t_tree *tree, t_var *var)
 {
@@ -26,27 +50,7 @@ int	exec_export(t_tree *tree, t_var *var)
 		e = 1;
 	}
 	if (tree->size_args > 1 && tree->cmd_type == tree_export)
-	{
-		while (tree->args[i])
-		{
-			if (check_export_args_str(tree->args[i]) == 1)
-			{
-				printf("export: `%s': not a valid identifier\n", tree->args[i]);
-				if (tree->size_args - i == 1)
-				{
-					g_global = 1;
-					exit(g_global);
-				}
-			}
-			else
-			{
-				if (count_equals(tree->args[i]) || !(count_equals(tree->args[i])
-						&& !(check_if_arg_in_env(tree->args[i], var->env))))
-					add_var_last(&var->env, tree->args[i], e);
-			}
-			i++;
-		}
-	}		
+		exec_export_norm(tree, var, i, e);
 	else if (tree->cmd_type == tree_export && tree->size_args == 1)
 	{
 		lst = ft_lstdup(var->env);
@@ -54,7 +58,10 @@ int	exec_export(t_tree *tree, t_var *var)
 		print_list(lst, 1);
 		free_list(lst);
 	}
-	g_global = 0;
+	if (g_global == 1)
+		g_global = 1;
+	else
+		g_global = 0;
 	return (g_global);
 }
 
