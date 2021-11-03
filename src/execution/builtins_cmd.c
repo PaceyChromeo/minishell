@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 17:52:36 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 12:00:19 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		loop_double_redirs(cmd, var);
 		builtins_redir(cmd);
 	}
-	if (g_global <= 258 && g_global != 1)
+	if (g_global <= 258 || (g_global != 1 
+		&& cmd->cmd_type == tree_echo))
 		dispatch_builtins(cmd, var);
 	if (g_global > 258)
 		g_global = 1;
