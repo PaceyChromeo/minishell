@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 18:49:45 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 12:02:18 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ char	**get_tab(t_tree *cmd);
 int		cmp_builtins(char *value);
 int		builtins_cmd(t_tree *cmd, t_var *var);
 int		cmp_binaries(char *value, t_var *var);
-char	*ft_getenv(char *env, t_var *var);
+char	*ft_getenv(char *env, t_var *var, int i);
 char	*get_path(char *cmd, t_var *var);
 int		echo(t_tree *tree, int i);
 int		cd(t_var *var, char *path);
@@ -206,7 +206,6 @@ void		lexer_next_char(t_lexer *lexer);
 t_token		*lexer_collect_id(t_lexer *lexer, t_var *var);
 char		*collect_id_string(t_lexer *lexer, char *value, t_var *var);
 char		*collect_id_env(t_lexer *lexer, char *value, t_var *var, int i);
-t_token		*lexer_collect_env(t_lexer *lexer);
 
 /* ***************PARSING FUNCTIONS************** */
 int			count_pipes(char const *line, char c, int i);
@@ -214,7 +213,6 @@ char		**ft_split_pipe(char *s, char c);
 t_parser	*init_parser(t_lexer *lexer, t_var *var);
 void		parser_next_token(t_parser *parser, t_var *var);
 void		parser_define_more_token(t_parser *parser);
-void		parser_get_token_with_env(t_parser *parser, t_var *var);
 t_tree		*init_tree(int type, char *cmd);
 t_tree		*create_trees(char *cmd, t_var *var);
 
@@ -253,6 +251,5 @@ void	yellow(void);
 void	white(void);
 int		ft_atoi(const char *str);
 int		ft_is_exportargs(char *str);
-int		count_total_string(t_token *token, t_var *var);
 
 #endif

@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:54:36 by pacey             #+#    #+#             */
-/*   Updated: 2021/11/02 17:58:08 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 11:53:29 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	count_env_in_string(t_token *token)
-{
-	int	i;
-	int	env;
-
-	env = 0;
-	i = -1;
-	while (token->value[++i])
-	{
-		if (token->value[i] == '$')
-			env++;
-	}
-	return (env);
-}
 
 char	*get_env(char *token_value, int i, t_var *var)
 {
@@ -50,55 +35,61 @@ char	*get_env(char *token_value, int i, t_var *var)
 		x++;
 	}
 	env[x] = '\0';
-	env = ft_getenv(env, var);
+	env = ft_getenv(env, var, 1);
 	token_value = env;
 	return (token_value);
 }
 
-static char	*str_with_env(t_token *token, char *str_with_env,
-	int size, t_var *var)
+static int	ft_strchr_env(char *str, char *to_find)
 {
 	int	i;
 
 	i = 0;
-	while (token->value[i])
+	while (str[i] != '=' && str[i] != '\0')
 	{
-		while (token->value[i] == '$')
-		{
+		if (str[i] == to_find[i])
 			i++;
-			str_with_env = ft_realloc(str_with_env,
-					get_env(token->value, i, var));
-			while (ft_isalpha(token->value[i]) || token->value[i] == '_'
-				|| ft_isnum(token->value[i]))
-				i++;
-			if (!token->value[i])
-			{
-				str_with_env[size] = '\0';
-				return (str_with_env);
-			}
-			if (token->value[i] == '$' && !token->value[i + 1])
-			{
-				str_with_env[size - 1] = '$';
-				str_with_env[size] = '\0';
-				return (str_with_env);
-			}
-		}
-		str_with_env = ft_realloc_char(str_with_env, token->value[i]);
-		i++;
+		else
+			return (0);
 	}
-	str_with_env[size] = '\0';
-	return (str_with_env);
+	if (!to_find[i])
+		return (1);
+	else
+		return (0);
 }
 
-char	*get_str_with_env(t_token *token, t_var *var)
+static char	*ft_str_chr(const char *str, int c)
 {
-	char	*string_with_env;
-	int		size;
+	int	i;
 
-	size = count_total_string(token, var);
-	string_with_env = ft_calloc(size + 1, sizeof(char *));
-	if (!string_with_env)
-		return (NULL);
-	string_with_env = str_with_env(token, string_with_env, size, var);
-	return (string_with_env);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == (char)c)
+			return ((char *)str + i + 1);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)str + i);
+	return (NULL);
+}
+
+char	*ft_getenv(char *env, t_var *var, int i)
+{
+	t_lenv	*tmp_lst;
+
+	tmp_lst = var->env;
+	while (tmp_lst)
+	{
+		if (ft_strchr_env(tmp_lst->var_env, env))
+		{
+			if (i)
+				free(env);
+			return (ft_str_chr(tmp_lst->var_env, '='));
+		}
+		tmp_lst = tmp_lst->next;
+	}
+	if (i)
+		free(env);
+	return (NULL);
 }

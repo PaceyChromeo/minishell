@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 18:10:11 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 11:53:11 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 static char	*collect_id_double_quote(t_lexer *lexer, char *value, t_var *var)
 {
 	lexer_next_char(lexer);
+	if (!lexer->c)
+	{
+		if (value)
+			free(value);
+		return (NULL);
+	}
 	while (lexer->c != 34 && lexer->c)
 	{
 		if (lexer->c == '$')
@@ -36,6 +42,12 @@ static char	*collect_id_double_quote(t_lexer *lexer, char *value, t_var *var)
 static char	*collect_id_single_quote(t_lexer *lexer, char *value)
 {
 	lexer_next_char(lexer);
+	if (!lexer->c)
+	{
+		if (value)
+			free(value);
+		return (NULL);
+	}
 	while (lexer->c != 39 && lexer->c)
 	{
 		value = ft_realloc_char(value, lexer->c);
@@ -79,10 +91,14 @@ static char	*collect_id_env_norm(t_lexer *lexer, char *value)
 	char	*itoa;
 
 	itoa = ft_itoa(g_global);
-	value = ft_realloc(value, itoa);
-	free(itoa);
 	lexer_next_char(lexer);
-	return (value);
+	if (value)
+	{
+		value = ft_realloc(value, itoa);
+		return (value);
+	}
+	else
+		return (itoa);
 }
 
 char	*collect_id_env(t_lexer *lexer, char *value, t_var *var, int i)
@@ -101,7 +117,7 @@ char	*collect_id_env(t_lexer *lexer, char *value, t_var *var, int i)
 		while (ft_isalpha(lexer->c) || ft_isnum(lexer->c) || lexer->c == '_')
 			lexer_next_char(lexer);
 		if (!value)
-			value = ft_realloc(value, ft_strdup(get_env(lexer->value, i, var)));
+			value = ft_strdup(get_env(lexer->value, i, var));
 		else
 			value = ft_realloc(value, get_env(lexer->value, i, var));
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 18:01:00 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 12:02:31 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ t_tree	*create_trees(char *cmd, t_var *var)
 		parser_next_token(parser, var);
 	}
 	parser_define_more_token(parser);
-	parser_get_token_with_env(parser, var);
 	get_type_and_size(tree, parser, var);
 	get_args_and_red(tree, parser, 0);
 	free_parser(parser);

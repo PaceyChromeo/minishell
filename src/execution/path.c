@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:20:04 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 17:12:29 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 11:52:34 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,36 +25,6 @@ static char	**get_tab_path(char **tab, char *cmd)
 	return (tab);
 }
 
-static char	*ft_str_chr(const char *str, int c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == (char)c)
-			return ((char *)str + i + 1);
-		i++;
-	}
-	if ((char)c == '\0')
-		return ((char *)str + i);
-	return (NULL);
-}
-
-char	*ft_getenv(char *env, t_var *var)
-{
-	t_lenv	*tmp_lst;
-
-	tmp_lst = var->env;
-	while (tmp_lst)
-	{
-		if (ft_strstr_int(tmp_lst->var_env, env))
-			return (ft_str_chr(tmp_lst->var_env, '='));
-		tmp_lst = tmp_lst->next;
-	}
-	return (NULL);
-}
-
 char	*get_path(char *cmd, t_var *var)
 {
 	char	*path;
@@ -62,7 +32,7 @@ char	*get_path(char *cmd, t_var *var)
 	char	**tab;
 	int		i;
 
-	path = ft_getenv("PATH", var);
+	path = ft_getenv("PATH", var, 0);
 	if (path)
 	{
 		tab = ft_split(path, ':');

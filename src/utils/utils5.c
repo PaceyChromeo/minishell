@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 14:13:52 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 18:12:57 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 11:23:53 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,44 +34,44 @@ int	ft_is_exportargs(char *str)
 	return (0);
 }
 
-int	count_total_string(t_token *token, t_var *var)
-{
-	int		i;
-	int		size;
-	char	*tok_value;
-	char	*env;
+// int	count_total_string(t_token *token, t_var *var)
+// {
+// 	int		i;
+// 	int		size;
+// 	char	*tok_value;
+// 	char	*env;
 
-	size = 0;
-	i = 0;
-	tok_value = ft_strdup(token->value);
-	while (tok_value[i])
-	{
-		if (tok_value[i] == '$')
-		{
-			i++;
-			env = get_env(tok_value, i, var);
-			if (env)
-				size += ft_strlen(env);
-			while ((ft_isalpha(tok_value[i]) || tok_value[i] == '_'
-					|| ft_isnum(tok_value[i])))
-				i++;
-			if (!tok_value[i])
-			{
-				free(tok_value);
-				return (size);
-			}
-			if (tok_value[i] == '$' && !tok_value[i + 1])
-			{
-				free(tok_value);
-				return (size + 1);
-			}
-		}
-		if (tok_value[i] != '$')
-		{
-			i++;
-			size++;
-		}
-	}
-	free(tok_value);
-	return (size);
-}
+// 	size = 0;
+// 	i = 0;
+// 	tok_value = ft_strdup(token->value);
+// 	while (tok_value[i])
+// 	{
+// 		if (tok_value[i] == '$')
+// 		{
+// 			i++;
+// 			env = get_env(tok_value, i, var);
+// 			if (env)
+// 				size += ft_strlen(env);
+// 			while ((ft_isalpha(tok_value[i]) || tok_value[i] == '_'
+// 					|| ft_isnum(tok_value[i])))
+// 				i++;
+// 			if (!tok_value[i])
+// 			{
+// 				free(tok_value);
+// 				return (size);
+// 			}
+// 			if (tok_value[i] == '$' && !tok_value[i + 1])
+// 			{
+// 				free(tok_value);
+// 				return (size + 1);
+// 			}
+// 		}
+// 		if (tok_value[i] != '$')
+// 		{
+// 			i++;
+// 			size++;
+// 		}
+// 	}
+// 	free(tok_value);
+// 	return (size);
+// }

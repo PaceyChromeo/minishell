@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 18:51:47 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 11:59:22 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,10 @@ int	echo(t_tree *tree, int i)
 int	cd_norm(t_var *var)
 {
 	int		j;
-	char	*temp;
 	char	*home;
 
 	j = 0;
-	temp = ft_strdup("HOME");
-	home = ft_getenv(temp, var);
-	free(temp);
+	home = ft_getenv("HOME", var, 0);
 	if (home)
 	{
 		if (access(home, F_OK) == 0)
@@ -116,7 +113,7 @@ int	builtins_cmd(t_tree *cmd, t_var *var)
 		loop_double_redirs(cmd, var);
 		builtins_redir(cmd);
 	}
-	if (g_global <= 258 && g_global != 1)
+	if (g_global <= 258 || (g_global != 1 && cmd->cmd_type == tree_echo))
 		dispatch_builtins(cmd, var);
 	if (g_global > 258)
 		g_global = 1;

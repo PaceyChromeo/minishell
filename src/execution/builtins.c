@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 17:56:11 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 12:01:52 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	exit_cmd(t_tree *cmd, int i)
 		{
 			if (!ft_isnum(cmd->args[1][i]))
 			{
+				printf("exit\n");
 				printf("exit: %s: numeric argument required\n", cmd->args[1]);
 				g_global = 255;
 				return (0);
@@ -89,6 +90,7 @@ int	exit_cmd(t_tree *cmd, int i)
 		g_global = 0;
 	if (cmd->size_args > 2)
 	{
+		printf("exit\n");
 		printf("exit: too many arguments\n");
 		g_global = 1;
 		return (1);
