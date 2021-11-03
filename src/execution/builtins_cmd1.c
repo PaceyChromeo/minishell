@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:25:27 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 18:50:52 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:27:39 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	exec_unset(t_tree *tree, t_var *var)
 			{
 				if (ft_strstr_int(temp_lst->var_env, tree->args[i]) == 1)
 				{
-					var->env = free_at(&var->env, j);
+					var->env = free_at(&var->env, j, 0);
 					break ;
 				}
 				j++;

@@ -3,28 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:37:56 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 11:14:30 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 14:27:12 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*add_quote(char *arg)
+static char	*add_quote_extension(char *arg, char *str, int i, int j)
 {
-	int		i;
-	int		j;
-	char	*str;
 	int		equals;
 
 	equals = 0;
-	str = ft_calloc(sizeof(char), ft_strlen(arg) + 3);
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	j = 0;
 	while (arg[i] != '\0')
 	{
 		if (arg[i] == '=' && equals == 0 && arg[i + 1] == 0)
@@ -46,6 +38,21 @@ char	*add_quote(char *arg)
 	return (str);
 }
 
+char	*add_quote(char *arg)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	str = ft_calloc(sizeof(char), ft_strlen(arg) + 3);
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	str = add_quote_extension(arg, str, i, j);
+	return (str);
+}
+
 t_lenv	*push_env_to_list(char **env)
 {
 	int		i;
@@ -57,7 +64,7 @@ t_lenv	*push_env_to_list(char **env)
 		i++;
 	while (env[i])
 	{
-		lst = add_and_push_to_env(lst, env[i], 0);
+		lst = add_and_push_to_env(lst, env[i], 0, 0);
 		i--;
 	}
 	return (lst);
@@ -79,7 +86,7 @@ void	add_var_last(t_lenv **lst, char *str, int export)
 	if (check_if_arg_in_env(rstr, *lst) != 0 && count_equals(rstr) > 0)
 		add_new(lst, var[1], var[0]);
 	else if (check_if_arg_in_env(rstr, *lst) == 0)
-		add_at(*lst, rstr, len_list(*lst));
+		add_at(*lst, rstr, len_list(*lst), 0);
 	free(rstr);
 	free_tab(var);
 }

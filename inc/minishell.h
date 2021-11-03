@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 14:55:47 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:31:22 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,19 +163,19 @@ int		len_list(t_lenv *lst);
 void	free_list(t_lenv *lst);
 t_lenv	*empty_list(void);
 int		is_empty_list(t_lenv *lst);
-t_lenv	*add_at(t_lenv *lst, char *str, int pos);
+t_lenv	*add_at(t_lenv *lst, char *str, int pos, int i);
 
 /*FONCTIONS NECESSAIRE POUR LE BUILTIN EXPORT*/
 char	*ft_strstr(char *str, char *to_find);
 void	print_list(t_lenv *lst, int i);
 char	*add_quote(char *arg);
 t_lenv	*push_env_to_list(char **env);
-t_lenv	*add_and_push_to_env(t_lenv *lst, char *str, int pos);
+t_lenv	*add_and_push_to_env(t_lenv *lst, char *str, int pos, int i);
 void	add_var_last(t_lenv **lst, char *str, int export);
 int		check_if_done(t_lenv *lst);
 void	sort_env_var(t_lenv **lst);
 void	add_new(t_lenv **lst, char *new_content, char *var_dest);
-char	*add_content_to_var(char *dest, char *content_to_add);
+char	*add_content_to_var(char *dest, char *content_to_add, int i);
 int		check_export_args_tab(char **arg);
 int		count_quotes(char *str);
 int		count_equals(char *str);
@@ -188,7 +188,7 @@ t_lenv	*ft_lstdup(t_lenv *lst);
 
 /* FONCTION POUR UNSET */
 int		exec_unset(t_tree *tree, t_var *var);
-t_lenv	*free_at(t_lenv **lst, int pos);
+t_lenv	*free_at(t_lenv **lst, int pos, int i);
 /* EXTENSION FUNCTIONS */
 void	change_path(t_var *var, char *prix);
 char	*ft_strchr(const char *str, int c);

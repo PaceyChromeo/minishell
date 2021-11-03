@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:01:54 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 11:14:49 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:25:25 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,25 @@ int	check_if_arg_in_env(char *var_name, t_lenv *lst)
 		i++;
 	}
 	return (0);
+}
+
+void	add_new(t_lenv **lst, char *new_content, char *var_dest)
+{
+	t_lenv	*temp;
+
+	temp = *lst;
+	while (temp != NULL)
+	{
+		if (ft_strstr_int(temp->var_env, var_dest) != 0)
+		{
+			temp->var_env = add_content_to_var(temp->var_env, new_content, 0);
+			break ;
+		}
+		temp = temp->next;
+	}
+	if (temp == NULL)
+	{
+		*lst = add_at(*lst, var_dest, 0, 0);
+		add_new(lst, getcwd(NULL, 0), var_dest);
+	}
 }

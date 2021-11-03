@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils6.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:55:08 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 18:50:56 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:27:03 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_lenv	*ft_lstdup(t_lenv *lst)
 			quotes = ft_strdup(lst->var_env);
 		else
 			quotes = add_quote(lst->var_env);
-		tmp = add_at(tmp, quotes, i);
+		tmp = add_at(tmp, quotes, i, 0);
 		lst = lst->next;
 		free(quotes);
 		i++;
@@ -56,15 +56,13 @@ t_lenv	*ft_lstdup(t_lenv *lst)
 }
 /* Free une cellule de la liste */
 
-t_lenv	*free_at(t_lenv **lst, int pos)
+t_lenv	*free_at(t_lenv **lst, int pos, int i)
 {
 	t_lenv	*prec;
 	t_lenv	*cur;
-	int		i;
 
 	cur = *lst;
 	prec = *lst;
-	i = 0;
 	if (is_empty_list(*lst))
 		return (NULL);
 	if (pos == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/03 12:32:01 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:31:31 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,16 @@ int	is_empty_list(t_lenv *lst)
 }
 
 /* Ajouter un element dans la liste a une position specifique */
-t_lenv	*add_at(t_lenv *lst, char *str, int pos)
+t_lenv	*add_at(t_lenv *lst, char *str, int pos, int i)
 {
 	t_lenv	*prec;
 	t_lenv	*cur;
 	t_lenv	*cell;
-	int		i;
 	char	*temp_str;
 
 	temp_str = ft_strdup(str);
 	prec = lst;
 	cur = lst;
-	i = 0;
 	cell = creat_cell(temp_str);
 	if (is_empty_list(lst))
 		return (cell);
@@ -72,18 +70,16 @@ t_lenv	*add_at(t_lenv *lst, char *str, int pos)
 	return (lst);
 }
 
-t_lenv	*add_and_push_to_env(t_lenv *lst, char *str, int pos)
+t_lenv	*add_and_push_to_env(t_lenv *lst, char *str, int pos, int i)
 {
 	t_lenv	*prec;
 	t_lenv	*cur;
 	t_lenv	*cell;
-	int		i;
 	char	*quotes;
 
 	quotes = ft_strdup(str);
 	prec = lst;
 	cur = lst;
-	i = 0;
 	cell = creat_cell(quotes);
 	if (is_empty_list(lst))
 		return (cell);
