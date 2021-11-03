@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 18:48:23 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 18:09:15 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 11:53:04 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	start_minishell(t_tree **root, char *line, int cmd_nbr, t_var *var)
 		if (cmd_nbr == 0 && root && (root[0]->cmd_type == tree_cd
 				|| root[0]->cmd_type == tree_export
 				|| root[0]->cmd_type == tree_env
-				|| root[0]->cmd_type == tree_unset))
+				|| root[0]->cmd_type == tree_unset
+				|| root[0]->cmd_type == tree_echo))
 		{
 			root[0]->z = 1;
 			builtins_cmd(root[0], var);
@@ -98,6 +99,7 @@ int	main(int argc, char **argv, char **envp)
 	var.envp = envp;
 	while (argc && argv)
 	{
+		//system("leaks minishell");
 		signal(SIGINT, handler_signals);
 		signal(SIGQUIT, handler_signals);
 		line = display_prompt();

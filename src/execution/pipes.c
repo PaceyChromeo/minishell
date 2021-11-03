@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/02 17:19:29 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 11:54:44 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	execute(t_tree **cmds, t_var *var, int i)
 	{
 		perror("execve");
 		g_global = 1;
-		return (g_global);
+		exit (g_global);
 	}
 	return (0);
 }
