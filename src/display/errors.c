@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 16:06:50 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 16:13:15 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,15 @@ static int	check_forbidden_pipe(char *line)
 
 	i = 0;
 	if (line[i] && (line[i] == '|' || line[i] == ' '))
-	{
-		while (line[i] == ' ' && line[i])
-			i++;
-		if (line[i] == '|')
-		{	
-			g_global = 258;
-			ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
-			return (g_global);
-		}		
-	}
+		if (check_forbidden_pipe_utils(line))
+			return (1);
 	while (line[i])
 	{
 		if (line[i] == '|' && line[i + 1] && line[i + 1] == '|')
 		{
 			g_global = 258;
 			ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
-			return (g_global);	
+			return (g_global);
 		}
 		i++;
 	}
@@ -117,7 +109,7 @@ static int	check_forbidden_pipe(char *line)
 	{
 		g_global = 258;
 		ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
-		return (g_global);	
+		return (g_global);
 	}
 	return (0);
 }

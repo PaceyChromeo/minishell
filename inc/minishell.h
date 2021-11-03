@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 15:31:22 by misaev           ###   ########.fr       */
+/*   Updated: 2021/11/03 16:13:04 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,5 +249,6 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_atoi(const char *str);
 int		ft_is_exportargs(char *str);
 int		ft_isdigit(char *str);
+int		check_forbidden_pipe_utils(char *line);
 
 #endif

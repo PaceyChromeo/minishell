@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 14:13:52 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 12:39:27 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 16:12:51 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,25 @@ int	ft_isdigit(char *str)
 		if (!(str[i] >= 48 && str[i] <= 57))
 			return (1);
 		i++;
+	}
+	return (0);
+}
+
+int	check_forbidden_pipe_utils(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line[i] && (line[i] == '|' || line[i] == ' '))
+	{
+		while (line[i] == ' ' && line[i])
+			i++;
+		if (line[i] == '|')
+		{	
+			g_global = 258;
+			ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
+			return (g_global);
+		}		
 	}
 	return (0);
 }
