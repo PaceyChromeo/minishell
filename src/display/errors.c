@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 15:54:07 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 16:06:50 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	check_forbidden_char(char *line)
 {
 	int		i;
 	char	c;
+	int		ret;
 
 	i = 0;
 	while (line[i])
@@ -140,6 +141,6 @@ int	check_forbidden_char(char *line)
 			c = line[i];
 		i++;
 	}
-	g_global = check_forbidden_pipe(line);
-	return (g_global);
+	ret = check_forbidden_pipe(line);
+	return (ret);
 }
