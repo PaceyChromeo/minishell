@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:01:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 16:02:19 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 16:45:00 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static char	*collect_id_env_norm(t_lexer *lexer, char *value)
 	if (value)
 	{
 		value = ft_realloc(value, itoa);
+		free(itoa);
 		return (value);
 	}
 	else
