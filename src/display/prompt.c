@@ -3,58 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:03:08 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/01 11:33:24 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/03 14:55:40 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*prompt(char *invite)
+static char	*get_invite(t_var *var)
 {
-	invite = getenv("USER");
-	if (invite == NULL)
+	char	*invite;
+
+	invite = NULL;
+	if (ft_getenv("USER", var, 0))
 	{
-		invite = getenv("USERNAME");
-		if (invite == NULL)
-		{
-			invite = "";
-		}
+		invite = ft_getenv("USER", var, 0);
+		invite = ft_strjoin(invite, "@");
+		invite = ft_realloc(invite, ft_getenv("USER", var, 0));
 	}
-	invite = ft_strjoin(invite, "@");
-	invite = ft_realloc(invite, getenv("USERNAME"));
+	else
+		invite = ft_strdup("Fallait pas unset USER!!!!");
 	return (invite);
 }
 
-char	*prompt_color(void)
+char	*prompt_color(t_var *var)
 {
 	char const	*absolute_p;
 	char		**relative_p;
 	char		*invite;
+	int			i;
 
+	i = 0;
 	invite = NULL;
-	invite = prompt(invite);
-	absolute_p = getenv("PWD");
-	if (absolute_p == NULL)
-	{
+	invite = get_invite(var);
+	absolute_p = ft_getenv("PWD", var, 0);
+	if (!absolute_p)
 		absolute_p = "";
-	}
 	relative_p = ft_split(absolute_p, '/');
 	invite = ft_realloc(invite, ":~/");
-	invite = ft_realloc(invite, relative_p[2]);
+	while (relative_p[i])
+		i++;
+	if (i > 0)
+		invite = ft_realloc(invite, relative_p[i - 1]);
 	invite = ft_realloc(invite, "$ ");
 	free_tab(relative_p);
 	return (invite);
 }
 
-char	*display_prompt(void)
+char	*display_prompt(t_var *var)
 {
 	char	*prompt;
 	char	*line;
 
-	prompt = prompt_color();
+	prompt = prompt_color(var);
 	line = readline(prompt);
 	free(prompt);
 	if (ft_strlen(line) > 0)

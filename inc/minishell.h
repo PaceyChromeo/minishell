@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 12:02:18 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 14:55:47 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,12 @@ typedef struct s_var
 extern int	g_global;
 
 /* *****DISPLAY FUNCTIONS ****** */
-char	*prompt_color(void);
+char	*prompt_color(t_var *var);
 int		signal_set(t_tree *tree);
 int		error_redirections(t_tree *tree);
 int		error_handler(t_tree *tree);
 int		check_forbidden_char(char *line);
-char	*display_prompt(void);
+char	*display_prompt(t_var *var);
 void	handler_signals(int sig);
 void	handler_child(int sig);
 void	rl_replace_line(const char *text, int clear_undo);
@@ -246,10 +246,8 @@ int		ft_isnum(char c);
 int		ft_sch_forbidden_char(char c);
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
 void	ft_putnbr_fd(int n, int fd);
-void	blue(void);
-void	yellow(void);
-void	white(void);
 int		ft_atoi(const char *str);
 int		ft_is_exportargs(char *str);
+int		ft_isdigit(char *str);
 
 #endif

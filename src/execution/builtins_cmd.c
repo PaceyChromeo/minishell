@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/03 12:05:17 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 12:25:43 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ int	cd(t_var *var, char *path)
 	else if (!path)
 		j = cd_norm(var);
 	else
+	{
+		g_global = 1;
+		j = 1;
 		perror(path);
+	}
 	if (j != 1)
 		g_global = 0;
 	return (g_global);

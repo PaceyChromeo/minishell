@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:04:00 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 12:05:03 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 14:40:45 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ int	pwd(void)
 	buf = NULL;
 	buf = getcwd(NULL, 0);
 	if (buf == NULL)
+	{
+		g_global = 1;
 		perror(buf);
+	}
 	else
 	{
 		ft_putstr_fd(buf, STDOUT_FILENO);
 		write(STDOUT_FILENO, "\n", 1);
 	}
-	g_global = 0;
+	if (g_global != 1)
+		g_global = 0;
 	return (g_global);
 }
 

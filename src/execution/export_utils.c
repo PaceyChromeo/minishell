@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:27:45 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/02 11:14:18 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 12:32:01 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ t_lenv	*add_at(t_lenv *lst, char *str, int pos)
 	i = 0;
 	cell = creat_cell(temp_str);
 	if (is_empty_list(lst))
-	{
 		return (cell);
-	}
 	if (pos == 0)
 	{
 		cell->next = lst;
@@ -88,9 +86,7 @@ t_lenv	*add_and_push_to_env(t_lenv *lst, char *str, int pos)
 	i = 0;
 	cell = creat_cell(quotes);
 	if (is_empty_list(lst))
-	{
 		return (cell);
-	}
 	if (pos == 0)
 	{
 		cell->next = lst;

@@ -45,7 +45,6 @@ SRC_UTILS =	debug_funcs.c \
 			ft_split.c \
 			get_next_line_utils.c \
 			get_next_line.c \
-			utils_color.c \
 			utils.c \
 			utils2.c \
 			utils3.c \
@@ -97,7 +96,7 @@ $(NAME): $(OBJS)
 
 all:
 	@$(MAKE) -j $(NAME)
-	@printf "\033[33m"$(TEXT)
+	@printf "\033[33m"$(TEXT)"\033[0m"
 
 clean:
 	@rm -rf $(OBJS)
@@ -105,7 +104,7 @@ clean:
 
 fclean:	clean
 	@rm -rf $(NAME)
-	@rm libreadline.a
+	@rm -rf libreadline.a
 	@printf "\033[0m"$(NAME)$(TEXT3)
 
 re: fclean all

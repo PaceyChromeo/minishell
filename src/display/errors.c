@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 10:01:07 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 14:29:20 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ int	signal_set(t_tree *tree)
 				printf("minishell: %d+%d: command not found\n",
 					g_global, g_global);
 			else
-				printf("minishell: command not found\n");
+			{				
+				printf("minishell: ");
+				if (tree->size_args)
+					printf("%s", tree->args[0]);
+				printf(": command not found\n");
+			}
 			g_global = 127;
 			return (g_global);
 		}
