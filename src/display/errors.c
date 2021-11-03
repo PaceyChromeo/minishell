@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 14:29:20 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:54:07 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,41 @@ int	error_handler(t_tree *tree)
 	return (ret);
 }
 
+static int	check_forbidden_pipe(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line[i] && (line[i] == '|' || line[i] == ' '))
+	{
+		while (line[i] == ' ' && line[i])
+			i++;
+		if (line[i] == '|')
+		{	
+			g_global = 258;
+			ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
+			return (g_global);
+		}		
+	}
+	while (line[i])
+	{
+		if (line[i] == '|' && line[i + 1] && line[i + 1] == '|')
+		{
+			g_global = 258;
+			ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
+			return (g_global);	
+		}
+		i++;
+	}
+	if (line[i - 1] == '|')
+	{
+		g_global = 258;
+		ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
+		return (g_global);	
+	}
+	return (0);
+}
+
 int	check_forbidden_char(char *line)
 {
 	int		i;
@@ -105,11 +140,6 @@ int	check_forbidden_char(char *line)
 			c = line[i];
 		i++;
 	}
-	if (c == '|')
-	{
-		g_global = 258;
-		ft_putstr_fd("Syntax error invalid pipe\n", STDOUT_FILENO);
-		return (g_global);
-	}
-	return (0);
+	g_global = check_forbidden_pipe(line);
+	return (g_global);
 }

@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 11:24:38 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 16:01:21 by pjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,3 @@ void	parser_define_more_token(t_parser *parser)
 		parser->current_tok = parser->current_tok->next;
 	}
 }
-
-// void	parser_get_token_with_env(t_parser *parser, t_var *var)
-// {
-// 	char	*tmp;
-
-// 	parser->current_tok = parser->first_tok;
-// 	while (parser->current_tok)
-// 	{
-// 		if (parser->current_tok->type == token_env
-// 			&& (ft_strcmp(parser->current_tok->value, "$?")
-// 				&& ft_strcmp(parser->current_tok->value, "$")))
-// 		{
-// 			tmp = parser->current_tok->value;
-// 			parser->current_tok->value
-// 				= get_str_with_env(parser->current_tok, var);
-// 			free(tmp);
-// 		}
-// 		parser->current_tok = parser->current_tok->next;
-// 	}
-// }
