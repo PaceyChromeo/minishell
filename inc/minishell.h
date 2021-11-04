@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/04 06:28:11 by pacey            ###   ########.fr       */
+/*   Updated: 2021/11/04 09:34:30 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-typedef struct s_parser
+typedef struct s_pars
 {
 	t_lexer	*lexer;
 	t_token	*current_tok;
 	t_token	*prev_tok;
 	t_token	*first_tok;
-}				t_parser;
+}				t_pars;
 
 typedef struct s_tree
 {
@@ -196,25 +196,25 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len);
 int		get_next_line(int fd, char **line);
 
 /* *************LEXING FUNCTIONS**************** */
-int			count_env_in_string(t_token *token);
-char		*get_env(char *token_value, int i, t_var *var);
-char		*get_str_with_env(t_token *token, t_var *var);
-t_token		*init_token(int type, char *value);
-t_token		*get_next_token(t_lexer	*lexer, t_var *var);
-t_lexer		*init_lexer(char *value);
-void		lexer_next_char(t_lexer *lexer);
-t_token		*lexer_collect_id(t_lexer *lexer, t_var *var);
-char		*collect_id_string(t_lexer *lexer, char *value, t_var *var);
-char		*collect_id_env(t_lexer *lexer, char *value, t_var *var, int i);
+int		count_env_in_string(t_token *token);
+char	*get_env(char *token_value, int i, t_var *var);
+char	*get_str_with_env(t_token *token, t_var *var);
+t_token	*init_token(int type, char *value);
+t_token	*get_next_token(t_lexer	*lexer, t_var *var);
+t_lexer	*init_lexer(char *value);
+void	lexer_next_char(t_lexer *lexer);
+t_token	*lexer_collect_id(t_lexer *lexer, t_var *var);
+char	*collect_id_string(t_lexer *lexer, char *value, t_var *var);
+char	*collect_id_env(t_lexer *lexer, char *value, t_var *var, int i);
 
 /* ***************PARSING FUNCTIONS************** */
-int			count_pipes(char const *line, char c, int i);
-char		**ft_split_pipe(char *s, char c);
-t_parser	*init_parser(t_lexer *lexer, t_var *var);
-void		parser_next_token(t_parser *parser, t_var *var);
-void		parser_define_more_token(t_parser *parser);
-t_tree		*init_tree(int type, char *cmd);
-t_tree		*create_trees(char *cmd, t_var *var);
+int		count_pipes(char const *line, char c, int i);
+char	**ft_split_pipe(char *s, char c);
+t_pars	*init_pars(t_lexer *lexer, t_var *var);
+void	parser_next_token(t_pars *parser, t_var *var);
+void	parser_define_more_token(t_pars *parser);
+t_tree	*init_tree(int type, char *cmd);
+t_tree	*create_trees(char *cmd, t_var *var);
 
 /* ************UTILS FUNCTIONS************* */
 void	print_token(t_token *token);
@@ -223,7 +223,7 @@ void	print_tree(t_tree *tree);
 void	print_trees(t_tree **root);
 void	free_tab(char **tab);
 void	free_token(t_token *token);
-void	free_parser(t_parser *parser);
+void	free_parser(t_pars *parser);
 void	free_tree(t_tree *tree);
 void	free_all(t_tree **root, char **split, char *line);
 char	*ft_itoa(int n);

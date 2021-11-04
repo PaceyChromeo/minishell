@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 12:02:31 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 18:42:13 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_tree	*init_tree(int type, char *cmd)
 	return (new_tree);
 }
 
-static void	get_args(t_tree *tree, t_parser *parser)
+static void	get_args(t_tree *tree, t_pars *parser)
 {
 	int	i;
 
@@ -56,7 +56,7 @@ static void	get_args(t_tree *tree, t_parser *parser)
 	tree->args[i] = NULL;
 }
 
-static void	get_args_and_red(t_tree *tree, t_parser *parser, int i)
+static void	get_args_and_red(t_tree *tree, t_pars *parser, int i)
 {
 	if (tree->size_args > 0)
 		get_args(tree, parser);
@@ -84,7 +84,7 @@ static void	get_args_and_red(t_tree *tree, t_parser *parser, int i)
 	}
 }
 
-static void	get_type_and_size(t_tree *tree, t_parser *parser, t_var *var)
+static void	get_type_and_size(t_tree *tree, t_pars *parser, t_var *var)
 {
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok->type != token_EOL)
@@ -116,11 +116,11 @@ t_tree	*create_trees(char *cmd, t_var *var)
 {
 	t_tree		*tree;
 	t_lexer		*lexer;
-	t_parser	*parser;
+	t_pars		*parser;
 
 	tree = init_tree(tree_nocmd, cmd);
 	lexer = init_lexer(cmd);
-	parser = init_parser(lexer, var);
+	parser = init_pars(lexer, var);
 	while (parser->current_tok->type != token_EOL)
 	{
 		if (parser->current_tok->type == token_error)

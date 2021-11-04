@@ -6,17 +6,17 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 10:08:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 16:01:21 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 18:40:34 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_parser	*init_parser(t_lexer *lexer, t_var *var)
+t_pars	*init_pars(t_lexer *lexer, t_var *var)
 {
-	t_parser	*parser;
+	t_pars	*parser;
 
-	parser = ft_calloc(1, sizeof(t_parser));
+	parser = ft_calloc(1, sizeof(t_pars));
 	if (!parser)
 		return (NULL);
 	parser->lexer = lexer;
@@ -26,7 +26,7 @@ t_parser	*init_parser(t_lexer *lexer, t_var *var)
 	return (parser);
 }
 
-void	parser_next_token(t_parser *parser, t_var *var)
+void	parser_next_token(t_pars *parser, t_var *var)
 {
 	parser->prev_tok = parser->current_tok;
 	parser->current_tok = get_next_token(parser->lexer, var);
@@ -34,7 +34,7 @@ void	parser_next_token(t_parser *parser, t_var *var)
 	parser->current_tok->prev = parser->prev_tok;
 }
 
-void	parser_define_more_token(t_parser *parser)
+void	parser_define_more_token(t_pars *parser)
 {
 	int	cmd;
 
