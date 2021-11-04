@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:45:43 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 16:13:04 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/04 06:28:11 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int		pwd(void);
 int		exit_cmd(t_tree *cmd, int i);
 int		exec_export(t_tree *tree, t_var *var);
 int		exec_env(t_tree *tree, t_var *var);
-int		echo_option(char **args, int i);
+int		echo_option(t_tree *tree, int i);
 int		builtins_redir(t_tree *cmd);
 void	loop_double_redirs(t_tree *cmds, t_var *var);
 int		open_heredoc_builtins(char **heredoc, int j, t_var *var);
