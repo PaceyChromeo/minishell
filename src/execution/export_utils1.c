@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: misaev <misaev@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 11:28:34 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/04 06:31:15 by pacey            ###   ########.fr       */
+/*   Updated: 2021/11/04 09:55:15 by misaev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,18 @@ char	*ft_strstr(char *str, char *to_find)
 int	ft_strstr_int(char *str, char *to_find)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = 0;
-	while (str[i] != '=' && str[i] != '\0')
+	while ((to_find[i] != '=' && to_find[i] != '\0')
+		|| (str[j] != '=' && str[j] != '\0'))
 	{
-		if (str[i] == to_find[i])
+		if (str[j] == to_find[i])
+		{
+			j++;
 			i++;
+		}
 		else
 			return (0);
 	}
