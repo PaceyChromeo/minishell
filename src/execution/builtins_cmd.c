@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:05:47 by misaev            #+#    #+#             */
-/*   Updated: 2021/11/03 12:25:43 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 18:29:06 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	echo(t_tree *tree, int i)
 	opt = 0;
 	if (tree->size_args > 1)
 	{
-		i = echo_option(tree->args, i);
+		i = echo_option(tree, i);
 		if (i > 1)
 			opt = 1;
 		while (i < tree->size_args)

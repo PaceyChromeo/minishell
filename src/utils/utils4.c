@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:26:41 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 11:41:35 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 18:30:57 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ int	ft_sch_forbidden_char(char c)
 	return (0);
 }
 
-int	echo_option(char **args, int i)
+int	echo_option(t_tree *tree, int i)
 {
 	int	x;
 
-	if (args == NULL)
+	if (tree->size_args == 0)
 		return (1);
-	while (ft_strstr(args[i], "-n"))
+	while (ft_strstr(tree->args[i], "-n") && i < tree->size_args)
 	{
 		x = 0;
-		if (args[i][x] == '-')
+		if (tree->args[i][x] == '-')
 		{
 			x++;
-			while (args[i][x] == 'n' && args[i][x])
+			while (tree->args[i][x] == 'n' && tree->args[i][x])
 				x++;
-			if (args[i][x] != 'n' && args[i][x])
+			if (tree->args[i][x] != 'n' && tree->args[i][x])
 				return (i);
 		}
 		else

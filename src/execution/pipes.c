@@ -6,16 +6,14 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 17:26:59 by hkrifa            #+#    #+#             */
-/*   Updated: 2021/11/03 11:54:44 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/04 09:33:29 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_status(t_tree **cmds, t_var *var, int status)
+void	exit_status(t_tree **cmds, t_var *var, int status, int res)
 {
-	int	res;
-
 	if (WIFEXITED(status) && !WIFSIGNALED(status))
 	{
 		if (cmds[var->i]->sig == 15)
@@ -36,6 +34,8 @@ void	exit_status(t_tree **cmds, t_var *var, int status)
 			g_global = 130;
 		else if (res == 100)
 			g_global = 1;
+		else if (res == 13)
+			g_global = 0;
 		else
 			g_global = res + 128;
 	}
@@ -86,13 +86,14 @@ static int	is_child(t_tree **cmds, int old_pipefd[2],
 	return (g_global);
 }
 
-static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
+static void	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 {
 	int	new_pipefd[2];
 
 	if (cmds[var->i]->cmd_value
 		&& (!ft_strcmp(cmds[var->i]->cmd_value, "cat")
-			|| !ft_strcmp(cmds[var->i]->cmd_value, "sort")))
+			|| !ft_strcmp(cmds[var->i]->cmd_value, "sort")
+			|| !ft_strcmp(cmds[var->i]->cmd_value, "wc")))
 		g_global = -888;
 	if (cmds[var->i]->size_red > 0)
 		loop_double_redir(cmds, var->i, var);
@@ -101,7 +102,7 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 	if (var->pid == -1)
 	{
 		perror("fork");
-		return (-1);
+		return ;
 	}
 	if (!var->pid)
 		g_global = is_child(cmds, old_pipefd, new_pipefd, var);
@@ -112,7 +113,6 @@ static int	multipipes(t_tree **cmds, int old_pipefd[2], t_var *var)
 		multipipes(cmds, new_pipefd, var);
 	}
 	close(new_pipefd[0]);
-	return (0);
 }
 
 void	exec_pipes(t_tree **cmds, t_var *var)
@@ -128,10 +128,10 @@ void	exec_pipes(t_tree **cmds, t_var *var)
 	multipipes(cmds, fd, var);
 	close(fd[1]);
 	close(fd[0]);
-	while ((waitpid(var->pid, &status, WUNTRACED) > 0))
+	while (wait(&status) > 0)
 		;
 	fdt = open("temp.txt", O_RDONLY, 0777);
 	if (fdt != -1)
 		unlink("temp.txt");
-	exit_status(cmds, var, status);
+	exit_status(cmds, var, status, 0);
 }

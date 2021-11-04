@@ -6,7 +6,7 @@
 /*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:15 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/02 09:40:45 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/03 18:41:12 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_token(t_token *token)
 	free(token);
 }
 
-void	free_parser(t_parser *parser)
+void	free_parser(t_pars *parser)
 {
 	parser->current_tok = parser->first_tok;
 	while (parser->current_tok)
