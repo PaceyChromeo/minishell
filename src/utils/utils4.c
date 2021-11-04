@@ -6,7 +6,7 @@
 /*   By: hkrifa <hkrifa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 14:26:41 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 18:30:57 by hkrifa           ###   ########.fr       */
+/*   Updated: 2021/11/04 09:35:02 by hkrifa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	echo_option(t_tree *tree, int i)
 {
 	int	x;
 
-	if (tree->size_args == 0)
+	if (tree->size_args < 2)
 		return (1);
-	while (ft_strstr(tree->args[i], "-n") && i < tree->size_args)
+	while (i < tree->size_args && ft_strstr(tree->args[i], "-n"))
 	{
 		x = 0;
 		if (tree->args[i][x] == '-')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjacob <pjacob@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pacey <pacey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:26:55 by pjacob            #+#    #+#             */
-/*   Updated: 2021/11/03 16:13:15 by pjacob           ###   ########.fr       */
+/*   Updated: 2021/11/04 06:25:12 by pacey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ static int	check_forbidden_pipe(char *line)
 int	check_forbidden_char(char *line)
 {
 	int		i;
-	char	c;
 	int		ret;
 
 	i = 0;
@@ -129,8 +128,6 @@ int	check_forbidden_char(char *line)
 			ft_putstr_fd("Invalid character\n", STDOUT_FILENO);
 			return (g_global);
 		}
-		if (line[i] != ' ')
-			c = line[i];
 		i++;
 	}
 	ret = check_forbidden_pipe(line);
